@@ -19,6 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure\Jgcarmona.Qna.Infrastructure.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Core\Jgcarmona.Qna.Core.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Application\Jgcarmona.Qna.Application.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
   </ItemGroup>
 
 </Project>

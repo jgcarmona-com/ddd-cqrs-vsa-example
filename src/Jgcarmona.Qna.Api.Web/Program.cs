@@ -1,5 +1,10 @@
 using Jgcarmona.Qna.Core;
 using Jgcarmona.Qna.Infrastructure.Persistence;
+using Jgcarmona.Qna.Application.Features.Auth;
+using Jgcarmona.Qna.Application.Features.Users;
+using Jgcarmona.Qna.Application.Services;
+using Jgcarmona.Qna.Application.Initialization;
+using Jgcarmona.Qna.Infrastructure.Persistence.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +13,7 @@ using System.Text;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -23,12 +28,24 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+
+
+        // Configure DI:
+        builder.Services.AddRepositories();
+
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        builder.Services.AddScoped<DatabaseInitializer>();
+
+        // Configure auth
         var key = builder.Configuration["Jwt:Key"];
         if (string.IsNullOrEmpty(key))
         {
             throw new ArgumentNullException(nameof(key), "JWT Key is not configured properly.");
         }
-        // Configure auth
+
+        var keyBytes = Encoding.ASCII.GetBytes(key);
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -40,7 +57,7 @@ internal class Program
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
                     ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
                 };
             });
         builder.Services.AddAuthorization();
@@ -72,13 +89,29 @@ internal class Program
 
         var app = builder.Build();
 
-        // if (app.Environment.IsDevelopment())
-        // {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-        // }
+        // Initialize database
+        using (var scope = app.Services.CreateScope())
+        {
+            var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+            await initializer.SeedAsync();
+        }
 
-        app.UseHttpsRedirection();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "QnA API v1");
+                c.RoutePrefix = string.Empty; // Esto carga Swagger en la raíz '/'
+            });
+        }
+        app.MapGet("/", context =>
+        {
+            context.Response.Redirect("/swagger");
+            return Task.CompletedTask;
+        });
+        // app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
