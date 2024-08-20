@@ -1,3 +1,5 @@
+namespace Jgcarmona.Qna.Domain.Entities;
+
 public abstract class IdentifiableEntity : BaseEntity
 {
     public string Moniker { get; set; }

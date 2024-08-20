@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using Jgcarmona.Qna.Application.Features.Auth;
 using Jgcarmona.Qna.Application.Features.Auth.Models;
-using Jgcarmona.Qna.Core;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -23,15 +22,16 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost("token")]
-        public IActionResult Authenticate([FromBody] LoginModel model)
+        public IActionResult Authenticate([FromForm] string username, [FromForm] string password)
         {
-            var user = _authService.AuthenticateUser(model.Username, model.Password);
+            var user = _authService.AuthenticateUser(username, password);
 
             if (user == null)
                 return Unauthorized(new { message = "Incorrect username or password" });
 
             var token = _authService.GenerateJwtToken(user);
-            return Ok(new { token });
+            var response = new TokenResponse { AccessToken = token };
+            return Ok(response);
         }
     }
 }

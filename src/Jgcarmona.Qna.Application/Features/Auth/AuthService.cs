@@ -1,11 +1,11 @@
-using Jgcarmona.Qna.Infrastructure.Persistence.Repositories;
+using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Jgcarmona.Qna.Domain.Abstract.Services;
 
 namespace Jgcarmona.Qna.Application.Features.Auth
 {
@@ -44,7 +44,10 @@ namespace Jgcarmona.Qna.Application.Features.Auth
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"], 
+                Audience = _configuration["Jwt:Audience"] 
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

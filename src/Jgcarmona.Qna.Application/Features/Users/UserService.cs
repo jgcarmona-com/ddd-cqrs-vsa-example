@@ -1,6 +1,6 @@
 using Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Infrastructure.Persistence.Repositories;
-using Jgcarmona.Qna.Application.Services;
+using Jgcarmona.Qna.Domain.Abstract.Repositories;
+using Jgcarmona.Qna.Domain.Abstract.Services;
 using Microsoft.Extensions.Logging;
 using NUlid;
 
