@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Application.Features.Users;
 using Jgcarmona.Qna.Application.Features.Users.Models;
+using Jgcarmona.Qna.Application.Features.Users.Commands.RegisterUser;
+using MediatR;
+using Jgcarmona.Qna.Application.Features.Users.Queries;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -10,28 +13,25 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IMediator _mediator;
 
-        public UserController(IUserService userService)
+        public UserController(IMediator mediator)
         {
-            _userService = userService;
+            _mediator = mediator;
         }
 
         [AllowAnonymous]
         [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignupModel model)
         {
-            var newUser = new User
-            {
-                Username = model.Username,
-                Role = model.Role
-            };
+            var command = new RegisterUserCommand { SignupModel = model };
 
-            var createdUser = await _userService.CreateUserAsync(newUser, model.Password);
-            if (createdUser == null)
+            var result = await _mediator.Send(command);
+
+            if (result == null)
                 return BadRequest("Failed to create user");
 
-            return Ok(createdUser);
+            return Ok(result);
         }
 
         [Authorize]
@@ -43,7 +43,15 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
             {
                 return BadRequest("User is not authenticated");
             }
-            var user = await _userService.GetUserByUsernameAsync(username);
+
+            var query = new GetUserByUsernameQuery(username);
+            var user = await _mediator.Send(query);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
             return Ok(user);
         }
     }

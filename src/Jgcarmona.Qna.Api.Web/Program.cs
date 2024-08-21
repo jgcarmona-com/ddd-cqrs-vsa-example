@@ -7,7 +7,9 @@ using Jgcarmona.Qna.Application.Services;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
 
-internal class Program
+namespace Jgcarmona.Qna.Api.Web;
+
+public class Program
 {
     private static async Task Main(string[] args)
     {

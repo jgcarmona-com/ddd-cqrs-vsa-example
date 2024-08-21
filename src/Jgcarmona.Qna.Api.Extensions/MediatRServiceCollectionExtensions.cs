@@ -9,8 +9,11 @@ public static class MediatRServiceCollectionExtensions
 {
     public static IServiceCollection AddMediatRConfiguration(this IServiceCollection services)
     {
-        // Add MediatR using the assembly of the AuthService (as it is core to the application)
-        services.AddMediatR(typeof(AuthService).Assembly);
+        // Configure MediatR using the assembly that contains the handlers
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(AuthService).Assembly);
+        });
         return services;
     }
 }
