@@ -1,11 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Jgcarmona.Qna.Application.Features.Auth;
-using Jgcarmona.Qna.Application.Features.Auth.Models;
+using Jgcarmona.Qna.Application.Features.Auth.Commands;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -13,25 +9,24 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IMediator _mediator;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IMediator mediator)
         {
-            _authService = authService;
+            _mediator = mediator;
         }
 
         [AllowAnonymous]
         [HttpPost("token")]
-        public IActionResult Authenticate([FromForm] string username, [FromForm] string password)
+        public async Task<IActionResult> Authenticate([FromForm] string username, [FromForm] string password)
         {
-            var user = _authService.AuthenticateUser(username, password);
+            var command = new AuthenticateUserCommand(username, password);
+            var tokenResponse = await _mediator.Send(command);
 
-            if (user == null)
+            if (tokenResponse == null)
                 return Unauthorized(new { message = "Incorrect username or password" });
 
-            var token = _authService.GenerateJwtToken(user);
-            var response = new TokenResponse { AccessToken = token };
-            return Ok(response);
+            return Ok(tokenResponse);
         }
     }
 }

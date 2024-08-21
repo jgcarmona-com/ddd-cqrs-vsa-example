@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Jgcarmona.Qna.Application.Features.Auth;
 using MediatR;
-using System.Reflection;
-using Jgcarmona.Qna.Application.Features.Auth;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Jgcarmona.Qna.Api.Extensions;
 
@@ -14,6 +13,9 @@ public static class MediatRServiceCollectionExtensions
         {
             cfg.RegisterServicesFromAssembly(typeof(AuthService).Assembly);
         });
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionHandlerBehavior<,>));
+
         return services;
     }
 }
