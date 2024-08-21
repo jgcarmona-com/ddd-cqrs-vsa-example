@@ -3,7 +3,7 @@ using Jgcarmona.Qna.Persistence.EntityFramework;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Jgcarmona.Qna.Api.Extensions
+namespace Jgcarmona.Qna.Api.Common.Extensions
 {
     public static class DatabaseInitializationExtensions
     {

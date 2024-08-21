@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Jgcarmona.Qna.Api.Extensions;
+namespace Jgcarmona.Qna.Api.Common.Extensions;
 
 public static class AuthenticationServiceCollectionExtensions
 {

@@ -1,4 +1,4 @@
-using Jgcarmona.Qna.Api.Extensions;
+using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Api.Web.Extensions;
 using Jgcarmona.Qna.Application.Features.Auth;
 using Jgcarmona.Qna.Application.Features.Users;
@@ -6,6 +6,7 @@ using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
+using Serilog;
 
 namespace Jgcarmona.Qna.Api.Web;
 
@@ -20,6 +21,10 @@ public class Program
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
+
+
+        builder.Host.UseSerilog((context, loggerConfig) =>
+            loggerConfig.ReadFrom.Configuration(context.Configuration));
 
         builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -39,6 +44,8 @@ public class Program
         builder.Services.AddControllers();
 
         var app = builder.Build();
+
+        app.UseRequestContextLogging();
 
         await app.Services.InitializeDatabaseAsync(builder.Configuration);
 

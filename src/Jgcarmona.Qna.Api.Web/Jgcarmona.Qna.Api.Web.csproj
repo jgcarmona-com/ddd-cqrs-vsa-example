@@ -12,11 +12,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Serilog" Version="4.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Jgcarmona.Qna.Api.Common\Jgcarmona.Qna.Api.Common.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Application\Jgcarmona.Qna.Application.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
-    <ProjectReference Include="..\Jgcarmona.Qna.Api.Extensions\Jgcarmona.Qna.Api.Extensions.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Persistence.EntityFramework\Jgcarmona.Qna.Persistence.EntityFramework.csproj" />
   </ItemGroup>
 </Project>

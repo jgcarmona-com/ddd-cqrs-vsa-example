@@ -1,8 +1,9 @@
-﻿using Jgcarmona.Qna.Application.Features.Auth;
+﻿using Jgcarmona.Qna.Api.Common.Behaviors;
+using Jgcarmona.Qna.Application.Features.Auth;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Jgcarmona.Qna.Api.Extensions;
+namespace Jgcarmona.Qna.Api.Common.Extensions;
 
 public static class MediatRServiceCollectionExtensions
 {
