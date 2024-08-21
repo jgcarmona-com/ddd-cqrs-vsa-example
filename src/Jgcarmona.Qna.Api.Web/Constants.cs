@@ -3,9 +3,9 @@ namespace Jgcarmona.Qna.Api.Web
     public static class Constants
     {
         public const string AppName = "qna_api";
-        public const string Title = "QnA Minimal API";
+        public const string Title = "QnA REST API";
         public const string Description = @"
-Welcome to the Custom Q&A Minimal API documentation!
+Welcome to the Custom Q&A REST API documentation!
 
 This API provides endpoints for managing questions, answers, and comments in a Q&A system. You can use this API to create, retrieve, update, and delete records. The main features include:
 

@@ -40,11 +40,7 @@ public class Program
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
-            await initializer.SeedAsync();
-        }
+        await app.Services.InitializeDatabaseAsync(builder.Configuration);
 
         if (app.Environment.IsDevelopment())
         {

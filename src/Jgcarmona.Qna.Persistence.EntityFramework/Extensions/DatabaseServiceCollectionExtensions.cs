@@ -10,6 +10,10 @@ namespace Jgcarmona.Qna.Persistence.EntityFramework.Extensions
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            // Register database migrator
+            services.AddScoped<DatabaseMigrator>();
+
             return services;
         }
     }
