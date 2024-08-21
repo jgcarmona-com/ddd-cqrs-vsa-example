@@ -15,6 +15,8 @@ public static class MediatRServiceCollectionExtensions
             cfg.RegisterServicesFromAssembly(typeof(AuthService).Assembly);
         });
 
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingPipelineBehavior<,>));
+
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionHandlerBehavior<,>));
 
         return services;

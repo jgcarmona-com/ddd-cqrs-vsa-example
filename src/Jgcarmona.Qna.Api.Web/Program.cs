@@ -14,6 +14,7 @@ public class Program
 {
     private static async Task Main(string[] args)
     {
+
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Configuration
