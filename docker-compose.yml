@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: YourStrong@Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./infrastructure/docker/sqlserver-data:/var/opt/mssql
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./infrastructure/docker/mongo-data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./infrastructure/docker/rabbitmq-data:/var/lib/rabbitmq
+
+  api-web:
+    build: ./src/API.Web
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
+  stats-service:
+    build: ./src/Qna.Services.StatsService
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
+  sync-service:
+    build: ./src/Qna.Services.SyncService
+    depends_on:
+      - mongodb
+      - rabbitmq
