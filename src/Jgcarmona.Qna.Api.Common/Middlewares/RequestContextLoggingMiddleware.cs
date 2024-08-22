@@ -17,6 +17,7 @@ namespace Jgcarmona.Qna.Api.Common.Middlewares
         public async Task Invoke(HttpContext context)
         {
             string correlationId = GetCorrelationId(context);
+            context.Items["CorrelationId"] = correlationId;
 
             using (LogContext.PushProperty("CorrelationId", correlationId))
             {

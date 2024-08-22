@@ -29,6 +29,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Domain.Abstra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Api.Common", "src\Jgcarmona.Qna.Api.Common\Jgcarmona.Qna.Api.Common.csproj", "{6F344D45-E02F-4AED-BA99-F48BE97E53C2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.StatsService", "src\Jgcarmona.Qna.Services.StatsService\Jgcarmona.Qna.Services.StatsService.csproj", "{9469794A-D49D-4339-AD2E-71F3C5757054}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.SyncService", "src\Jgcarmona.Qna.Services.SyncService\Jgcarmona.Qna.Services.SyncService.csproj", "{24172B7A-5729-4734-A5C9-26DD67B564AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.EventDispatchers", "src\Jgcarmona.Qna.Infrastructure.EventDispatchers\Jgcarmona.Qna.Infrastructure.EventDispatchers.csproj", "{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +85,18 @@ Global
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9469794A-D49D-4339-AD2E-71F3C5757054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9469794A-D49D-4339-AD2E-71F3C5757054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9469794A-D49D-4339-AD2E-71F3C5757054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9469794A-D49D-4339-AD2E-71F3C5757054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24172B7A-5729-4734-A5C9-26DD67B564AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24172B7A-5729-4734-A5C9-26DD67B564AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24172B7A-5729-4734-A5C9-26DD67B564AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24172B7A-5729-4734-A5C9-26DD67B564AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +114,8 @@ Global
 		{BEB7F360-843D-4F4D-88E4-8409C7C2CFBB} = {303C92F4-CC00-4F55-817E-974BC6AAA5CA}
 		{A5021873-4828-4C60-A320-9A79BFE51129} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{9469794A-D49D-4339-AD2E-71F3C5757054} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{24172B7A-5729-4734-A5C9-26DD67B564AF} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A58A6346-C7B6-42A5-8229-00D1025D28F2}

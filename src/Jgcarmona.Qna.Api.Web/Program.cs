@@ -1,10 +1,10 @@
 using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Api.Web.Extensions;
-using Jgcarmona.Qna.Application.Features.Auth;
-using Jgcarmona.Qna.Application.Features.Users;
 using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
+using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Abstract.Services;
+using Jgcarmona.Qna.Infrastructure.EventDispatchers;
 using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
 using Serilog;
 
@@ -36,9 +36,8 @@ public class Program
         builder.Services.AddSwaggerConfiguration();
         builder.Services.AddJwtAuthentication(builder.Configuration);
 
-        builder.Services.AddScoped<IAuthService, AuthService>();
-        builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        builder.Services.AddScoped<IEventDispatcher, InMemoryEventDispatcher>();
         builder.Services.AddScoped<DatabaseInitializer>();
 
         builder.Services.AddAuthorization();

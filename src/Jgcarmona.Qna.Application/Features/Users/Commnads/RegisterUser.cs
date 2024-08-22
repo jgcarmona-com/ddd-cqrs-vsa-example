@@ -1,8 +1,11 @@
 using Jgcarmona.Qna.Application.Features.Users.Models;
+using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Domain.Entities;
+using Jgcarmona.Qna.Domain.Events;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Jgcarmona.Qna.Application.Features.Users.Commands.RegisterUser;
@@ -16,12 +19,21 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, U
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IEventDispatcher _eventDispatcher;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<RegisterUserCommandHandler> _logger;
 
-    public RegisterUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, ILogger<RegisterUserCommandHandler> logger)
+    public RegisterUserCommandHandler(
+        IUserRepository userRepository,
+        IPasswordHasher passwordHasher,
+        ILogger<RegisterUserCommandHandler> logger,
+        IEventDispatcher eventDispatcher,
+        IHttpContextAccessor httpContextAccessor)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
+        _eventDispatcher = eventDispatcher;
+        _httpContextAccessor = httpContextAccessor;
         _logger = logger;
     }
 
@@ -44,6 +56,17 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, U
         };
 
         await _userRepository.AddAsync(newUser);
+
+        // Obtener el CorrelationId desde el contexto
+        var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
+
+        // Disparar el evento
+        var userRegisteredEvent = new UserRegisteredEvent(newUser.Id, newUser.Username, newUser.Role)
+        {
+            CorrelationId = correlationId
+        };
+
+        await _eventDispatcher.DispatchAsync(userRegisteredEvent);
 
         return new UserResponse
         {
