@@ -4,11 +4,11 @@ services:
   jgcarmona.qna.api.web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_HTTP_PORTS=7000
+      - ASPNETCORE_HTTPS_PORTS=7001
     ports:
-      - "8080:80"
-      - "8081:443"
+      - "7000:7000" # HTTP
+      - "7001:7001" # HTTPS
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

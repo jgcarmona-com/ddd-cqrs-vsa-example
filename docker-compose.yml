@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: src/Jgcarmona.Qna.Api.Web/Dockerfile
     ports:
-      - "5000:5000"
+      - "7100:7000"  # HTTP
+      - "7101:7001"  # HTTPS
     depends_on:
       - sqlserver
       - rabbitmq
