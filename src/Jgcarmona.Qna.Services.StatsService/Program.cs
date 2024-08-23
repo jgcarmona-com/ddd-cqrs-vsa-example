@@ -1,12 +1,14 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Infrastructure.Extensions;
-using Jgcarmona.Qna.Infrastructure.Messaging;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Jgcarmona.Qna.Infrastructure.Messaging;
 using Serilog;
+using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Common.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
-namespace Jgcarmona.Qna.Services.SyncService;
+namespace Jgcarmona.Qna.Services.StatsService;
+
 
 public class Program
 {
@@ -63,6 +65,6 @@ public class Program
                 services.AddMessagingListener(hostContext.Configuration);
 
                 // Register the main hosted service for SyncService
-                services.AddHostedService<SyncService>();
+                services.AddHostedService<StatsService>();
             });
 }

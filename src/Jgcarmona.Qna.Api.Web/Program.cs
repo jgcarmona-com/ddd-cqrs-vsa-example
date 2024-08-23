@@ -1,9 +1,11 @@
 using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Api.Web.Extensions;
+using Jgcarmona.Qna.Application.Configuration;
 using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
 using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Abstract.Services;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.EventDispatchers;
 using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
 using Serilog;
@@ -23,6 +25,9 @@ public class Program
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
 
+        builder.Services.Configure<FeatureFlags>(builder.Configuration.GetSection("FeatureFlags"));
+        builder.Services.Configure<CommonFeatureFlags>(builder.Configuration.GetSection("CommonFeatureFlags"));
+        builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQSettings"));
 
         builder.Host.UseSerilog((context, loggerConfig) =>
             loggerConfig.ReadFrom.Configuration(context.Configuration));
@@ -35,6 +40,7 @@ public class Program
         builder.Services.AddMediatRConfiguration();
         builder.Services.AddSwaggerConfiguration();
         builder.Services.AddJwtAuthentication(builder.Configuration);
+        builder.Services.AddEventDispatcher(builder.Configuration);
 
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         builder.Services.AddScoped<IEventDispatcher, InMemoryEventDispatcher>();

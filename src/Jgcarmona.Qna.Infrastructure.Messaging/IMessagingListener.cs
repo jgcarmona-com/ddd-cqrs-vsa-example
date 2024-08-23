@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Qna.Infrastructure.Messaging
+﻿namespace Jgcarmona.Qna.Infrastructure.Messaging
 {
     public interface IMessagingListener
     {
-        Task StartListeningAsync(CancellationToken cancellationToken = default);
+        Task StartListeningAsync(Func<string, Task> onMessageReceived, CancellationToken cancellationToken);
     }
-
 }

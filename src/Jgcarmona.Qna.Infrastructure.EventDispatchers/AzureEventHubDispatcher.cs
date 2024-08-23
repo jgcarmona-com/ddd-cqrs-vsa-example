@@ -16,9 +16,9 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
             _producerClient = new EventHubProducerClient(connectionString, eventHubName);
         }
 
-        public async Task DispatchAsync(EventBase eventToDispatch)
+        public async Task DispatchAsync<TEvent>(TEvent domainEvent) where TEvent : EventBase
         {
-            var eventData = new EventData(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(eventToDispatch)));
+            var eventData = new EventData(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(domainEvent)));
             await _producerClient.SendAsync(new[] { eventData });
         }
     }

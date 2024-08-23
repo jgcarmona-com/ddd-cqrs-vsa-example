@@ -1,6 +1,6 @@
-﻿namespace Jgcarmona.Qna.Infrastructure.Configuration
+﻿namespace Jgcarmona.Qna.Common.Configuration
 {
-    public class FeatureFlags
+    public class CommonFeatureFlags
     {
         // RabbitMQ or AzureEventHub
         public string MessagingProvider { get; set; } = "RabbitMQ";

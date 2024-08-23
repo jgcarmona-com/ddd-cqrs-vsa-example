@@ -1,17 +1,50 @@
-version: '3.8'
+version: '3.4'
+
 services:
+  jgcarmona.qna.api.web:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaapiweb
+    build:
+      context: .
+      dockerfile: src/Jgcarmona.Qna.Api.Web/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
+  jgcarmona.qna.services.syncservice:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice
+    build:
+      context: .
+      dockerfile: src/Jgcarmona.Qna.Services.SyncService/Dockerfile
+    depends_on:
+      - mongodb
+      - rabbitmq
+
+  jgcarmona.qna.services.statsservice:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicesstatsservice
+    build:
+      context: .
+      dockerfile: src/Jgcarmona.Qna.Services.StatsService/Dockerfile
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    container_name: SqlServerContainer
     environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: YourStrong@Passw0rd
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong@Passw0rd"
     ports:
       - "1433:1433"
     volumes:
-      - ./infrastructure/docker/sqlserver-data:/var/opt/mssql
+      - ./infrastructure/docker/sqlserver-data:/var/opt/mssql/data
 
   mongodb:
     image: mongo:latest
+    container_name: MongoDbContainer
     ports:
       - "27017:27017"
     volumes:
@@ -19,28 +52,12 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: RabbitMqContainer
+    environment:
+      RABBITMQ_DEFAULT_USER: qnauser
+      RABBITMQ_DEFAULT_PASS: P@ssw0rd!
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5672:5672"  # AMQP
+      - "15672:15672" # Management
     volumes:
       - ./infrastructure/docker/rabbitmq-data:/var/lib/rabbitmq
-
-  api-web:
-    build: ./src/API.Web
-    ports:
-      - "5000:5000"
-    depends_on:
-      - sqlserver
-      - rabbitmq
-
-  stats-service:
-    build: ./src/Qna.Services.StatsService
-    depends_on:
-      - sqlserver
-      - rabbitmq
-
-  sync-service:
-    build: ./src/Qna.Services.SyncService
-    depends_on:
-      - mongodb
-      - rabbitmq

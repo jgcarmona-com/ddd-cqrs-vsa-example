@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jgcarmona.Qna.Common.Configuration\Jgcarmona.Qna.Common.Configuration.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain.Abstract\Jgcarmona.Qna.Domain.Abstract.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
   </ItemGroup>

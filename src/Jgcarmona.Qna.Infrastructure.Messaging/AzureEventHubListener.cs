@@ -1,10 +1,10 @@
-﻿using Qna.Infrastructure.Messaging;
+﻿using Jgcarmona.Qna.Infrastructure.Messaging;
 
 public class AzureEventHubListener : IMessagingListener
 {
-    public Task StartListeningAsync(CancellationToken cancellationToken = default)
+    public Task StartListeningAsync(Func<string, Task> onMessageReceived, CancellationToken cancellationToken)
     {
         // TODO: Implement the logic to listen to the Azure Event Hub
-        return Task.CompletedTask;
+        throw new NotImplementedException();
     }
 }

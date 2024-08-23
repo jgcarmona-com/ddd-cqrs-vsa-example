@@ -51,7 +51,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         public void Application_Should_Not_Have_Dependencies_On_Persistence()
         {
             var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Application.Features.Users.UserService).Assembly)
+                .InAssembly(typeof(Jgcarmona.Qna.Application.Features.Users.Commands.RegisterUser.RegisterUserCommand).Assembly)
                 .ShouldNot()
                 .HaveDependencyOn(PersistenceNamespace)
                 .GetResult();
