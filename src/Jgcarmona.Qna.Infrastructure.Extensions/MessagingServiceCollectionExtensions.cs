@@ -22,6 +22,7 @@ public static class MessagingServiceCollectionExtensions
                         options.UserName = rabbitMQSettings.UserName;
                         options.Password = rabbitMQSettings.Password;
                         options.QueueName = rabbitMQSettings.QueueName;
+                        options.ExchangeName = rabbitMQSettings.ExchangeName;
                     });
                 services.AddSingleton<IMessagingListener, RabbitMQListener>();
                 break;

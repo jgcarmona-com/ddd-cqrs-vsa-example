@@ -43,7 +43,6 @@ public class Program
         builder.Services.AddEventDispatcher(builder.Configuration);
 
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-        builder.Services.AddScoped<IEventDispatcher, InMemoryEventDispatcher>();
         builder.Services.AddScoped<DatabaseInitializer>();
 
         builder.Services.AddAuthorization();

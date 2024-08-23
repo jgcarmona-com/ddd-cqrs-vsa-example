@@ -1,8 +1,14 @@
 version: '3.4'
 
+networks:
+  qna-network:
+    driver: bridge
+
 services:
   jgcarmona.qna.api.web:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaapiweb
+    networks:
+      - qna-network
     build:
       context: .
       dockerfile: src/Jgcarmona.Qna.Api.Web/Dockerfile
@@ -12,27 +18,36 @@ services:
     depends_on:
       - sqlserver
       - rabbitmq
+      - seq
 
   jgcarmona.qna.services.syncservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice
+    networks:
+      - qna-network
     build:
       context: .
       dockerfile: src/Jgcarmona.Qna.Services.SyncService/Dockerfile
     depends_on:
       - mongodb
       - rabbitmq
+      - seq
 
   jgcarmona.qna.services.statsservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicesstatsservice
+    networks:
+      - qna-network
     build:
       context: .
       dockerfile: src/Jgcarmona.Qna.Services.StatsService/Dockerfile
     depends_on:
       - sqlserver
       - rabbitmq
+      - seq
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      - qna-network
     user: root
     container_name: SqlServerContainer
     environment:
@@ -45,6 +60,8 @@ services:
 
   mongodb:
     image: mongo:latest
+    networks:
+      - qna-network
     container_name: MongoDbContainer
     ports:
       - "27017:27017"
@@ -53,6 +70,9 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    networks:
+      - qna-network
+    hostname: rabbitmq
     container_name: RabbitMqContainer
     environment:
       RABBITMQ_DEFAULT_USER: qnauser
@@ -62,3 +82,18 @@ services:
       - "15672:15672" # Management
     volumes:
       - ./infrastructure/docker/rabbitmq-data:/var/lib/rabbitmq
+
+  seq:
+    image: datalust/seq:latest
+    networks:
+      - qna-network
+    container_name: SeqContainer
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_API_KEY: "SeqApiKey"
+    ports:
+      - "5341:80"  # Web interface
+      - "5342:443" # HTTPS interface
+    volumes:
+      - ./infrastructure/docker/seq-data:/data
+

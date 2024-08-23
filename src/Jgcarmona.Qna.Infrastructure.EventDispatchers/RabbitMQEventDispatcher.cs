@@ -25,7 +25,19 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
+
+            // Declare the exchange
+            _channel.ExchangeDeclare(
+                exchange: _settings.ExchangeName,
+                type: "fanout",  // Use "fanout" to broadcast the message to multiple queues
+                durable: true,
+                autoDelete: false,
+                arguments: null
+            );
+
+            // Declare the queue and bind it to the exchange
             _channel.QueueDeclare(queue: _settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind(queue: _settings.QueueName, exchange: _settings.ExchangeName, routingKey: "");
         }
 
         public Task DispatchAsync<TEvent>(TEvent domainEvent) where TEvent : EventBase
@@ -36,7 +48,7 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
             var properties = _channel.CreateBasicProperties();
             properties.Persistent = true;
 
-            _channel.BasicPublish(exchange: _settings.ExchangeName, routingKey: _settings.RoutingKey, basicProperties: properties, body: body);
+            _channel.BasicPublish(exchange: _settings.ExchangeName, routingKey: "", basicProperties: properties, body: body);
             return Task.CompletedTask;
         }
     }

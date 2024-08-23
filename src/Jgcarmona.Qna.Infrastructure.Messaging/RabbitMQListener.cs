@@ -24,7 +24,19 @@ public class RabbitMQListener : IMessagingListener
 
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
+
+        // Declare the exchange
+        _channel.ExchangeDeclare(
+            exchange: _settings.ExchangeName,
+            type: "fanout",  // Use "fanout" to broadcast the message to multiple queues
+            durable: true,
+            autoDelete: false,
+            arguments: null
+        );
+
+        // Declare the queue and bind it to the exchange
         _channel.QueueDeclare(queue: _settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+        _channel.QueueBind(queue: _settings.QueueName, exchange: _settings.ExchangeName, routingKey: "");
     }
 
     public Task StartListeningAsync(Func<string, Task> onMessageReceived, CancellationToken cancellationToken)
@@ -42,4 +54,3 @@ public class RabbitMQListener : IMessagingListener
         return Task.CompletedTask;
     }
 }
-

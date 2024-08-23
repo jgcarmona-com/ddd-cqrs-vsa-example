@@ -26,4 +26,17 @@
     <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Extensions\Jgcarmona.Qna.Infrastructure.Extensions.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Messaging\Jgcarmona.Qna.Infrastructure.Messaging.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

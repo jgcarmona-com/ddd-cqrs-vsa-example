@@ -1,8 +1,5 @@
 using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Jgcarmona.Qna.Services.StatsService;
@@ -36,7 +33,10 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .UseSerilog()
+            .UseSerilog((context, loggerConfig) =>
+            {
+                loggerConfig.ReadFrom.Configuration(context.Configuration);
+            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 // Load configuration files

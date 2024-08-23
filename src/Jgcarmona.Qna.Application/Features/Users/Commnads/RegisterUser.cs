@@ -57,10 +57,10 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, U
 
         await _userRepository.AddAsync(newUser);
 
-        // Obtener el CorrelationId desde el contexto
+        // Get the correlation ID from the HTTP context
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
-        // Disparar el evento
+        // Dispatch the event
         var userRegisteredEvent = new UserRegisteredEvent(newUser.Id, newUser.Username, newUser.Role)
         {
             CorrelationId = correlationId

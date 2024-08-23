@@ -18,7 +18,7 @@ namespace Jgcarmona.Qna.Api.Common.Extensions
 
             switch (commonFeatureFlags.MessagingProvider.ToLower())
             {
-                case "RabbitMQSettings":
+                case "rabbitmq":
                     var rabbitMQSettings = new RabbitMQSettings();
                     configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);
                     services.Configure<RabbitMQSettings>(options =>
@@ -27,6 +27,7 @@ namespace Jgcarmona.Qna.Api.Common.Extensions
                             options.UserName = rabbitMQSettings.UserName;
                             options.Password = rabbitMQSettings.Password;
                             options.QueueName = rabbitMQSettings.QueueName;
+                            options.ExchangeName = rabbitMQSettings.ExchangeName;
                         });
 
                     services.AddScoped<IEventDispatcher, RabbitMQEventDispatcher>();
