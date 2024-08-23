@@ -48,7 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.Stat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Common.Configuration", "src\Jgcarmona.Qna.Common.Configuration\Jgcarmona.Qna.Common.Configuration.csproj", "{64F4134D-F22E-432A-B96A-86EE8AA09CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jgcarmona.Qna.Infrastructure.Extensions", "src\Jgcarmona.Qna.Infrastructure.Extensions\Jgcarmona.Qna.Infrastructure.Extensions.csproj", "{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.Extensions", "src\Jgcarmona.Qna.Infrastructure.Extensions\Jgcarmona.Qna.Infrastructure.Extensions.csproj", "{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.StatsService.Legacy", "src\Jgcarmona.Qna.Services.StatsService.Legacy\Jgcarmona.Qna.Services.StatsService.Legacy.csproj", "{F48FDC01-BD66-4280-9313-75B907AA8126}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.SyncService.Legacy", "src\Jgcarmona.Qna.Services.SyncService.Legacy\Jgcarmona.Qna.Services.SyncService.Legacy.csproj", "{C1CB2235-2385-4032-BA1F-3843759BD956}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +132,14 @@ Global
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48FDC01-BD66-4280-9313-75B907AA8126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48FDC01-BD66-4280-9313-75B907AA8126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48FDC01-BD66-4280-9313-75B907AA8126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48FDC01-BD66-4280-9313-75B907AA8126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CB2235-2385-4032-BA1F-3843759BD956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CB2235-2385-4032-BA1F-3843759BD956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CB2235-2385-4032-BA1F-3843759BD956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CB2235-2385-4032-BA1F-3843759BD956}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +163,8 @@ Global
 		{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{64F4134D-F22E-432A-B96A-86EE8AA09CFD} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{F48FDC01-BD66-4280-9313-75B907AA8126} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{C1CB2235-2385-4032-BA1F-3843759BD956} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A58A6346-C7B6-42A5-8229-00D1025D28F2}

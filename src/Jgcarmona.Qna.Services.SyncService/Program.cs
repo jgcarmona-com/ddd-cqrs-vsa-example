@@ -1,6 +1,5 @@
-ï»¿using Jgcarmona.Qna.Common.Configuration;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
-using Jgcarmona.Qna.Infrastructure.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,15 +21,6 @@ public class Program
             Log.Information("Starting SyncService");
             var host = CreateHostBuilder(args).Build();
 
-            // Start the messaging listener
-            var listener = host.Services.GetRequiredService<IMessagingListener>();
-            await listener.StartListeningAsync(async (message) =>
-            {
-                // Process the incoming message with your business logic
-                Log.Information($"SyncService is processing message: {message}");
-                await Task.CompletedTask; // Placeholder for actual message processing logic
-            }, CancellationToken.None);
-
             await host.RunAsync();
         }
         catch (Exception ex)
@@ -48,7 +38,6 @@ public class Program
             .UseSerilog()
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
-                // Load the configuration files
                 config.SetBasePath(Directory.GetCurrentDirectory())
                       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                       .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true)
@@ -63,6 +52,6 @@ public class Program
                 services.AddMessagingListener(hostContext.Configuration);
 
                 // Register the main hosted service for SyncService
-                services.AddHostedService<SyncService>();
+                services.AddHostedService<SyncServiceWorker>(); // Aquí es donde cambiamos a la nueva clase Worker
             });
 }

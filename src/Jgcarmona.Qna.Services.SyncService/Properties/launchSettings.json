@@ -3,14 +3,13 @@
     "Jgcarmona.Qna.Services.SyncService": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
     },
     "Container (Dockerfile)": {
-      "commandName": "Docker",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "commandName": "Docker"
     }
-  }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json"
 }

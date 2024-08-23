@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Jgcarmona.Qna.Infrastructure.Messaging;
-using Serilog;
-using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Common.Configuration;
-using Microsoft.Extensions.Options;
+using Jgcarmona.Qna.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Jgcarmona.Qna.Services.StatsService;
-
 
 public class Program
 {
@@ -21,23 +18,15 @@ public class Program
 
         try
         {
-            Log.Information("Starting SyncService");
+            Log.Information("Starting StatsService");
             var host = CreateHostBuilder(args).Build();
 
-            // Start the messaging listener
-            var listener = host.Services.GetRequiredService<IMessagingListener>();
-            await listener.StartListeningAsync(async (message) =>
-            {
-                // Process the incoming message with your business logic
-                Log.Information($"SyncService is processing message: {message}");
-                await Task.CompletedTask; // Placeholder for actual message processing logic
-            }, CancellationToken.None);
-
+            // Start the application
             await host.RunAsync();
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "SyncService terminated unexpectedly");
+            Log.Fatal(ex, "StatsService terminated unexpectedly");
         }
         finally
         {
@@ -50,7 +39,7 @@ public class Program
             .UseSerilog()
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
-                // Load the configuration files
+                // Load configuration files
                 config.SetBasePath(Directory.GetCurrentDirectory())
                       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                       .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true)
@@ -58,13 +47,13 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
-                // Register the configuration settings for CommonFeatureFlags
+                // Register configuration settings
                 services.Configure<CommonFeatureFlags>(hostContext.Configuration.GetSection("CommonFeatureFlags"));
 
                 // Register the appropriate messaging listener based on the configured provider
                 services.AddMessagingListener(hostContext.Configuration);
 
-                // Register the main hosted service for SyncService
-                services.AddHostedService<StatsService>();
+                // Register the main hosted service
+                services.AddHostedService<StatsServiceWorker>();
             });
 }
