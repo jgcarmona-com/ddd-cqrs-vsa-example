@@ -36,9 +36,7 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
                 arguments: null
             );
 
-            // Declare the queue and bind it to the exchange
-            _channel.QueueDeclare(queue: _settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind(queue: _settings.QueueName, exchange: _settings.ExchangeName, routingKey: "");
+            // NOTE: bind queues to the exchange in the consumer side
         }
 
         public Task DispatchAsync<TEvent>(TEvent domainEvent) where TEvent : EventBase
