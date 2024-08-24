@@ -1,8 +1,5 @@
 using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Infrastructure.Messaging;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace Jgcarmona.Qna.Services.SyncService;
 
@@ -19,26 +16,36 @@ public class SyncServiceWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _messagingListener.StartListeningAsync(async (message) =>
+        await _messagingListener.StartListeningAsync(async (domainEvent) =>
         {
             try
             {
-                // Deserialize the message into a domain event
-                var domainEvent = JsonSerializer.Deserialize<EventBase>(message);
+                // Log the received event
+                _logger.LogInformation("SyncService received event: {EventId}, occurred on {OccurredOn}",
+                    domainEvent.Id, domainEvent.OccurredOn);
 
-                if (domainEvent != null)
+                // Add your specific stats handling logic here based on the event type
+                if (domainEvent is UserViewedEvent userViewedEvent)
                 {
-                    // Here is where the logic to handle the specific domain event goes
-                    _logger.LogInformation("SyncService received event: {EventId}, occurred on {OccurredOn}",
-                        domainEvent.Id, domainEvent.OccurredOn);
+                    // Handle the UserViewedEvent specifically
+                    _logger.LogInformation("Processing UserViewedEvent for user {UserId}, username: {Username}",
+                        userViewedEvent.UserId, userViewedEvent.Username);
+
+                    // Add additional logic to update stats based on the event
+                }
+                else
+                {
+                    _logger.LogWarning("Received an unhandled event type: {EventType}", domainEvent.GetType().Name);
                 }
             }
-            catch (JsonException ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deserializing the message in SyncService.");
+                _logger.LogError(ex, "Error processing the event in SyncService.");
             }
+
             await Task.CompletedTask;
 
         }, stoppingToken);
     }
 }
+

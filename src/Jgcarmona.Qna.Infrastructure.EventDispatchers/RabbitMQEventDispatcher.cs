@@ -42,14 +42,27 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
 
         public Task DispatchAsync<TEvent>(TEvent domainEvent) where TEvent : EventBase
         {
-            var message = JsonSerializer.Serialize(domainEvent);
+            // Include the assembly name to deserialize the event
+            var eventType = domainEvent.GetType().AssemblyQualifiedName;
+            var messagePayload = new
+            {
+                EventType = eventType,
+                EventData = domainEvent
+            };
+
+            var message = JsonSerializer.Serialize(messagePayload);
             var body = Encoding.UTF8.GetBytes(message);
 
             var properties = _channel.CreateBasicProperties();
             properties.Persistent = true;
+            properties.Headers = new Dictionary<string, object>
+            {
+                { "CorrelationId", domainEvent.CorrelationId }
+            };
 
             _channel.BasicPublish(exchange: _settings.ExchangeName, routingKey: "", basicProperties: properties, body: body);
             return Task.CompletedTask;
         }
+
     }
 }
