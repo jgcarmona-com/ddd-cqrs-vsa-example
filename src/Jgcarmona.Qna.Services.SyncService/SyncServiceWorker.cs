@@ -1,14 +1,14 @@
 using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Infrastructure.Messaging;
+using Jgcarmona.Qna.Domain.Abstract;
 
 namespace Jgcarmona.Qna.Services.SyncService;
 
 public class SyncServiceWorker : BackgroundService
 {
-    private readonly IMessagingListener _messagingListener;
+    private readonly IEventListener _messagingListener;
     private readonly ILogger<SyncServiceWorker> _logger;
 
-    public SyncServiceWorker(IMessagingListener messagingListener, ILogger<SyncServiceWorker> logger)
+    public SyncServiceWorker(IEventListener messagingListener, ILogger<SyncServiceWorker> logger)
     {
         _messagingListener = messagingListener;
         _logger = logger;

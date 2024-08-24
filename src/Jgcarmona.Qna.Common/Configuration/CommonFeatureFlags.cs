@@ -1,4 +1,4 @@
-﻿namespace Jgcarmona.Qna.Common.Configuration
+﻿namespace Jgcarmona.Qna.Common.Configuration.Configuration
 {
     public class CommonFeatureFlags
     {

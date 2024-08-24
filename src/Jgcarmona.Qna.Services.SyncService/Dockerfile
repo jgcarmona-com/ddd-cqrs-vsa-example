@@ -6,12 +6,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Jgcarmona.Qna.Services.SyncService/Jgcarmona.Qna.Services.SyncService.csproj", "src/Jgcarmona.Qna.Services.SyncService/"]
-COPY ["src/Jgcarmona.Qna.Common.Configuration/Jgcarmona.Qna.Common.Configuration.csproj", "src/Jgcarmona.Qna.Common.Configuration/"]
+COPY ["src/Jgcarmona.Qna.Common/Jgcarmona.Qna.Common.csproj", "src/Jgcarmona.Qna.Common/"]
 COPY ["src/Jgcarmona.Qna.Infrastructure.Extensions/Jgcarmona.Qna.Infrastructure.Extensions.csproj", "src/Jgcarmona.Qna.Infrastructure.Extensions/"]
 COPY ["src/Jgcarmona.Qna.Domain.Abstract/Jgcarmona.Qna.Domain.Abstract.csproj", "src/Jgcarmona.Qna.Domain.Abstract/"]
 COPY ["src/Jgcarmona.Qna.Domain/Jgcarmona.Qna.Domain.csproj", "src/Jgcarmona.Qna.Domain/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.EventDispatchers/Jgcarmona.Qna.Infrastructure.EventDispatchers.csproj", "src/Jgcarmona.Qna.Infrastructure.EventDispatchers/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.Messaging/Jgcarmona.Qna.Infrastructure.Messaging.csproj", "src/Jgcarmona.Qna.Infrastructure.Messaging/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/Jgcarmona.Qna.Infrastructure.Events.RabbitMq.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/"]
 RUN dotnet restore "./src/Jgcarmona.Qna.Services.SyncService/Jgcarmona.Qna.Services.SyncService.csproj"
 COPY . .
 WORKDIR "/src/src/Jgcarmona.Qna.Services.SyncService"

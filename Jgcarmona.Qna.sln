@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Domain.Abstra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Api.Common", "src\Jgcarmona.Qna.Api.Common\Jgcarmona.Qna.Api.Common.csproj", "{6F344D45-E02F-4AED-BA99-F48BE97E53C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.EventDispatchers", "src\Jgcarmona.Qna.Infrastructure.EventDispatchers\Jgcarmona.Qna.Infrastructure.EventDispatchers.csproj", "{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{796BBCE8-482C-47AF-A8F7-715698AF7CA4}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\deploy-azure.sh = scripts\deploy-azure.sh
@@ -38,17 +36,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{796B
 		scripts\stop-local.sh = scripts\stop-local.sh
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.Messaging", "src\Jgcarmona.Qna.Infrastructure.Messaging\Jgcarmona.Qna.Infrastructure.Messaging.csproj", "{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.SyncService", "src\Jgcarmona.Qna.Services.SyncService\Jgcarmona.Qna.Services.SyncService.csproj", "{E92DD5E4-8A6F-48B5-BBDF-F9E785EB8747}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3A8CD0E1-C185-433E-ADD7-6FCF82189A12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.StatsService", "src\Jgcarmona.Qna.Services.StatsService\Jgcarmona.Qna.Services.StatsService.csproj", "{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Common.Configuration", "src\Jgcarmona.Qna.Common.Configuration\Jgcarmona.Qna.Common.Configuration.csproj", "{64F4134D-F22E-432A-B96A-86EE8AA09CFD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.Extensions", "src\Jgcarmona.Qna.Infrastructure.Extensions\Jgcarmona.Qna.Infrastructure.Extensions.csproj", "{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.Events.RabbitMq", "src\Jgcarmona.Qna.Infrastructure.Events.RabbitMq\Jgcarmona.Qna.Infrastructure.Events.RabbitMq.csproj", "{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Infrastructure.Events.AzureEventBus", "src\Jgcarmona.Qna.Infrastructure.Events.AzureEventBus\Jgcarmona.Qna.Infrastructure.Events.AzureEventBus.csproj", "{3404CABA-4812-4B35-9A47-B4315C75995C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Common", "src\Jgcarmona.Qna.Common\Jgcarmona.Qna.Common.csproj", "{E473F741-FE98-4F91-B74A-B9B46E93BA53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,14 +100,6 @@ Global
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E92DD5E4-8A6F-48B5-BBDF-F9E785EB8747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E92DD5E4-8A6F-48B5-BBDF-F9E785EB8747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E92DD5E4-8A6F-48B5-BBDF-F9E785EB8747}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -120,14 +112,22 @@ Global
 		{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64F4134D-F22E-432A-B96A-86EE8AA09CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64F4134D-F22E-432A-B96A-86EE8AA09CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64F4134D-F22E-432A-B96A-86EE8AA09CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64F4134D-F22E-432A-B96A-86EE8AA09CFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3404CABA-4812-4B35-9A47-B4315C75995C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3404CABA-4812-4B35-9A47-B4315C75995C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3404CABA-4812-4B35-9A47-B4315C75995C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3404CABA-4812-4B35-9A47-B4315C75995C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E473F741-FE98-4F91-B74A-B9B46E93BA53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E473F741-FE98-4F91-B74A-B9B46E93BA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E473F741-FE98-4F91-B74A-B9B46E93BA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E473F741-FE98-4F91-B74A-B9B46E93BA53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,12 +145,12 @@ Global
 		{BEB7F360-843D-4F4D-88E4-8409C7C2CFBB} = {303C92F4-CC00-4F55-817E-974BC6AAA5CA}
 		{A5021873-4828-4C60-A320-9A79BFE51129} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{6F344D45-E02F-4AED-BA99-F48BE97E53C2} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
-		{03E6FAB9-C525-46E9-BC65-A95CC0FE4031} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
-		{C0A6B6A4-7C04-49EC-86D7-6FC88AA43382} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{E92DD5E4-8A6F-48B5-BBDF-F9E785EB8747} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{6788C0BF-88E5-48C2-ACCC-82EB45E8DC68} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
-		{64F4134D-F22E-432A-B96A-86EE8AA09CFD} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{A79FE4D1-8F5B-469A-A1D5-AD45843CB3BE} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{44B75E70-40EE-4D04-B6F3-DA84CD14F7D5} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{3404CABA-4812-4B35-9A47-B4315C75995C} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{E473F741-FE98-4F91-B74A-B9B46E93BA53} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A58A6346-C7B6-42A5-8229-00D1025D28F2}

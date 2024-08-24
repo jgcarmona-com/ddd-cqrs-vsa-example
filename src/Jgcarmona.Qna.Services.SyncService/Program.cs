@@ -1,4 +1,4 @@
-using Jgcarmona.Qna.Common.Configuration;
+using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Serilog;
 

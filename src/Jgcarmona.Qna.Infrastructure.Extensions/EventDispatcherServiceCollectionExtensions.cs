@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
+﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Infrastructure.EventDispatchers;
 using Microsoft.Extensions.Configuration;
@@ -34,9 +34,6 @@ namespace Jgcarmona.Qna.Api.Common.Extensions
                     break;
                 case "azureeventhub":
                     services.AddScoped<IEventDispatcher, AzureEventHubDispatcher>();
-                    break;
-                default:
-                    services.AddScoped<IEventDispatcher, InMemoryEventDispatcher>();
                     break;
             }
 

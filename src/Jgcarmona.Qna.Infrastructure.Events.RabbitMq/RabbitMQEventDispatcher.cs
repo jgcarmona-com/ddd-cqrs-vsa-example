@@ -1,4 +1,5 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
+﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Events;
 using Microsoft.Extensions.Options;
@@ -49,8 +50,12 @@ namespace Jgcarmona.Qna.Infrastructure.EventDispatchers
                 EventType = eventType,
                 EventData = domainEvent
             };
+            var jsonOptions = new JsonSerializerOptions
+            {
+                Converters = { new UlidJsonConverter() }
+            };
+            var message = JsonSerializer.Serialize(messagePayload, jsonOptions);
 
-            var message = JsonSerializer.Serialize(messagePayload);
             var body = Encoding.UTF8.GetBytes(message);
 
             var properties = _channel.CreateBasicProperties();

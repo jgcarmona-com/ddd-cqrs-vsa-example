@@ -1,8 +1,8 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
 
-namespace Jgcarmona.Qna.Infrastructure.Messaging
+namespace Jgcarmona.Qna.Domain.Abstract
 {
-    public interface IMessagingListener
+    public interface IEventListener
     {
         Task StartListeningAsync(Func<EventBase, Task> onEventReceived, CancellationToken cancellationToken);
     }

@@ -5,10 +5,12 @@ using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
 using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Abstract.Services;
-using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.EventDispatchers;
 using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
 using Serilog;
+using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Converters;
+using System.Text.Json;
 
 namespace Jgcarmona.Qna.Api.Web;
 
@@ -44,6 +46,10 @@ public class Program
 
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         builder.Services.AddScoped<DatabaseInitializer>();
+        builder.Services.AddSingleton(new JsonSerializerOptions
+        {
+            Converters = { new UlidJsonConverter() }
+        });
 
         builder.Services.AddAuthorization();
         builder.Services.AddControllers();

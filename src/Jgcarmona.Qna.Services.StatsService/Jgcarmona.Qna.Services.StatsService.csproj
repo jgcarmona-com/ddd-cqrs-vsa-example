@@ -23,9 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Jgcarmona.Qna.Common.Configuration\Jgcarmona.Qna.Common.Configuration.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Common\Jgcarmona.Qna.Common.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Extensions\Jgcarmona.Qna.Infrastructure.Extensions.csproj" />
-    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Messaging\Jgcarmona.Qna.Infrastructure.Messaging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

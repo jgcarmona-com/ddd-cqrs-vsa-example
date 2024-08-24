@@ -1,6 +1,5 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Infrastructure.Messaging;
+﻿using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Domain.Abstract;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -8,15 +7,17 @@ using RabbitMQ.Client.Events;
 using Serilog.Context;
 using System.Text;
 using System.Text.Json;
+using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Converters;
 
-public class RabbitMQListener : IMessagingListener
+public class RabbitMQEventListener : IEventListener
 {
     private readonly RabbitMQSettings _settings;
     private readonly IConnection _connection;
     private readonly IModel _channel;
-    private readonly ILogger<RabbitMQListener> _logger;
+    private readonly ILogger<RabbitMQEventListener> _logger;
 
-    public RabbitMQListener(IOptions<RabbitMQSettings> settings, ILogger<RabbitMQListener> logger)
+    public RabbitMQEventListener(IOptions<RabbitMQSettings> settings, ILogger<RabbitMQEventListener> logger)
     {
         _settings = settings.Value;
         _logger = logger;
@@ -68,7 +69,11 @@ public class RabbitMQListener : IMessagingListener
                     var eventData = messagePayload.GetProperty("EventData").GetRawText();
 
                     var type = Type.GetType(eventType);
-                    var domainEvent = (EventBase)JsonSerializer.Deserialize(eventData, type);
+                    var options = new JsonSerializerOptions
+                    {
+                        Converters = { new UlidJsonConverter() }
+                    };
+                    var domainEvent = (EventBase)JsonSerializer.Deserialize(eventData, type, options);
 
                     if (domainEvent != null)
                     {
@@ -78,7 +83,7 @@ public class RabbitMQListener : IMessagingListener
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error processing message in RabbitMQListener.");
+                    _logger.LogError(ex, "Error processing message in RabbitMQEventListener.");
                 }
             }
         };

@@ -1,5 +1,5 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Infrastructure.Messaging;
+﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Domain.Abstract;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +24,7 @@ public static class MessagingServiceCollectionExtensions
                         options.QueueName = rabbitMQSettings.QueueName;
                         options.ExchangeName = rabbitMQSettings.ExchangeName;
                     });
-                services.AddSingleton<IMessagingListener, RabbitMQListener>();
+                services.AddSingleton<IEventListener, RabbitMQEventListener>();
                 break;
             case "azureeventhub":
                 // Configuración para Azure Event Hub

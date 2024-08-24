@@ -1,14 +1,14 @@
 using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Infrastructure.Messaging;
+using Jgcarmona.Qna.Domain.Abstract;
 
 namespace Jgcarmona.Qna.Services.StatsService;
 
 public class StatsServiceWorker : BackgroundService
 {
-    private readonly IMessagingListener _messagingListener;
+    private readonly IEventListener _messagingListener;
     private readonly ILogger<StatsServiceWorker> _logger;
 
-    public StatsServiceWorker(IMessagingListener messagingListener, ILogger<StatsServiceWorker> logger)
+    public StatsServiceWorker(IEventListener messagingListener, ILogger<StatsServiceWorker> logger)
     {
         _messagingListener = messagingListener;
         _logger = logger;
