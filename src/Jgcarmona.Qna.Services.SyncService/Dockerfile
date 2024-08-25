@@ -1,3 +1,5 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -10,8 +12,9 @@ COPY ["src/Jgcarmona.Qna.Common/Jgcarmona.Qna.Common.csproj", "src/Jgcarmona.Qna
 COPY ["src/Jgcarmona.Qna.Infrastructure.Extensions/Jgcarmona.Qna.Infrastructure.Extensions.csproj", "src/Jgcarmona.Qna.Infrastructure.Extensions/"]
 COPY ["src/Jgcarmona.Qna.Domain.Abstract/Jgcarmona.Qna.Domain.Abstract.csproj", "src/Jgcarmona.Qna.Domain.Abstract/"]
 COPY ["src/Jgcarmona.Qna.Domain/Jgcarmona.Qna.Domain.csproj", "src/Jgcarmona.Qna.Domain/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/Jgcarmona.Qna.Infrastructure.Events.RabbitMq.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Messaging/Jgcarmona.Qna.Infrastructure.Messaging.csproj", "src/Jgcarmona.Qna.Infrastructure.Messaging/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.csproj", "src/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Persistence.Sql/Jgcarmona.Qna.Infrastructure.Persistence.Sql.csproj", "src/Jgcarmona.Qna.Infrastructure.Persistence.Sql/"]
 RUN dotnet restore "./src/Jgcarmona.Qna.Services.SyncService/Jgcarmona.Qna.Services.SyncService.csproj"
 COPY . .
 WORKDIR "/src/src/Jgcarmona.Qna.Services.SyncService"

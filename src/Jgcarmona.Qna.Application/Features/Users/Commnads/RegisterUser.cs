@@ -17,14 +17,14 @@ public class RegisterUserCommand : IRequest<UserResponse>
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserResponse>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserCommandRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IEventDispatcher _eventDispatcher;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<RegisterUserCommandHandler> _logger;
 
     public RegisterUserCommandHandler(
-        IUserRepository userRepository,
+        IUserCommandRepository userRepository,
         IPasswordHasher passwordHasher,
         ILogger<RegisterUserCommandHandler> logger,
         IEventDispatcher eventDispatcher,

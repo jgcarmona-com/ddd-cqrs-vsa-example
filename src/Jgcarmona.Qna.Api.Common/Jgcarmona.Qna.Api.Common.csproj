@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Jgcarmona.Qna.Application\Jgcarmona.Qna.Application.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Common\Jgcarmona.Qna.Common.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
-    <ProjectReference Include="..\Jgcarmona.Qna.Persistence.EntityFramework\Jgcarmona.Qna.Persistence.EntityFramework.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Persistence.MongoDB\Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Persistence.Sql\Jgcarmona.Qna.Infrastructure.Persistence.Sql.csproj" />
   </ItemGroup>
 </Project>

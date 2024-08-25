@@ -18,8 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Jgcarmona.Qna.Common\Jgcarmona.Qna.Common.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain.Abstract\Jgcarmona.Qna.Domain.Abstract.csproj" />
-    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Events.AzureEventBus\Jgcarmona.Qna.Infrastructure.Events.AzureEventBus.csproj" />
-    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Events.RabbitMq\Jgcarmona.Qna.Infrastructure.Events.RabbitMq.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Messaging\Jgcarmona.Qna.Infrastructure.Messaging.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Persistence.MongoDB\Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.csproj" />
+    <ProjectReference Include="..\Jgcarmona.Qna.Infrastructure.Persistence.Sql\Jgcarmona.Qna.Infrastructure.Persistence.Sql.csproj" />
   </ItemGroup>
 
 </Project>

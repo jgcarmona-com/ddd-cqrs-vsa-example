@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />    
     <ProjectReference Include="..\..\Jgcarmona.Qna.Application\Jgcarmona.Qna.Application.csproj" />
     <ProjectReference Include="..\..\Jgcarmona.Qna.Api.Web\Jgcarmona.Qna.Api.Web.csproj" />
-    <ProjectReference Include="..\..\Jgcarmona.Qna.Persistence.EntityFramework\Jgcarmona.Qna.Persistence.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Jgcarmona.Qna.Infrastructure.Persistence.Sql\Jgcarmona.Qna.Infrastructure.Persistence.Sql.csproj" />
     <ProjectReference Include="..\..\Jgcarmona.Qna.Api.Common\Jgcarmona.Qna.Api.Common.csproj" />
     <ProjectReference Include="..\..\Jgcarmona.Qna.Api.Minimal\Jgcarmona.Qna.Api.Minimal.csproj" />
     <ProjectReference Include="..\..\Jgcarmona.Qna.Domain.Abstract\Jgcarmona.Qna.Domain.Abstract.csproj" />

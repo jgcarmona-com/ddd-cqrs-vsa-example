@@ -18,11 +18,11 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 
     public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, TokenResponse>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserCommandRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly IPasswordHasher _passwordHasher;
 
-        public AuthenticateUserCommandHandler(IUserRepository userRepository, IConfiguration configuration, IPasswordHasher passwordHasher)
+        public AuthenticateUserCommandHandler(IUserCommandRepository userRepository, IConfiguration configuration, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
             _configuration = configuration;

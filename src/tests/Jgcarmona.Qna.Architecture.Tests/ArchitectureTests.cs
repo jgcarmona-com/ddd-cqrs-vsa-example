@@ -9,7 +9,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         private const string ApiMinimalNamespace = "Jgcarmona.Qna.Api.Minimal";
         private const string ApplicationNamespace = "Jgcarmona.Qna.Application";
         private const string DomainNamespace = "Jgcarmona.Qna.Domain";
-        private const string PersistenceNamespace = "Jgcarmona.Qna.Persistence.EntityFramework";
+        private const string PersistenceNamespace = "Jgcarmona.Qna.Infrastructure.Persistence.Sql";
 
 
         // // [Fact]
@@ -18,7 +18,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         // //     var result = Types
         // //         .InAssembly(typeof(Jgcarmona.Qna.Api.Web.Program).Assembly)
         // //         .Should()
-        // //         .HaveDependencyOn("Jgcarmona.Qna.Persistence.EntityFramework")
+        // //         .HaveDependencyOn("Jgcarmona.Qna.Infrastructure.Persistence.Sql")
         // //         .GetResult();
 
         // //     Assert.True(result.IsSuccessful);
@@ -62,9 +62,9 @@ namespace Jgcarmona.Qna.Architecture.Tests
         public void Persistence_Should_Have_Dependencies_On_Domain()
         {
             var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Persistence.EntityFramework.ApplicationDbContext).Assembly)
+                .InAssembly(typeof(Jgcarmona.Qna.Infrastructure.Persistence.Sql.ApplicationDbContext).Assembly)
                 .That()
-                .ResideInNamespace("Jgcarmona.Qna.Persistence.EntityFramework.Repositories")
+                .ResideInNamespace("Jgcarmona.Qna.Infrastructure.Persistence.Sql")
                 .Should()
                 .HaveDependencyOn(DomainNamespace)
                 .GetResult();

@@ -7,11 +7,11 @@ namespace Jgcarmona.Qna.Application.Initialization
 {
     public class DatabaseInitializer
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserCommandRepository _userRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly ILogger<DatabaseInitializer> _logger;
 
-        public DatabaseInitializer(IUserRepository userRepository, IPasswordHasher passwordHasher, ILogger<DatabaseInitializer> logger)
+        public DatabaseInitializer(IUserCommandRepository userRepository, IPasswordHasher passwordHasher, ILogger<DatabaseInitializer> logger)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
@@ -20,9 +20,9 @@ namespace Jgcarmona.Qna.Application.Initialization
 
         public async Task SeedAdminUserAsync()
         {
-            if (!(await _userRepository.GetAllAsync()).Any())
-            {
-                var adminUser = new User
+            var adminUser = await _userRepository.GetByUsernameAsync("admin");
+            if (adminUser == null) {
+                adminUser = new User
                 {
                     Username = "admin",
                     PasswordHash = _passwordHasher.Hash("P@ssw0rd!"),

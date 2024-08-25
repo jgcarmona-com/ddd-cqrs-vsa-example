@@ -1,5 +1,5 @@
 ﻿using Jgcarmona.Qna.Application.Initialization;
-using Jgcarmona.Qna.Persistence.EntityFramework;
+using Jgcarmona.Qna.Infrastructure.Persistence.Sql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

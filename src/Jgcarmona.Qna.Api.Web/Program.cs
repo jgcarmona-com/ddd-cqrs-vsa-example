@@ -3,13 +3,12 @@ using Jgcarmona.Qna.Api.Web.Extensions;
 using Jgcarmona.Qna.Application.Configuration;
 using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
-using Jgcarmona.Qna.Domain.Abstract.Events;
-using Jgcarmona.Qna.Domain.Abstract.Services;
-using Jgcarmona.Qna.Infrastructure.EventDispatchers;
-using Jgcarmona.Qna.Persistence.EntityFramework.Extensions;
-using Serilog;
 using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Common.Converters;
+using Jgcarmona.Qna.Domain.Abstract.Services;
+using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Extensions;
+using Serilog;
 using System.Text.Json;
 
 namespace Jgcarmona.Qna.Api.Web;

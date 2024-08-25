@@ -14,11 +14,11 @@ COPY ["src/Jgcarmona.Qna.Api.Common/Jgcarmona.Qna.Api.Common.csproj", "src/Jgcar
 COPY ["src/Jgcarmona.Qna.Application/Jgcarmona.Qna.Application.csproj", "src/Jgcarmona.Qna.Application/"]
 COPY ["src/Jgcarmona.Qna.Domain/Jgcarmona.Qna.Domain.csproj", "src/Jgcarmona.Qna.Domain/"]
 COPY ["src/Jgcarmona.Qna.Domain.Abstract/Jgcarmona.Qna.Domain.Abstract.csproj", "src/Jgcarmona.Qna.Domain.Abstract/"]
-COPY ["src/Jgcarmona.Qna.Common.Configuration/Jgcarmona.Qna.Common.Configuration.csproj", "src/Jgcarmona.Qna.Common.Configuration/"]
-COPY ["src/Jgcarmona.Qna.Persistence.EntityFramework/Jgcarmona.Qna.Persistence.EntityFramework.csproj", "src/Jgcarmona.Qna.Persistence.EntityFramework/"]
+COPY ["src/Jgcarmona.Qna.Common/Jgcarmona.Qna.Common.csproj", "src/Jgcarmona.Qna.Common/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.csproj", "src/Jgcarmona.Qna.Infrastructure.Persistence.MongoDB/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Persistence.Sql/Jgcarmona.Qna.Infrastructure.Persistence.Sql.csproj", "src/Jgcarmona.Qna.Infrastructure.Persistence.Sql/"]
 COPY ["src/Jgcarmona.Qna.Infrastructure.Extensions/Jgcarmona.Qna.Infrastructure.Extensions.csproj", "src/Jgcarmona.Qna.Infrastructure.Extensions/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.AzureEventBus/"]
-COPY ["src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/Jgcarmona.Qna.Infrastructure.Events.RabbitMq.csproj", "src/Jgcarmona.Qna.Infrastructure.Events.RabbitMq/"]
+COPY ["src/Jgcarmona.Qna.Infrastructure.Messaging/Jgcarmona.Qna.Infrastructure.Messaging.csproj", "src/Jgcarmona.Qna.Infrastructure.Messaging/"]
 RUN dotnet restore "./src/Jgcarmona.Qna.Api.Web/Jgcarmona.Qna.Api.Web.csproj"
 COPY . .
 WORKDIR "/src/src/Jgcarmona.Qna.Api.Web"

@@ -1,11 +1,10 @@
-using MediatR;
-using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Application.Features.Users.Models;
 using Jgcarmona.Qna.Domain.Abstract.Events;
-using Microsoft.AspNetCore.Http;
-using Jgcarmona.Qna.Application.Features.Users.Commands.RegisterUser;
-using Microsoft.Extensions.Logging;
+using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Domain.Events;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Jgcarmona.Qna.Application.Features.Users.Queries
 {
@@ -21,13 +20,13 @@ namespace Jgcarmona.Qna.Application.Features.Users.Queries
 
     public class GetUserByUsernameQueryHandler : IRequestHandler<GetUserByUsernameQuery, UserResponse>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserCommandRepository _userRepository;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<GetUserByUsernameQueryHandler> _logger;
 
         public GetUserByUsernameQueryHandler(
-            IUserRepository userRepository,
+            IUserCommandRepository userRepository,
             ILogger<GetUserByUsernameQueryHandler> logger,
             IEventDispatcher eventDispatcher,
             IHttpContextAccessor httpContextAccessor)
