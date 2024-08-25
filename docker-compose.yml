@@ -60,13 +60,32 @@ services:
 
   mongodb:
     image: mongo:latest
+    hostname: mongo
     networks:
       - qna-network
     container_name: MongoDbContainer
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: qnauser
+      MONGO_INITDB_ROOT_PASSWORD: YourStrong@Passw0rd
     ports:
-      - "27017:27017"
+    - "27017:27017"
     volumes:
-      - ./infrastructure/docker/mongo-data:/data/db
+    - ./infrastructure/docker/mongo-data:/data/db
+ 
+  mongo-express:
+    image: mongo-express:latest
+    hostname: mongo-express
+    networks:
+      - qna-network
+    container_name: MongoExpressContainer
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: qnauser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: YourStrong@Passw0rd
+      ME_CONFIG_MONGODB_SERVER: "mongo"
+    ports:
+      - "8085:8081"
+    depends_on:
+      - mongodb
 
   rabbitmq:
     image: rabbitmq:3-management

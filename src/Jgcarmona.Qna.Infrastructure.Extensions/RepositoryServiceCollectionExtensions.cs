@@ -13,7 +13,7 @@ namespace Jgcarmona.Qna.Infrastructure.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             // Repositorios de comando basados en SQL (EF Core)
-            services.AddScoped<ICommandRepository<User>, UserCommandRepository>();
+            services.AddScoped<IUserCommandRepository, UserCommandRepository>();
             services.AddScoped<ICommandRepository<Question>, QuestionCommandRepository>();
             services.AddScoped<ICommandRepository<Answer>, AnswerCommandRepository>();
             services.AddScoped<ICommandRepository<Vote>, VoteCommandRepository>();

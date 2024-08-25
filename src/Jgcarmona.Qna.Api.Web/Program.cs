@@ -7,6 +7,7 @@ using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Extensions;
 using Serilog;
 using System.Text.Json;
@@ -37,6 +38,7 @@ public class Program
 
         // Configure services
         builder.Services.AddDatabaseConfiguration(builder.Configuration);
+        builder.Services.AddMongoDb(builder.Configuration);
         builder.Services.AddRepositories();
         builder.Services.AddMediatRConfiguration();
         builder.Services.AddSwaggerConfiguration();
