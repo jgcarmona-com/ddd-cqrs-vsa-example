@@ -19,6 +19,9 @@ services:
       - sqlserver
       - rabbitmq
       - seq
+      - mongo
+      - jgcarmona.qna.services.syncservice
+      - jgcarmona.qna.services.statsservice
 
   jgcarmona.qna.services.syncservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice
@@ -28,9 +31,9 @@ services:
       context: .
       dockerfile: src/Jgcarmona.Qna.Services.SyncService/Dockerfile
     depends_on:
-      - mongodb
       - rabbitmq
       - seq
+      - mongo
 
   jgcarmona.qna.services.statsservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicesstatsservice
@@ -40,9 +43,9 @@ services:
       context: .
       dockerfile: src/Jgcarmona.Qna.Services.StatsService/Dockerfile
     depends_on:
-      - sqlserver
       - rabbitmq
       - seq
+      - mongo
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -57,35 +60,6 @@ services:
       - "1433:1433"
     volumes:
       - ./infrastructure/docker/sqlserver-data:/var/opt/mssql/data
-
-  mongodb:
-    image: mongo:latest
-    hostname: mongo
-    networks:
-      - qna-network
-    container_name: MongoDbContainer
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: qnauser
-      MONGO_INITDB_ROOT_PASSWORD: YourStrong@Passw0rd
-    ports:
-    - "27017:27017"
-    volumes:
-    - ./infrastructure/docker/mongo-data:/data/db
- 
-  mongo-express:
-    image: mongo-express:latest
-    hostname: mongo-express
-    networks:
-      - qna-network
-    container_name: MongoExpressContainer
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: qnauser
-      ME_CONFIG_MONGODB_ADMINPASSWORD: YourStrong@Passw0rd
-      ME_CONFIG_MONGODB_SERVER: "mongo"
-    ports:
-      - "8085:8081"
-    depends_on:
-      - mongodb
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -116,3 +90,31 @@ services:
     volumes:
       - ./infrastructure/docker/seq-data:/data
 
+  mongo:
+    image: mongo:latest
+    networks:
+      - qna-network
+    container_name: MongoDbContainer
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: examplepassword
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./infrastructure/docker/mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    networks:
+      - qna-network
+    container_name: MongoExpressContainer
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: examplepassword
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_URL: mongodb://root:examplepassword@mongo:27017/
+    ports:
+      - "8081:8081"
+    restart: on-failure
+    depends_on:
+      - mongo

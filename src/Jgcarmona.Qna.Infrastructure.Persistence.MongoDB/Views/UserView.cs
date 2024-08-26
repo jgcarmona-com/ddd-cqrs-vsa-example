@@ -7,6 +7,7 @@ namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Views
         public Ulid Id { get; set; }
         public string Moniker { get; set; } = string.Empty;
         public string Username { get; set; }
+        public string Role { get; set; }
         public string Email { get; set; }
         public DateTime RegisteredAt { get; set; }
         public List<QuestionSummary> QuestionsAsked { get; set; }

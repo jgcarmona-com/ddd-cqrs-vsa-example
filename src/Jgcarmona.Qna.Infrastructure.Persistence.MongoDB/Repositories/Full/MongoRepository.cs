@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories
 {
-    public class MongoQueryRepository<T> : IQueryRepository<T> where T : class
+    public class MongoRepository<T> : ICommandRepository<T>, IQueryRepository<T> where T : class
     {
         protected readonly IMongoCollection<T> _collection;
 
-        public MongoQueryRepository(IMongoDatabase database, string collectionName)
+        public MongoRepository(IMongoDatabase database, string collectionName)
         {
             _collection = database.GetCollection<T>(collectionName);
         }
@@ -28,6 +28,23 @@ namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await _collection.Find(predicate).ToListAsync();
+        }
+
+        public async Task AddAsync(T entity)
+        {
+            await _collection.InsertOneAsync(entity);
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            var filter = Builders<T>.Filter.Eq("Id", entity.GetType().GetProperty("Id")?.GetValue(entity, null).ToString());
+            await _collection.ReplaceOneAsync(filter, entity);
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            var filter = Builders<T>.Filter.Eq("Id", entity.GetType().GetProperty("Id")?.GetValue(entity, null).ToString());
+            await _collection.DeleteOneAsync(filter);
         }
     }
 }

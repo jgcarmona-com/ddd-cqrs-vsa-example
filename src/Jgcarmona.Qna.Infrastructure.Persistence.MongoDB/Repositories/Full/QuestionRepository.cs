@@ -2,11 +2,11 @@
 using Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Views;
 using MongoDB.Driver;
 
-namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories
+namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Full
 {
-    public class QuestionQueryRepository : MongoQueryRepository<QuestionView>, IQuestionQueryRepository
+    public class QuestionRepository : MongoRepository<QuestionView>, IQuestionRepository
     {
-        public QuestionQueryRepository(IMongoDatabase database) : base(database, "questions")
+        public QuestionRepository(IMongoDatabase database) : base(database, "questions")
         {
         }
 

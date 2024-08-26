@@ -2,6 +2,8 @@ using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Microsoft.Extensions.Logging;
+using Jgcarmona.Qna.Domain.Abstract.Events;
+using Jgcarmona.Qna.Domain.Events;
 
 namespace Jgcarmona.Qna.Application.Initialization
 {
@@ -9,12 +11,18 @@ namespace Jgcarmona.Qna.Application.Initialization
     {
         private readonly IUserCommandRepository _userRepository;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IEventDispatcher _eventDispatcher;
         private readonly ILogger<DatabaseInitializer> _logger;
 
-        public DatabaseInitializer(IUserCommandRepository userRepository, IPasswordHasher passwordHasher, ILogger<DatabaseInitializer> logger)
+        public DatabaseInitializer(
+            IUserCommandRepository userRepository, 
+            IPasswordHasher passwordHasher, 
+            IEventDispatcher eventDispatcher,
+            ILogger<DatabaseInitializer> logger)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _eventDispatcher = eventDispatcher;
             _logger = logger;
         }
 
@@ -30,7 +38,10 @@ namespace Jgcarmona.Qna.Application.Initialization
                 };
 
                 await _userRepository.AddAsync(adminUser);
-                _logger.LogInformation("Admin user created successfully.");
+                _logger.LogInformation("Admin user created successfully in SQL.");
+
+                await _eventDispatcher.DispatchAsync(new UserRegisteredEvent(adminUser.Id, adminUser.Username, adminUser.Role));
+                _logger.LogInformation("Event dispatched for admin user creation.");
             }
         }
     }

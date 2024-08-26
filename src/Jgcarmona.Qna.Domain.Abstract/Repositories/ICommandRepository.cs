@@ -3,7 +3,7 @@ using NUlid;
 
 namespace Jgcarmona.Qna.Domain.Abstract.Repositories
 {
-    public interface ICommandRepository<T> where T : BaseEntity
+    public interface ICommandRepository<T> where T : class
     {
         // To load an entity before updating it
         Task<T?> GetByIdAsync(Ulid id);  

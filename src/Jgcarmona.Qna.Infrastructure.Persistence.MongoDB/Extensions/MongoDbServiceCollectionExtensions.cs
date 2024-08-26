@@ -9,12 +9,24 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions
     {
         public static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
-            var mongoSettings = configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+            var mongoSettings = new MongoDbSettings();
+            configuration.GetSection("MongoDbSettings").Bind(mongoSettings);
+            MongoClientSettings settings = MongoClientSettings.FromConnectionString(mongoSettings.ConnectionString);
 
-            services.AddSingleton<IMongoClient>(sp => new MongoClient(mongoSettings.ConnectionString));
-            services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDatabase(mongoSettings.DatabaseName));
+            var mongoClient = new MongoClient(settings);
+            var mongoDatabase = mongoClient.GetDatabase(mongoSettings.DatabaseName);
+
+            services.AddSingleton(mongoDatabase);
+            services.AddSingleton<MongoDbInitializer>();
 
             return services;
+        }
+
+        public static async Task InitializeMongoDbAsync(this IServiceProvider services)
+        {
+            using var scope = services.CreateScope();
+            var initializer = scope.ServiceProvider.GetRequiredService<MongoDbInitializer>();
+            await initializer.EnsureDatabaseIsReady();
         }
     }
 }

@@ -1,16 +1,16 @@
-using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Abstract;
 
 namespace Jgcarmona.Qna.Services.SyncService;
-
 public class SyncServiceWorker : BackgroundService
 {
     private readonly IEventListener _messagingListener;
+    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<SyncServiceWorker> _logger;
 
-    public SyncServiceWorker(IEventListener messagingListener, ILogger<SyncServiceWorker> logger)
+    public SyncServiceWorker(IEventListener messagingListener, IServiceProvider serviceProvider, ILogger<SyncServiceWorker> logger)
     {
         _messagingListener = messagingListener;
+        _serviceProvider = serviceProvider;
         _logger = logger;
     }
 
@@ -20,32 +20,26 @@ public class SyncServiceWorker : BackgroundService
         {
             try
             {
-                // Log the received event
-                _logger.LogInformation("SyncService received event: {EventId}, occurred on {OccurredOn}",
-                    domainEvent.Id, domainEvent.OccurredOn);
+                _logger.LogInformation("SyncService received event: {EventId}, occurred on {OccurredOn}", domainEvent.Id, domainEvent.OccurredOn);
 
-                // Add your specific stats handling logic here based on the event type
-                if (domainEvent is UserViewedEvent userViewedEvent)
+                var eventType = domainEvent.GetType();
+                var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
+                var handler = _serviceProvider.GetService(handlerType);
+
+                if (handler != null)
                 {
-                    // Handle the UserViewedEvent specifically
-                    _logger.LogInformation("Processing UserViewedEvent for user {UserId}, username: {Username}",
-                        userViewedEvent.UserId, userViewedEvent.Username);
-
-                    // Add additional logic to update stats based on the event
+                    var method = handlerType.GetMethod("Handle");
+                    await (Task)method.Invoke(handler, new object[] { domainEvent });
                 }
                 else
                 {
-                    _logger.LogWarning("Received an unhandled event type: {EventType}", domainEvent.GetType().Name);
+                    _logger.LogWarning("No handler found for event type: {EventType}", eventType.Name);
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing the event in SyncService.");
             }
-
-            await Task.CompletedTask;
-
         }, stoppingToken);
     }
 }
-

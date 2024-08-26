@@ -1,5 +1,6 @@
 using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
 using Serilog;
 
 namespace Jgcarmona.Qna.Services.SyncService;
@@ -17,6 +18,9 @@ public class Program
         {
             Log.Information("Starting SyncService");
             var host = CreateHostBuilder(args).Build();
+
+            // Initialize MongoDB connection before running the host
+            await host.Services.InitializeMongoDbAsync();
 
             await host.RunAsync();
         }
@@ -45,13 +49,11 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
-                // Register the configuration settings for CommonFeatureFlags
                 services.Configure<CommonFeatureFlags>(hostContext.Configuration.GetSection("CommonFeatureFlags"));
-
-                // Register the appropriate messaging listener based on the configured provider
+                services.AddMongoDb(hostContext.Configuration);
                 services.AddMessagingListener(hostContext.Configuration);
-
-                // Register the main hosted service for SyncService
-                services.AddHostedService<SyncServiceWorker>(); // Aquí es donde cambiamos a la nueva clase Worker
+                services.AddHostedService<SyncServiceWorker>();
+                services.AddSyncRepositories();
+                services.AddEventHandlers();
             });
 }
