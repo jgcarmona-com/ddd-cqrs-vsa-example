@@ -1,18 +1,15 @@
-﻿using NUlid;
+﻿using Jgcarmona.Qna.Domain.Entities;
+using NUlid;
 
 namespace Jgcarmona.Qna.Domain.Events
 {
     public class UserRegisteredEvent : EventBase
     {
-        public Ulid UserId { get; }
-        public string Username { get; }
-        public string Role { get; }
+        public User User { get; }
 
-        public UserRegisteredEvent(Ulid userId, string username, string role)
+        public UserRegisteredEvent(User user)
         {
-            UserId = userId;
-            Username = username;
-            Role = role;
+            User = user;
         }
     }
 }

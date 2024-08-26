@@ -21,9 +21,10 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Users
         {
             var userView = new UserView
             {
-                Id = domainEvent.UserId,
-                Username = domainEvent.Username,
-                Role = domainEvent.Role
+                Id = domainEvent.User.Id,
+                Username = domainEvent.User.Username,
+                Role = domainEvent.User.Role,
+                RegisteredAt = domainEvent.User.CreatedAt
             };
 
             await _userRepository.AddAsync(userView);

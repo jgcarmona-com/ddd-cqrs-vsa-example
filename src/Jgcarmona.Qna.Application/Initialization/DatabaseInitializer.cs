@@ -40,7 +40,7 @@ namespace Jgcarmona.Qna.Application.Initialization
                 await _userRepository.AddAsync(adminUser);
                 _logger.LogInformation("Admin user created successfully in SQL.");
 
-                await _eventDispatcher.DispatchAsync(new UserRegisteredEvent(adminUser.Id, adminUser.Username, adminUser.Role));
+                await _eventDispatcher.DispatchAsync(new UserRegisteredEvent(adminUser));
                 _logger.LogInformation("Event dispatched for admin user creation.");
             }
         }

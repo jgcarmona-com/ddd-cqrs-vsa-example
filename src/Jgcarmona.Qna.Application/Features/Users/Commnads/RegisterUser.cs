@@ -61,7 +61,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, U
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
         // Dispatch the event
-        var userRegisteredEvent = new UserRegisteredEvent(newUser.Id, newUser.Username, newUser.Role)
+        var userRegisteredEvent = new UserRegisteredEvent(newUser)
         {
             CorrelationId = correlationId
         };
