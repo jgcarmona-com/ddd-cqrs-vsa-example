@@ -10,5 +10,6 @@ namespace Jgcarmona.Qna.Domain.Entities
         public List<Question> Questions { get; set; } = new();
         public List<Answer> Answers { get; set; } = new();
         public List<Vote> Votes { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
     }
 }

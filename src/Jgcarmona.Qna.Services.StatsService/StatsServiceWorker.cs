@@ -28,7 +28,7 @@ public class StatsServiceWorker : BackgroundService
                 if (domainEvent is UserViewedEvent userViewedEvent)
                 {
                     // Handle the UserViewedEvent specifically
-                    _logger.LogInformation("Processing UserViewedEvent for user {UserId}, username: {Username}",
+                    _logger.LogInformation("Processing UserViewedEvent for user {AuthorId}, username: {Username}",
                         userViewedEvent.UserId, userViewedEvent.Username);
 
                     // Add additional logic to update stats based on the event

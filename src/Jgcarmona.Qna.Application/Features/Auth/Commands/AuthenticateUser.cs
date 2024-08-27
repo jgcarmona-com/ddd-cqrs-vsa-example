@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Jgcarmona.Qna.Domain.Abstract.Repositories;
 using Jgcarmona.Qna.Application.Features.Auth.Models;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 
 namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 {
@@ -47,6 +47,7 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
                 Subject = new ClaimsIdentity(
                 [
                     new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
                 ]),
                 Expires = DateTime.UtcNow.AddMinutes(30),

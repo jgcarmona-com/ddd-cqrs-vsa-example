@@ -41,7 +41,7 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
             var username = User?.Identity?.Name;
             if (username == null)
             {
-                return BadRequest("User is not authenticated");
+                return BadRequest("Author is not authenticated");
             }
 
             var query = new GetUserByUsernameQuery(username);
@@ -49,7 +49,7 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
 
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound("Author not found");
             }
 
             return Ok(user);

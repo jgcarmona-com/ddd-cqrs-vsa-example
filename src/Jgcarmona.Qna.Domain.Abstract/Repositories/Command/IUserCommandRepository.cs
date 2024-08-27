@@ -1,6 +1,6 @@
 using Jgcarmona.Qna.Domain.Entities;
 
-namespace Jgcarmona.Qna.Domain.Abstract.Repositories;
+namespace Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 
 public interface IUserCommandRepository : ICommandRepository<User>
 {

@@ -1,7 +1,9 @@
 using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
 using Serilog;
+using System.Text.Json;
 
 namespace Jgcarmona.Qna.Services.SyncService;
 
@@ -51,6 +53,10 @@ public class Program
             {
                 services.Configure<CommonFeatureFlags>(hostContext.Configuration.GetSection("CommonFeatureFlags"));
                 services.AddMongoDb(hostContext.Configuration);
+                services.AddSingleton(new JsonSerializerOptions
+                {
+                    Converters = { new UlidJsonConverter() }
+                });
                 services.AddMessagingListener(hostContext.Configuration);
                 services.AddHostedService<SyncServiceWorker>();
                 services.AddSyncRepositories();

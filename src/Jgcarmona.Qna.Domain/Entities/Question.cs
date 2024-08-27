@@ -8,7 +8,9 @@ namespace Jgcarmona.Qna.Domain.Entities
         public string Content { get; set; } = string.Empty;
         public List<Answer> Answers { get; set; } = new();
         public List<Vote> Votes { get; set; } = new();
-        public Ulid UserId { get; set; }
-        public User User { get; set; }
+        public List<Comment> Comments { get; set; } = new();
+        public List<string> Tags { get; set; } = new();
+        public Ulid AuthorId { get; set; }
+        public User Author { get; set; }
     }
 }

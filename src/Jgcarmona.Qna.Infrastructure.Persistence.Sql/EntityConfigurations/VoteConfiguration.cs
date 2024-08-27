@@ -9,14 +9,17 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
         public override void Configure(EntityTypeBuilder<Vote> builder)
         {
             base.Configure(builder);
+
+            builder.Property(v => v.IsUpvote).IsRequired();
+
             builder.HasOne(v => v.Question)
                    .WithMany(q => q.Votes)
                    .HasForeignKey(v => v.QuestionId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(v => v.User)
+            builder.HasOne(v => v.Author)
                    .WithMany(u => u.Votes)
-                   .HasForeignKey(v => v.UserId)
+                   .HasForeignKey(v => v.AuthorId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

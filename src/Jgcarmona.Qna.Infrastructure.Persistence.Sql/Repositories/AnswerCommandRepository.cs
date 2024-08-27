@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Domain.Abstract.Repositories;
+﻿using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql;
 

@@ -9,6 +9,7 @@ using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Extensions;
+using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Services;
 using Serilog;
 using System.Text.Json;
 
@@ -47,6 +48,7 @@ public class Program
         builder.Services.AddEventDispatcher(builder.Configuration);
 
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        builder.Services.AddScoped<IMonikerService, MonikerService>();
         builder.Services.AddScoped<DatabaseInitializer>();
         builder.Services.AddSingleton(new JsonSerializerOptions
         {

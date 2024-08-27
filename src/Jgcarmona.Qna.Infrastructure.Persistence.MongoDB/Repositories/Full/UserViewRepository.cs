@@ -1,11 +1,13 @@
-﻿using Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Views;
+﻿using Jgcarmona.Qna.Domain.Abstract.Repositories.Full;
+using Jgcarmona.Qna.Domain.Views;
+using Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories;
 using MongoDB.Driver;
 
-namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries
+namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Full
 {
-    public class UserQueryRepository : MongoQueryRepository<UserView>, IUserQueryRepository
+    public class UserViewRepository : MongoRepository<UserView>, IUserViewRepository
     {
-        public UserQueryRepository(IMongoDatabase database) : base(database, "users")
+        public UserViewRepository(IMongoDatabase database) : base(database, "users")
         {
         }
 
