@@ -1,4 +1,5 @@
-﻿using Jgcarmona.Qna.Domain.Abstract.Events;
+﻿using Jgcarmona.Qna.Application.Features.Questions.Models;
+using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 using Jgcarmona.Qna.Domain.Abstract.Services;
 using Jgcarmona.Qna.Domain.Entities;
@@ -10,20 +11,13 @@ using NUlid;
 
 namespace Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion
 {
-    public class CreateQuestionModel
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public List<string> Tags { get; set; } = new List<string>();
-    }
-
-    public class CreateQuestionCommand : IRequest<QuestionResponse>
+    public class CreateQuestionCommand : IRequest<QuestionModel>
     {
         public CreateQuestionModel Model { get; set; } = null!;
         public Ulid AuthorId { get; set; }
     }
 
-    public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand, QuestionResponse>
+    public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand, QuestionModel>
     {
         private readonly ICommandRepository<Question> _questionRepository;
         private readonly IMonikerService _monikerService;
@@ -45,7 +39,7 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<QuestionResponse> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
+        public async Task<QuestionModel> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
         {
             var model = request.Model;
 
@@ -60,7 +54,7 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion
             newQuestion.SetMoniker(questionMoniker);
 
             await _questionRepository.AddAsync(newQuestion);
-
+            _logger.LogInformation($"Question with ID {newQuestion.Id} created.");
             var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
             var questionCreatedEvent = new QuestionCreatedEvent(newQuestion, request.AuthorId.ToString())
@@ -68,22 +62,8 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion
                 CorrelationId = correlationId
             };
             await _eventDispatcher.DispatchAsync(questionCreatedEvent);
-
-            return new QuestionResponse
-            {
-                Id = newQuestion.Id,
-                Moniker = newQuestion.Moniker,
-                Title = newQuestion.Title,
-                Content = newQuestion.Content
-            };
+            _logger.LogInformation($"Question Created Event dispatched for question with ID {newQuestion.Id}.");
+            return QuestionModel.FromEntity(newQuestion);
         }
-    }
-
-    public class QuestionResponse
-    {
-        public Ulid Id { get; set; }
-        public string Moniker { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         name: "FK_Questions_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -73,13 +73,13 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Answers_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -102,13 +102,13 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         name: "FK_Votes_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Votes_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -132,17 +132,17 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         name: "FK_Comment_Answers_AnswerId",
                         column: x => x.AnswerId,
                         principalTable: "Answers",
-                        principalColumn: "Id");
+                        principalColumn: "EntityId");
                     table.ForeignKey(
                         name: "FK_Comment_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id");
+                        principalColumn: "EntityId");
                     table.ForeignKey(
                         name: "FK_Comment_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "EntityId",
                         onDelete: ReferentialAction.Restrict);
                 });
 

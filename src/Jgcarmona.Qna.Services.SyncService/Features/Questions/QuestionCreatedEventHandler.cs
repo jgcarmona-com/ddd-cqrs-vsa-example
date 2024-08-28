@@ -23,7 +23,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Questions
 
             var questionView = new QuestionView
             {
-                Id = question.Id.ToString(),
+                EntityId = question.Id.ToString(),
                 Moniker = question.Moniker,
                 Title = question.Title,
                 Content = question.Content,

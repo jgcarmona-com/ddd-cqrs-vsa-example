@@ -6,7 +6,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries
 {
     public class QuestionViewQueryRepository : MongoQueryRepository<QuestionView>, IQuestionViewQueryRepository
     {
-        public QuestionViewQueryRepository(IMongoDatabase database) : base(database, "questions")
+        public QuestionViewQueryRepository(IMongoDatabase database) : base(database, "Questions")
         {
         }
 

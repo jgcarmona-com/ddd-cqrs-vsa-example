@@ -17,7 +17,7 @@ namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories
 
         public async Task<T?> GetByIdAsync(Ulid id)
         {
-            var filter = Builders<T>.Filter.Eq("Id", id.ToString());
+            var filter = Builders<T>.Filter.Eq("EntityId", id.ToString());
             return await _collection
                 .Find(filter)
                 .SortByDescending(q => q.UpdatedAt)
@@ -41,13 +41,13 @@ namespace Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories
 
         public async Task UpdateAsync(T entity)
         {
-            var filter = Builders<T>.Filter.Eq("Id", entity.GetType().GetProperty("Id")?.GetValue(entity, null).ToString());
+            var filter = Builders<T>.Filter.Eq("EntityId", entity.GetType().GetProperty("EntityId")?.GetValue(entity, null).ToString());
             await _collection.ReplaceOneAsync(filter, entity);
         }
 
         public async Task DeleteAsync(T entity)
         {
-            var filter = Builders<T>.Filter.Eq("Id", entity.GetType().GetProperty("Id")?.GetValue(entity, null).ToString());
+            var filter = Builders<T>.Filter.Eq("EntityId", entity.GetType().GetProperty("EntityId")?.GetValue(entity, null).ToString());
             await _collection.DeleteOneAsync(filter);
         }
     }

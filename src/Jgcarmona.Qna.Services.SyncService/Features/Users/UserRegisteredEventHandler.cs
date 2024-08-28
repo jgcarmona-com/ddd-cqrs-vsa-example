@@ -21,7 +21,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Users
         {
             var userView = new UserView
             {
-                Id = domainEvent.User.Id.ToString(),
+                EntityId = domainEvent.User.Id.ToString(),
                 Username = domainEvent.User.Username,
                 Role = domainEvent.User.Role,
                 RegisteredAt = domainEvent.User.CreatedAt

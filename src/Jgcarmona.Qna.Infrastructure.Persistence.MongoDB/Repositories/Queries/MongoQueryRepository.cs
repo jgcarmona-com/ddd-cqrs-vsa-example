@@ -17,7 +17,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries
 
         public async Task<T?> GetByIdAsync(Ulid id)
         {
-            var filter = Builders<T>.Filter.Eq("Id", id.ToString());
+            var filter = Builders<T>.Filter.Eq("EntityId", id.ToString());
             return await _collection
                 .Find(filter)
                 .SortByDescending(q => q.UpdatedAt)

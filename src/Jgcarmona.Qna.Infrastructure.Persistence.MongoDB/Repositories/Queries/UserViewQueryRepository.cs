@@ -6,7 +6,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries
 {
     public class UserViewQueryRepository : MongoQueryRepository<UserView>, IUserViewQueryRepository
     {
-        public UserViewQueryRepository(IMongoDatabase database) : base(database, "users")
+        public UserViewQueryRepository(IMongoDatabase database) : base(database, "Users")
         {
         }
 

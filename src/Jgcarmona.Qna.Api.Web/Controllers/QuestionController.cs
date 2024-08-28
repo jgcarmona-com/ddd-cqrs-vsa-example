@@ -5,6 +5,8 @@ using Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion;
 using NUlid;
 using System.Security.Claims;
 using Jgcarmona.Qna.Application.Features.Questions.Queries;
+using Jgcarmona.Qna.Application.Features.Questions.Commands;
+using Jgcarmona.Qna.Application.Features.Questions.Models;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -20,7 +22,7 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost("create")]
+        [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] CreateQuestionModel model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -77,6 +79,26 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
             }
 
             return Ok(question);
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, [FromBody] UpdateQuestionModel model)
+        {
+            var command = new UpdateQuestionCommand
+            {
+                QuestionId = Ulid.Parse(id),
+                Title = model.Title,
+                Content = model.Content,
+                Tags = model.Tags
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return BadRequest("Failed to update question");
+
+            return Ok("Question updated successfully");
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Answer", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -56,7 +56,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntityId");
 
                     b.HasIndex("AuthorId");
 
@@ -67,7 +67,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Comment", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnswerId")
@@ -95,7 +95,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntityId");
 
                     b.HasIndex("AnswerId");
 
@@ -108,7 +108,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Question", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -143,7 +143,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntityId");
 
                     b.HasIndex("AuthorId");
 
@@ -155,7 +155,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -182,7 +182,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntityId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -192,7 +192,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Vote", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -217,7 +217,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntityId");
 
                     b.HasIndex("AuthorId");
 
