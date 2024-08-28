@@ -28,9 +28,28 @@
             public string AuthorId { get; set; }
             public string AuthorName { get; set; }
             public int Votes { get; set; }
-            public bool IsAccepted { get; set; } // Si la respuesta ha sido marcada como aceptada
+            public bool IsAccepted { get; set; }
             public List<CommentView> Comments { get; set; } = new();
         }
-    }
 
+        public QuestionView CreateNewVersion()
+        {
+            return new QuestionView
+            {
+                EntityId = this.EntityId,
+                Moniker = this.Moniker,
+                Title = this.Title,
+                Content =  this.Content,
+                Tags = this.Tags,
+                Answers = this.Answers, 
+                Comments = this.Comments, 
+                AuthorId = this.AuthorId,
+                AuthorName = this.AuthorName,
+                CreatedAt = this.CreatedAt, 
+                TotalVotes = this.TotalVotes, 
+                LastActivityAt = DateTime.UtcNow, 
+                Version = this.Version + 1 
+            };
+        }
+    }
 }

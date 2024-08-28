@@ -4,7 +4,6 @@ using Jgcarmona.Qna.Domain.Views;
 
 namespace Jgcarmona.Qna.Application.Features.Answers.Models
 {
-
     public class AnswerModel
     {
         public string Id { get; set; }

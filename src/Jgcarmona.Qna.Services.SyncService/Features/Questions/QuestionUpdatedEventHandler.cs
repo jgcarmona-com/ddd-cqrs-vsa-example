@@ -25,21 +25,11 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Questions
                 return;
             }
 
-            var newQuestionView = new QuestionView
-            {
-                EntityId = existingQuestionView.EntityId,
-                Moniker = existingQuestionView.Moniker,
-                Title = domainEvent.Question.Title,
-                Content = domainEvent.Question.Content,
-                Tags = domainEvent.Question.Tags,
-                Answers = existingQuestionView.Answers,
-                Comments = existingQuestionView.Comments,
-                AuthorId = existingQuestionView.AuthorId,
-                CreatedAt = existingQuestionView.CreatedAt,
-                TotalVotes = existingQuestionView.TotalVotes,
-                UpdatedAt = DateTime.UtcNow,
-                Version = existingQuestionView.Version + 1 // Increase the version number
-            };
+            var newQuestionView = existingQuestionView.CreateNewVersion();
+            newQuestionView.Title = domainEvent.Question.Title;
+            newQuestionView.Content = domainEvent.Question.Content;
+            newQuestionView.Tags = domainEvent.Question.Tags;
+            newQuestionView.LastActivityAt = DateTime.UtcNow;
 
             await _questionViewRepository.AddAsync(newQuestionView);
 
