@@ -1,6 +1,6 @@
+using Jgcarmona.Qna.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
 {
@@ -15,7 +15,19 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
             builder.HasOne(c => c.Author)
                    .WithMany(a => a.Comments)
                    .HasForeignKey(c => c.AuthorId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(c => c.Question)
+                    .WithMany(q => q.Comments)
+                    .HasForeignKey(c => c.QuestionId)
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired(false);    
+
+            builder.HasOne(c => c.Answer)
+                    .WithMany(a => a.Comments)
+                    .HasForeignKey(c => c.AnswerId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
         }
     }
 }

@@ -45,13 +45,20 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions
             var questionIndexModel = new CreateIndexModel<QuestionView>(questionIndexKeys);
             await questionCollection.Indexes.CreateOneAsync(questionIndexModel);
 
-            // Initialize indexes for UserView 
-            var userCollection = _database.GetCollection<UserView>("Users");
-            var userIndexKeys = Builders<UserView>.IndexKeys
+            // Initialize indexes for AccountView 
+            var accountCollection = _database.GetCollection<AccountView>("Accounts");
+            var userIndexKeys = Builders<AccountView>.IndexKeys
                 .Ascending(u => u.EntityId)
                 .Ascending(u => u.Version);
-            var userIndexModel = new CreateIndexModel<UserView>(userIndexKeys);
-            await userCollection.Indexes.CreateOneAsync(userIndexModel);
+            var userIndexModel = new CreateIndexModel<AccountView>(userIndexKeys);
+            await accountCollection.Indexes.CreateOneAsync(userIndexModel);
+
+            var userProfileCollection = _database.GetCollection<UserProfileView>("UserProfiles");
+            var userProfileIndexKeys = Builders<UserProfileView>.IndexKeys
+                .Ascending(up => up.EntityId)
+                .Ascending(up => up.Version);
+            var userProfileIndexModel = new CreateIndexModel<UserProfileView>(userProfileIndexKeys);
+            await userProfileCollection.Indexes.CreateOneAsync(userProfileIndexModel);
 
             _logger.LogInformation("Indexes for MongoDB collections initialized successfully.");
         }

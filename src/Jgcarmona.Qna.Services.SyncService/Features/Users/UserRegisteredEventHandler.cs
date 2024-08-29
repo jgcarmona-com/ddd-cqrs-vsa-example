@@ -4,31 +4,32 @@ using Jgcarmona.Qna.Domain.Views;
 
 namespace Jgcarmona.Qna.Services.SyncService.Features.Users
 {
-    public class UserRegisteredEventHandler : IEventHandler<UserRegisteredEvent>
+    public class AccountCreatedEventHandler : IEventHandler<AccountCreatedEvent>
     {
-        private readonly IUserViewRepository _userRepository;
-        private readonly ILogger<UserRegisteredEventHandler> _logger;
+        private readonly IAccountViewRepository _accountRepository;
+        private readonly ILogger<AccountCreatedEventHandler> _logger;
 
-        public UserRegisteredEventHandler(
-            IUserViewRepository userRepository, 
-            ILogger<UserRegisteredEventHandler> logger)
+        public AccountCreatedEventHandler(
+            IAccountViewRepository accountRepository, 
+            ILogger<AccountCreatedEventHandler> logger)
         {
-            _userRepository = userRepository;
+            _accountRepository = accountRepository;
             _logger = logger;
         }
 
-        public async Task Handle(UserRegisteredEvent domainEvent)
+        public async Task Handle(AccountCreatedEvent domainEvent)
         {
-            var userView = new UserView
+            var account = new AccountView
             {
-                EntityId = domainEvent.User.Id.ToString(),
-                Username = domainEvent.User.Username,
-                Role = domainEvent.User.Role,
-                RegisteredAt = domainEvent.User.CreatedAt
+                EntityId = domainEvent.Id.ToString(),
+                Name = domainEvent.Name,
+                Roles = domainEvent.Roles,
+                CreatedAt = domainEvent.CreatedAt,
+                ProfileIds = domainEvent.ProfileIds
             };
 
-            await _userRepository.AddAsync(userView);
-            _logger.LogInformation("Author {Username} added to MongoDB successfully.", userView.Username);
+            await _accountRepository.AddAsync(account);
+            _logger.LogInformation("Account {Name} added to MongoDB successfully.", account.Name);
         }
     }
 }

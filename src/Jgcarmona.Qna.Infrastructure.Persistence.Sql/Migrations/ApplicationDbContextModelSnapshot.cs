@@ -22,9 +22,67 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Account", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PasswordResetExpiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PasswordResetToken")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Accounts", (string)null);
+                });
+
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Answer", b =>
                 {
-                    b.Property<string>("EntityId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -53,7 +111,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EntityId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -64,7 +122,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Comment", b =>
                 {
-                    b.Property<string>("EntityId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnswerId")
@@ -92,7 +150,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EntityId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
 
@@ -105,7 +163,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Question", b =>
                 {
-                    b.Property<string>("EntityId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -140,7 +198,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EntityId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -150,9 +208,13 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.User", b =>
+            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.UserProfile", b =>
                 {
-                    b.Property<string>("EntityId")
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -160,36 +222,56 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ProfilePictureUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.HasKey("Id");
 
-                    b.HasKey("EntityId");
+                    b.HasIndex("AccountId");
 
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.ToTable("Users");
+                    b.ToTable("UserProfile");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Vote", b =>
                 {
-                    b.Property<string>("EntityId")
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AnswerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorId")
@@ -208,13 +290,14 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("QuestionId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EntityId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
 
                     b.HasIndex("AuthorId");
 
@@ -225,7 +308,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Answer", b =>
                 {
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.User", "Author")
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.UserProfile", "Author")
                         .WithMany("Answers")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -244,26 +327,32 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Answer", null)
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Answer", "Answer")
                         .WithMany("Comments")
-                        .HasForeignKey("AnswerId");
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.User", "Author")
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.UserProfile", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Question", null)
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Question", "Question")
                         .WithMany("Comments")
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Answer");
 
                     b.Navigation("Author");
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Question", b =>
                 {
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.User", "Author")
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.UserProfile", "Author")
                         .WithMany("Questions")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -272,9 +361,25 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.UserProfile", b =>
+                {
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Account", "Account")
+                        .WithMany("Profiles")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Vote", b =>
                 {
-                    b.HasOne("Jgcarmona.Qna.Domain.Entities.User", "Author")
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.Answer", "Answer")
+                        .WithMany("Votes")
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Jgcarmona.Qna.Domain.Entities.UserProfile", "Author")
                         .WithMany("Votes")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -283,17 +388,25 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.HasOne("Jgcarmona.Qna.Domain.Entities.Question", "Question")
                         .WithMany("Votes")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Answer");
 
                     b.Navigation("Author");
 
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("Profiles");
+                });
+
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Answer", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Question", b =>
@@ -305,7 +418,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Navigation("Votes");
                 });
 
-            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.User", b =>
+            modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.UserProfile", b =>
                 {
                     b.Navigation("Answers");
 

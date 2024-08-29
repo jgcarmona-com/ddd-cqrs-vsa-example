@@ -1,12 +1,11 @@
 ﻿using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 using Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Infrastructure.Persistence.Sql;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories
 {
-    public class VoteCommandRepository : CommandRepository<Vote>, ICommandRepository<Vote>
+    public class UserProfileCommandRepository : CommandRepository<UserProfile>, ICommandRepository<UserProfile>
     {
-        public VoteCommandRepository(ApplicationDbContext context) : base(context)
+        public UserProfileCommandRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

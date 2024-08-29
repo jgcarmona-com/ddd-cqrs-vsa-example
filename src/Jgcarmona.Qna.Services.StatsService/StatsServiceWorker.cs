@@ -25,10 +25,10 @@ public class StatsServiceWorker : BackgroundService
                     domainEvent.Id, domainEvent.OccurredOn);
 
                 // Add your specific stats handling logic here based on the event type
-                if (domainEvent is UserViewedEvent userViewedEvent)
+                if (domainEvent is AccountViewedEvent userViewedEvent)
                 {
-                    // Handle the UserViewedEvent specifically
-                    _logger.LogInformation("Processing UserViewedEvent for user {AuthorId}, username: {Username}",
+                    // Handle the AccountViewedEvent specifically
+                    _logger.LogInformation("Processing AccountViewedEvent for user {AuthorId}, username: {Name}",
                         userViewedEvent.UserId, userViewedEvent.Username);
 
                     // Add additional logic to update stats based on the event

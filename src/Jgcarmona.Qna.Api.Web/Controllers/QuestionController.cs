@@ -28,7 +28,7 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
             {
-                return Unauthorized("User ID not found in token.");
+                return Unauthorized("Account ID not found in token.");
             }
             var userNameClaim = User.FindFirst(ClaimTypes.Name)?.Value;
 

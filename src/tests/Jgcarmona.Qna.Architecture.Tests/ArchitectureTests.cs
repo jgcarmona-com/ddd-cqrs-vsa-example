@@ -39,7 +39,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         public void Domain_Should_Not_Have_Dependencies_On_Application_Or_Persistence()
         {
             var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Domain.Entities.User).Assembly)
+                .InAssembly(typeof(Jgcarmona.Qna.Domain.Entities.Account).Assembly)
                 .ShouldNot()
                 .HaveDependencyOnAny(ApplicationNamespace, PersistenceNamespace)
                 .GetResult();
@@ -51,7 +51,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         public void Application_Should_Not_Have_Dependencies_On_Persistence()
         {
             var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Application.Features.Users.Commands.RegisterUser.RegisterUserCommand).Assembly)
+                .InAssembly(typeof(Jgcarmona.Qna.Application.Features.Accounts.Commands.SignUp.SignupCommand).Assembly)
                 .ShouldNot()
                 .HaveDependencyOn(PersistenceNamespace)
                 .GetResult();
