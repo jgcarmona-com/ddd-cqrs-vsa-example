@@ -8,7 +8,12 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 {
     public class AssignRoleCommand : IRequest<AccountModel>
     {
-        public Ulid UserId { get; set; }
+        public AssignRoleCommand(string userId, string role)
+        {
+            UserId = userId;
+            Role = role;
+        }
+        public string UserId { get; set; }
         public string Role { get; set; } = string.Empty;
     }
 
@@ -25,7 +30,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
         public async Task<AccountModel> Handle(AssignRoleCommand request, CancellationToken cancellationToken)
         {
-            var user = await _accountRepository.GetByIdAsync(request.UserId);
+            var user = await _accountRepository.GetByIdAsync(Ulid.Parse(request.UserId));
             if (user == null)
             {
                 throw new Exception($"Account with id {request.UserId} not found");

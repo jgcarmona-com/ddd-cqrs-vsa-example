@@ -4,7 +4,6 @@ using Jgcarmona.Qna.Application.Features.Admin.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NUlid;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -28,25 +27,23 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
         }
 
         [HttpPut("users/{userId}/enable")]
-        public async Task<ActionResult<AccountModel>> EnableUser(Ulid userId)
+        public async Task<ActionResult<AccountModel>> EnableUser(string userId)
         {
             var user = await _mediator.Send(new EnableUserCommand(userId));
             return Ok(user);
         }
 
         [HttpDelete("users/{userId}")]
-        public async Task<IActionResult> DeleteUser(Ulid userId)
+        public async Task<IActionResult> DeleteUser(string userId)
         {
             await _mediator.Send(new DeleteUserCommand(userId));
             return NoContent();
         }
 
-        // Método para asignar roles
-        [HttpPut("users/{userId}/assign-role")]
-        public async Task<ActionResult<AccountModel>> AssignRole(Ulid userId, [FromBody] AssignRoleCommand command)
+        [HttpPut("users/{userId}/assign-role/{role}")]
+        public async Task<ActionResult<AccountModel>> AssignRole(string userId, string role)
         {
-            command.UserId = userId;
-            var user = await _mediator.Send(command);
+            var user = await _mediator.Send(new AssignRoleCommand(userId, role));
             return Ok(user);
         }
     }

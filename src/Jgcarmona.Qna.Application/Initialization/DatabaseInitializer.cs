@@ -35,7 +35,7 @@ namespace Jgcarmona.Qna.Application.Initialization
                 {
                     Username = "admin",
                     PasswordHash = _passwordHasher.Hash("P@ssw0rd!"),
-                    Roles = ["Admin", "Account"],
+                    Roles = ["Admin", "User"],
                     IsActive = true,
                     Profiles =
                     [

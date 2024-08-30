@@ -9,8 +9,8 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
     public class EnableUserCommand : IRequest<AccountModel>
     {
-        public Ulid UserId { get; set; }
-        public EnableUserCommand(Ulid userId)
+        public string UserId { get; set; }
+        public EnableUserCommand(string userId)
         {
             UserId = userId;
         }
@@ -29,7 +29,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
         public async Task<AccountModel> Handle(EnableUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _accountRepository.GetByIdAsync(request.UserId);
+            var user = await _accountRepository.GetByIdAsync(Ulid.Parse(request.UserId));
             if (user == null)
             {
                 throw new Exception($"Account with id {request.UserId} not found");

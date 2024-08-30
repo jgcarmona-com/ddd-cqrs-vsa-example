@@ -10,11 +10,10 @@ using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 
 namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 {
-    public class AuthenticateUserCommand(string username, string password, string? profileId = null) : IRequest<TokenResponse>
+    public class AuthenticateUserCommand(string username, string password) : IRequest<TokenResponse>
     {
         public string Username { get; set; } = username;
         public string Password { get; set; } = password;
-        public string? ProfileId { get; set; } = profileId;
     }
 
     public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, TokenResponse>

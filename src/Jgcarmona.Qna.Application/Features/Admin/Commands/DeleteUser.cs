@@ -8,9 +8,9 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 {
     public class DeleteUserCommand : IRequest<AccountModel>
     {
-        public Ulid UserId { get; set; }
+        public string UserId { get; set; }
 
-        public DeleteUserCommand(Ulid userId)
+        public DeleteUserCommand(string userId)
         {
             UserId = userId;
         }
@@ -33,7 +33,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
             try
             {
-                var user = await _accountRepository.GetByIdAsync(request.UserId);
+                var user = await _accountRepository.GetByIdAsync(Ulid.Parse(request.UserId));
                 if (user == null)
                 {
                     throw new Exception($"Account with id {request.UserId} not found");
@@ -42,7 +42,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
                 await _accountRepository.DeleteAsync(user);
 
                 // TODO: Add event to notify that the user has been deleted
-                return AccountModel.FromEntity(user); // Devolvemos el modelo del usuario eliminado
+                return AccountModel.FromEntity(user);
             }
             catch (Exception ex)
             {

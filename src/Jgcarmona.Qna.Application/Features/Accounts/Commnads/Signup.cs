@@ -53,7 +53,7 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, AccountModel>
         {
             Username = signupModel.Username,
             PasswordHash = _passwordHasher.Hash(signupModel.Password),
-            Roles = ["Account"],
+            Roles = ["User"],
         };
 
         await _accountRepository.AddAsync(account);
