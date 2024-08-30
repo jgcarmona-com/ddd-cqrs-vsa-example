@@ -25,20 +25,19 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
         public async Task<AccountModel> Handle(RemoveRoleCommand request, CancellationToken cancellationToken)
         {
-            var user = await _accountRepository.GetByIdAsync(request.UserId);
-            if (user == null)
+            var account = await _accountRepository.GetByIdAsync(request.UserId);
+            if (account == null)
             {
                 throw new Exception($"Account with id {request.UserId} not found");
             }
 
-            // Remover el rol si está presente
-            user.RemoveRole(request.Role);
+            account.RemoveRole(request.Role);
 
-            await _accountRepository.UpdateAsync(user);
-            _logger.LogInformation($"Account {user.Username} has been removed role {request.Role}.");
+            await _accountRepository.UpdateAsync(account);
+            _logger.LogInformation($"Account {account.LoginName} has been removed role {request.Role}.");
 
-            // TODO: Add event to notify user has been removed role
-            return AccountModel.FromEntity(user);
+            // TODO: Add event to notify account has been removed role
+            return AccountModel.FromEntity(account);
         }
     }
 }

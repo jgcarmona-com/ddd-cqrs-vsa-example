@@ -16,7 +16,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LoginName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -35,7 +35,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProfile",
+                name: "UserProfiles",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -47,15 +47,16 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    IsPrimary = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProfile", x => x.Id);
+                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserProfile_Accounts_AccountId",
+                        name: "FK_UserProfiles_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
@@ -80,9 +81,9 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 {
                     table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Questions_UserProfile_AuthorId",
+                        name: "FK_Questions_UserProfiles_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "UserProfile",
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -110,15 +111,15 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Answers_UserProfile_AuthorId",
+                        name: "FK_Answers_UserProfiles_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "UserProfile",
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -132,22 +133,22 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Answers_AnswerId",
+                        name: "FK_Comments_Answers_AnswerId",
                         column: x => x.AnswerId,
                         principalTable: "Answers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comment_Questions_QuestionId",
+                        name: "FK_Comments_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Comment_UserProfile_AuthorId",
+                        name: "FK_Comments_UserProfiles_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "UserProfile",
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -181,17 +182,17 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Votes_UserProfile_AuthorId",
+                        name: "FK_Votes_UserProfiles_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "UserProfile",
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_Username",
+                name: "IX_Accounts_LoginName",
                 table: "Accounts",
-                column: "Username",
+                column: "LoginName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -205,18 +206,18 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_AnswerId",
-                table: "Comment",
+                name: "IX_Comments_AnswerId",
+                table: "Comments",
                 column: "AnswerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_AuthorId",
-                table: "Comment",
+                name: "IX_Comments_AuthorId",
+                table: "Comments",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_QuestionId",
-                table: "Comment",
+                name: "IX_Comments_QuestionId",
+                table: "Comments",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
@@ -231,8 +232,8 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProfile_AccountId",
-                table: "UserProfile",
+                name: "IX_UserProfiles_AccountId",
+                table: "UserProfiles",
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
@@ -255,7 +256,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Votes");
@@ -267,7 +268,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "UserProfile");
+                name: "UserProfiles");
 
             migrationBuilder.DropTable(
                 name: "Accounts");

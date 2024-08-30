@@ -12,7 +12,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries
 
         public async Task<AccountView?> GetByNameAsync(string name)
         {
-            var filter = Builders<AccountView>.Filter.Eq(u => u.Name, name);
+            var filter = Builders<AccountView>.Filter.Eq(a => a.LoginName, name);
             return await _collection.Find(filter).FirstOrDefaultAsync();
         }
     }

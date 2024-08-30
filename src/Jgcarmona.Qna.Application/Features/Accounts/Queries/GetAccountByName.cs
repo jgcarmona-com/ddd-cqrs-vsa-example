@@ -48,7 +48,7 @@ namespace Jgcarmona.Qna.Application.Features.Accounts.Queries
             var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
             // Dispatch the event
-            var accountViewedEvent = new AccountViewedEvent(account.Id, account.Username)
+            var accountViewedEvent = new AccountViewedEvent(account.Id, account.LoginName)
             {
                 CorrelationId = correlationId
             };

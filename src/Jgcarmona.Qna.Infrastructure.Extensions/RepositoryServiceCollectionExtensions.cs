@@ -3,9 +3,11 @@ using Jgcarmona.Qna.Domain.Abstract.Repositories.Full;
 using Jgcarmona.Qna.Domain.Abstract.Repositories.Queries;
 using Jgcarmona.Qna.Domain.Abstract.Repositories.Query;
 using Jgcarmona.Qna.Domain.Entities;
+using Jgcarmona.Qna.Domain.Views;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Full;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories;
+using Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Jgcarmona.Qna.Infrastructure.Extensions
@@ -38,6 +40,7 @@ namespace Jgcarmona.Qna.Infrastructure.Extensions
         public static IServiceCollection AddSyncRepositories(this IServiceCollection services)
         {
             services.AddScoped<IAccountViewRepository, AccountViewRepository>();
+            services.AddScoped<IUserProfileViewRepository, UserProfileViewRepository>();
             services.AddScoped<IQuestionViewRepository, QuestionViewRepository>();
             return services;
         }

@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
+using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 {
@@ -39,20 +40,18 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
                 return null;
             }
 
-            var selectedProfile = account.Profiles.FirstOrDefault();
-            if (!string.IsNullOrEmpty(request.ProfileId))
+            var selectedProfile = account.Profiles.Where(up => up.IsPrimary).FirstOrDefault();
+
+            selectedProfile = account.Profiles.FirstOrDefault(p => p.IsPrimary);
+            if (selectedProfile == null)
             {
-                selectedProfile = account.Profiles.FirstOrDefault(p => p.Id.ToString() == request.ProfileId);
-                if (selectedProfile == null)
-                {
-                    throw new Exception("Invalid profile selected.");
-                }
+                throw new Exception("No primary profile found.");
             }
 
             // Add custom claims for profile info
             var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, account.Username),
+            new Claim(ClaimTypes.Name, account.LoginName),
             new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
             new Claim("ProfileId", selectedProfile?.Id.ToString() ?? string.Empty),
             new Claim("DisplayName", selectedProfile?.DisplayName ?? string.Empty),
@@ -75,5 +74,4 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
             return new TokenResponse { AccessToken = accessToken };
         }
     }
-
 }

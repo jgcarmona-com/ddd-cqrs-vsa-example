@@ -6,7 +6,7 @@ namespace Jgcarmona.Qna.Api.Common.Middlewares
 {
     public class RequestContextLoggingMiddleware
     {
-        private const string CorrelationIdHeaderName = "X-Correlation-EntityId";
+        private const string CorrelationIdHeaderName = "X-Correlation-Id";
         private readonly RequestDelegate _next;
 
         public RequestContextLoggingMiddleware(RequestDelegate next)

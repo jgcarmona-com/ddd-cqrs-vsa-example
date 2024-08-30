@@ -43,8 +43,13 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("LoginName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -67,17 +72,12 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("Username")
+                    b.HasIndex("LoginName")
                         .IsUnique();
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Answer", b =>
@@ -158,7 +158,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Question", b =>
@@ -243,6 +243,9 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -263,7 +266,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("UserProfile");
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Jgcarmona.Qna.Domain.Entities.Vote", b =>

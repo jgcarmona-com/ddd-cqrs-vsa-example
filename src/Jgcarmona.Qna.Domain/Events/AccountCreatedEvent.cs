@@ -1,23 +1,13 @@
-﻿namespace Jgcarmona.Qna.Domain.Events;
+﻿using Jgcarmona.Qna.Domain.Entities;
+
+namespace Jgcarmona.Qna.Domain.Events;
 
 public class AccountCreatedEvent : EventBase
 {
-    public string Name { get; }
-    public string Email { get; }
-    public List<string> Roles { get; }
-    public bool IsActive { get; }
-    public DateTime CreatedAt { get; }
-    public bool TwoFactorEnabled { get; }
-    public List<string> ProfileIds { get; }
+    public Account Account { get; }
 
-    public AccountCreatedEvent(string name, string email, List<string> roles, bool isActive, DateTime createdAt, bool twoFactorEnabled, List<string> profileIds)
+    public AccountCreatedEvent(Account account)
     {
-        Name = name;
-        Email = email;
-        Roles = roles;
-        IsActive = isActive;
-        CreatedAt = createdAt;
-        TwoFactorEnabled = twoFactorEnabled;
-        ProfileIds = profileIds;
+        Account = account ?? throw new ArgumentNullException(nameof(account));
     }
 }

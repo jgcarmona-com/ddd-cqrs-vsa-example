@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Jgcarmona.Qna.Application.Features.Questions.Queries;
 using Jgcarmona.Qna.Application.Features.Questions.Commands;
 using Jgcarmona.Qna.Application.Features.Questions.Models;
+using Jgcarmona.Qna.Api.Web.Extensions;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
@@ -25,17 +26,12 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] CreateQuestionModel model)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim == null)
-            {
-                return Unauthorized("Account ID not found in token.");
-            }
-            var userNameClaim = User.FindFirst(ClaimTypes.Name)?.Value;
+            var profileId = User.GetProfileId();
 
             var command = new CreateQuestionCommand
             {
                 Model = model,
-                AuthorId = Ulid.Parse(userIdClaim)
+                AuthorId = Ulid.Parse(profileId)
             };
 
             var result = await _mediator.Send(command);

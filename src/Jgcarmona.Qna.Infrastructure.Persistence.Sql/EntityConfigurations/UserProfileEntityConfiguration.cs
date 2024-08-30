@@ -28,6 +28,9 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
             builder.Property(up => up.Gender)
                    .HasMaxLength(10);
 
+            builder.Property(up => up.IsPrimary)
+                   .IsRequired();
+
             builder.HasIndex(up => up.AccountId)
                    .IsUnique(false);
 

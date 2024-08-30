@@ -29,7 +29,7 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
         [HttpPut("users/{userId}/enable")]
         public async Task<ActionResult<AccountModel>> EnableUser(string userId)
         {
-            var user = await _mediator.Send(new EnableUserCommand(userId));
+            var user = await _mediator.Send(new EnableAccountCommand(userId));
             return Ok(user);
         }
 

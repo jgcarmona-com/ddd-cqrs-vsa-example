@@ -42,34 +42,37 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, AccountModel>
     {
         var signupModel = request.SignupModel;
 
-        var existingUser = await _accountRepository.GetByNameAsync(signupModel.Username);
+        var existingUser = await _accountRepository.GetByNameAsync(signupModel.LoginName);
         if (existingUser != null)
         {
-            _logger.LogWarning("Name already exists: {Name}", signupModel.Username);
-            throw new Exception("Name already exists.");
+            _logger.LogWarning("LoginName already exists: {LoginName}", signupModel.LoginName);
+            throw new Exception("LoginName already exists.");
         }
 
         var account = new Account
         {
-            Username = signupModel.Username,
+            LoginName = signupModel.LoginName,
             PasswordHash = _passwordHasher.Hash(signupModel.Password),
             Roles = ["User"],
+            IsActive = true,
+            Profiles =
+            [
+                new UserProfile
+                {
+                    FirstName = "",
+                    LastName = "",
+                    DisplayName = signupModel.LoginName,
+                    IsPrimary = true
+                }
+            ]
         };
 
         await _accountRepository.AddAsync(account);
 
         // Get the correlation ID from the HTTP context
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
-       
-        var accountCreatedEvent = new AccountCreatedEvent(
-            account.Username,
-            account.Email,
-            account.Roles,
-            account.IsActive,
-            account.CreatedAt,
-            account.TwoFactorEnabled,
-            account.Profiles.Select(p => p.Id.ToString()).ToList()
-        )
+
+        var accountCreatedEvent = new AccountCreatedEvent(account)
         {
             CorrelationId = correlationId
         };

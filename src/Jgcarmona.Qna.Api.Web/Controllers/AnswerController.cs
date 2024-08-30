@@ -1,13 +1,13 @@
-﻿using Jgcarmona.Qna.Application.Features.Answers.Commands;
+﻿using Jgcarmona.Qna.Api.Web.Extensions;
+using Jgcarmona.Qna.Application.Features.Answers.Commands;
 using Jgcarmona.Qna.Application.Features.Answers.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Jgcarmona.Qna.Api.Web.Controllers
 {
-    [Route("api/question/{id}/[controller]")]
+    [Route("api/question/{questionId}/[controller]")]
     [ApiController]
     public class AnswerController : ControllerBase
     {
@@ -22,17 +22,13 @@ namespace Jgcarmona.Qna.Api.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(string questionId, [FromBody] CreateAnswerModel model)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim == null)
-            {
-                return Unauthorized("Account ID not found in token.");
-            }
+            var profileId = User.GetProfileId();
 
             var command = new CreateAnswerCommand
             {
                 QuestionId = questionId,
                 Model = model,
-                AuthorId = userIdClaim
+                AuthorId = profileId
             };
 
             var result = await _mediator.Send(command);

@@ -1,16 +1,17 @@
-using Microsoft.EntityFrameworkCore;
 using Jgcarmona.Qna.Domain.Entities;
-using NUlid;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
+using NUlid;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Account> Users { get; set; }
-        public DbSet<Question> Questions { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Vote> Votes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

@@ -3,6 +3,5 @@
     public class CreateAnswerModel
     {
         public string Content { get; set; }
-        public string AuthorId { get; set; }
     }
 }

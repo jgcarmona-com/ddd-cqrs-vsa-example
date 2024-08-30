@@ -15,8 +15,8 @@ namespace Jgcarmona.Qna.Application.Initialization
         private readonly ILogger<DatabaseInitializer> _logger;
 
         public DatabaseInitializer(
-            IAccountCommandRepository accountRepository, 
-            IPasswordHasher passwordHasher, 
+            IAccountCommandRepository accountRepository,
+            IPasswordHasher passwordHasher,
             IEventDispatcher eventDispatcher,
             ILogger<DatabaseInitializer> logger)
         {
@@ -33,7 +33,7 @@ namespace Jgcarmona.Qna.Application.Initialization
             {
                 adminUser = new Account
                 {
-                    Username = "admin",
+                    LoginName = "admin",
                     PasswordHash = _passwordHasher.Hash("P@ssw0rd!"),
                     Roles = ["Admin", "User"],
                     IsActive = true,
@@ -44,6 +44,7 @@ namespace Jgcarmona.Qna.Application.Initialization
                             FirstName = "Admin",
                             LastName = "User",
                             DisplayName = "Admin",
+                            IsPrimary = true
                         }
                     ]
                 };
@@ -51,15 +52,7 @@ namespace Jgcarmona.Qna.Application.Initialization
                 await _accountRepository.AddAsync(adminUser);
                 _logger.LogInformation("Admin user created successfully in SQL.");
 
-                var accountCreatedEvent = new AccountCreatedEvent(
-                    adminUser.Username,
-                    adminUser.Email,
-                    adminUser.Roles,
-                    adminUser.IsActive,
-                    adminUser.CreatedAt,
-                    adminUser.TwoFactorEnabled,
-                    adminUser.Profiles.Select(p => p.Id.ToString()).ToList()
-                );
+                var accountCreatedEvent = new AccountCreatedEvent(adminUser);
 
                 await _eventDispatcher.DispatchAsync(accountCreatedEvent);
                 _logger.LogInformation("Event dispatched for admin user creation.");

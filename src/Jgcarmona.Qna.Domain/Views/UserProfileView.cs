@@ -10,6 +10,7 @@
         public string? ProfilePictureUrl { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
         public string Gender { get; set; } = string.Empty;
+        public bool IsPrimary { get; set; }
 
         public List<QuestionSummary> QuestionsAsked { get; set; } = new();
         public List<AnswerSummary> AnswersGiven { get; set; } = new();

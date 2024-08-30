@@ -30,21 +30,20 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
         public async Task<AccountModel> Handle(AssignRoleCommand request, CancellationToken cancellationToken)
         {
-            var user = await _accountRepository.GetByIdAsync(Ulid.Parse(request.UserId));
-            if (user == null)
+            var account = await _accountRepository.GetByIdAsync(Ulid.Parse(request.UserId));
+            if (account == null)
             {
                 throw new Exception($"Account with id {request.UserId} not found");
             }
 
-            // Agregar el rol si no está ya presente
-            user.AddRole(request.Role);
+            account.AddRole(request.Role);
 
-            await _accountRepository.UpdateAsync(user);
-            _logger.LogInformation($"Account {user.Username} has been assigned role {request.Role}.");
+            await _accountRepository.UpdateAsync(account);
+            _logger.LogInformation($"Account {account.LoginName} has been assigned role {request.Role}.");
 
-            // TODO: Add event to notify user has been assigned role
+            // TODO: Add event to notify account has been assigned role
 
-            return AccountModel.FromEntity(user);
+            return AccountModel.FromEntity(account);
         }
     }
 }
