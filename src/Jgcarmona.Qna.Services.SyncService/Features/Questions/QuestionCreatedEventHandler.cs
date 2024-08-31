@@ -28,7 +28,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Questions
                 Title = question.Title,
                 Content = question.Content,
                 TotalVotes = 0,
-                AuthorId = domainEvent.AuthorId,
+                AuthorId = question.AuthorId.ToString(),
                 CreatedAt = question.CreatedAt
             };
 

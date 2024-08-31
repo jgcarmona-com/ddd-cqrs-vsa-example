@@ -7,7 +7,6 @@ namespace Jgcarmona.Qna.Domain.Entities
         public string Content { get; set; } = string.Empty;
         public Ulid AuthorId { get; set; }
         public UserProfile Author { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public Ulid? QuestionId { get; set; }
         public Question? Question { get; set; }

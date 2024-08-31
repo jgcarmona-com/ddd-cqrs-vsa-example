@@ -20,10 +20,11 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Answers
 
         public async Task Handle(AnswerCreatedEvent domainEvent)
         {
-            var ExistingQuestionView = await _questionViewRepository.GetByIdAsync(Ulid.Parse(domainEvent.QuestionId));
+            var newAnswer = domainEvent.Answer;
+            var ExistingQuestionView = await _questionViewRepository.GetByIdAsync(newAnswer.QuestionId);
             if (ExistingQuestionView == null)
             {
-                _logger.LogWarning($"Question View with ID {domainEvent.QuestionId} not found in MongoDB.");
+                _logger.LogWarning($"Question View with ID {newAnswer.QuestionId} not found in MongoDB.");
                 return;
             }
 
@@ -31,10 +32,10 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Answers
 
             var answerView = new QuestionView.AnswerView
             {
-                EntityId = domainEvent.Id.ToString(),
-                Content = domainEvent.Content,
-                AuthorId = domainEvent.AuthorId.ToString(),
-                CreatedAt = domainEvent.CreatedAt,
+                EntityId = newAnswer.Id.ToString(),
+                Content = newAnswer.Content,
+                AuthorId = newAnswer.AuthorId.ToString(),
+                CreatedAt = newAnswer.CreatedAt,
             };
 
             newQuestionView.Answers.Add(answerView);

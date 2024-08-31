@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jgcarmona.Qna.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Application", "src\Jgcarmona.Qna.Application\Jgcarmona.Qna.Application.csproj", "{E6ECF4A6-B470-405B-8980-B75825F432D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jgcarmona.Qna.Application.Tests", "src\tests\Jgcarmona.Qna.Application.Tests\Jgcarmona.Qna.Application.Tests.csproj", "{5ECE85D8-3359-4D2C-84F6-83A94579AD99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{E6ECF4A6-B470-405B-8980-B75825F432D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6ECF4A6-B470-405B-8980-B75825F432D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6ECF4A6-B470-405B-8980-B75825F432D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECE85D8-3359-4D2C-84F6-83A94579AD99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECE85D8-3359-4D2C-84F6-83A94579AD99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECE85D8-3359-4D2C-84F6-83A94579AD99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECE85D8-3359-4D2C-84F6-83A94579AD99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{14F12205-2E15-44D2-81E5-C4D9B0ECE97D} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{1E174B87-8F84-4252-A075-952C33990C4D} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
 		{E6ECF4A6-B470-405B-8980-B75825F432D2} = {2D46C28C-20BE-49BF-8F23-963DFEC7BCCA}
+		{5ECE85D8-3359-4D2C-84F6-83A94579AD99} = {303C92F4-CC00-4F55-817E-974BC6AAA5CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A58A6346-C7B6-42A5-8229-00D1025D28F2}

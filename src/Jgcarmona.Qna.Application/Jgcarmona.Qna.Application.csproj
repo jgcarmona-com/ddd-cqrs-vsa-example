@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <Compile Remove="Features\Admin\Models\**" />
+    <EmbeddedResource Remove="Features\Admin\Models\**" />
+    <None Remove="Features\Admin\Models\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -11,7 +16,6 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Admin\Models\" />
     <Folder Include="Features\Auth\Queries\" />
   </ItemGroup>
   <PropertyGroup>

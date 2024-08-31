@@ -24,11 +24,23 @@ namespace Jgcarmona.Qna.Application.Services
             if (parts.Length != 2)
                 return false;
 
-            byte[] hash = Convert.FromHexString(parts[0]);
-            byte[] salt = Convert.FromHexString(parts[1]);
+            try
+            {
+                byte[] hash = Convert.FromHexString(parts[0]);
+                byte[] salt = Convert.FromHexString(parts[1]);
 
-            byte[] providedHash = Rfc2898DeriveBytes.Pbkdf2(providedPassword, salt, Iterations, Algorithm, HashSize);
-            return CryptographicOperations.FixedTimeEquals(providedHash, hash);
+                if (hash.Length != HashSize || salt.Length != SaltSize)
+                {
+                    return false; // Length of hash or salt is incorrect
+                }
+
+                byte[] providedHash = Rfc2898DeriveBytes.Pbkdf2(providedPassword, salt, Iterations, Algorithm, HashSize);
+                return CryptographicOperations.FixedTimeEquals(providedHash, hash);
+            }
+            catch (FormatException)
+            {
+                return false; // It is not a valid hexadecimal string
+            }
         }
     }
 }

@@ -59,12 +59,7 @@ namespace Jgcarmona.Qna.Application.Features.Answers.Commands
             _logger.LogInformation($"Answer with ID {newAnswer.Id} created for question {request.QuestionId}.");
             var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
-            var answerCreatedEvent = new AnswerCreatedEvent(
-                newAnswer.Id.ToString(),
-                newAnswer.Content,
-                newAnswer.QuestionId.ToString(),
-                newAnswer.AuthorId.ToString(),
-                newAnswer.CreatedAt)
+            var answerCreatedEvent = new AnswerCreatedEvent(newAnswer)
             {
                 CorrelationId = correlationId
             };
