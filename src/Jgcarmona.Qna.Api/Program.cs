@@ -1,5 +1,7 @@
 
 using Jgcarmona.Qna.Api.Common.Extensions;
+using Jgcarmona.Qna.Api.Common.Middleware;
+using Jgcarmona.Qna.Api.Common.Middlewares;
 using Jgcarmona.Qna.Api.Extensions;
 using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
@@ -59,7 +61,9 @@ namespace Jgcarmona.Qna.Api
 
             var app = builder.Build();
 
-            app.UseRequestContextLogging();
+            // Add Middlewares
+            app.UseMiddleware<RequestContextLoggingMiddleware>();
+            app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
             await app.Services.InitializeDatabaseAsync(builder.Configuration);
 

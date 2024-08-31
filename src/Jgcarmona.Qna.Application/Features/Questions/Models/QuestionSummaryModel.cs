@@ -1,4 +1,5 @@
-﻿using Jgcarmona.Qna.Application.Features.Comments.Models;
+﻿using Jgcarmona.Qna.Api.Models;
+using Jgcarmona.Qna.Application.Features.Comments.Models;
 using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Questions.Models
@@ -9,18 +10,27 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Models
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
         public int TotalVotes { get; set; }
-        public List<CommentSummaryModel> Comments { get; set; } = new();
+        public int AnswerCount { get; set; }
+        public bool IsAnswered { get; set; }
+        public List<Link> Links { get; set; } = new();
 
-        public static QuestionSummaryModel FromEntity(Question question)
+        public static QuestionSummaryModel FromEntity(Question entity)
         {
-            return new QuestionSummaryModel
+            var model = new QuestionSummaryModel
             {
-                Id = question.Id.ToString(),
-                Title = question.Title,
-                CreatedAt = question.CreatedAt,
-                TotalVotes = question.Votes.Count,
-                Comments = question.Comments.Select(CommentSummaryModel.FromEntity).ToList()
+                Id = entity.Id.ToString(),
+                Title = entity.Title,
+                CreatedAt = entity.CreatedAt,
+                TotalVotes = entity.Votes.Count,
+                AnswerCount = entity.Answers.Count,
+                IsAnswered = entity.Answers.Any(a => a.IsAccepted)
             };
+
+            model.Links.Add(new Link($"/api/questions/{model.Id}", "self", "GET"));
+            model.Links.Add(new Link($"/api/questions/{model.Id}/answers", "answers", "GET"));
+
+            return model;
         }
     }
+
 }

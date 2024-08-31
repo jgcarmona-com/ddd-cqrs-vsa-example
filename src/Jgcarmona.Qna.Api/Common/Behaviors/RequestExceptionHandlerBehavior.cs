@@ -4,7 +4,7 @@ using Serilog;
 namespace Jgcarmona.Qna.Api.Common.Behaviors
 {
     public class RequestExceptionHandlerBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+    where TRequest : IRequest<TResponse>
     {
         private readonly ILogger<RequestExceptionHandlerBehavior<TRequest, TResponse>> _logger;
 
@@ -21,28 +21,20 @@ namespace Jgcarmona.Qna.Api.Common.Behaviors
             }
             catch (InvalidOperationException ex)
             {
-                // Log detailed information using Serilog
-                Log.Error(ex, "Invalid Operation: {Message} | Request: {@Request}", ex.Message, request);
-
-                // Hide specific details from the client
+                _logger.LogError(ex, "Invalid Operation in {RequestName}: {Message} | Request: {@Request}", typeof(TRequest).Name, ex.Message, request);
                 throw new InvalidOperationException("A configuration error occurred. Please contact support.");
             }
             catch (UnauthorizedAccessException ex)
             {
-                // Log unauthorized access attempts separately
-                Log.Warning(ex, "Unauthorized access attempt: {Message} | Request: {@Request}", ex.Message, request);
-
-                // Throw a more user-friendly message
+                _logger.LogWarning(ex, "Unauthorized access attempt in {RequestName}: {Message} | Request: {@Request}", typeof(TRequest).Name, ex.Message, request);
                 throw new UnauthorizedAccessException("You are not authorized to perform this action.");
             }
             catch (Exception ex)
             {
-                // Log general exceptions
-                Log.Error(ex, "Error during request processing: {Message} | Request: {@Request}", ex.Message, request);
-
-                // Hide implementation details from the client
-                throw new Exception("An unexpected error occurred. Please try again later.");
+                _logger.LogError(ex, "Unhandled error in {RequestName}: {Message} | Request: {@Request}", typeof(TRequest).Name, ex.Message, request);
+                throw new ApplicationException("An unexpected error occurred. Please try again later.");
             }
         }
     }
+
 }

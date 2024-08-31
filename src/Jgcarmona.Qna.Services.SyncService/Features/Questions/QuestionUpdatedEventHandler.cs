@@ -6,11 +6,16 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Questions
     public class QuestionUpdatedEventHandler : IEventHandler<QuestionUpdatedEvent>
     {
         private readonly IQuestionViewRepository _questionViewRepository;
+        private readonly IUserProfileViewRepository _userProfileViewRepository;
         private readonly ILogger<QuestionUpdatedEventHandler> _logger;
 
-        public QuestionUpdatedEventHandler(IQuestionViewRepository questionViewRepository, ILogger<QuestionUpdatedEventHandler> logger)
+        public QuestionUpdatedEventHandler(
+            IQuestionViewRepository questionViewRepository, 
+            IUserProfileViewRepository userProfileViewRepository,
+            ILogger<QuestionUpdatedEventHandler> logger)
         {
             _questionViewRepository = questionViewRepository;
+            _userProfileViewRepository = userProfileViewRepository;
             _logger = logger;
         }
 
@@ -33,6 +38,28 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Questions
             await _questionViewRepository.AddAsync(newQuestionView);
 
             _logger.LogInformation("Question '{Title}' updated in MongoDB successfully.", newQuestionView.Title);
+
+            var userProfileView = await _userProfileViewRepository.GetByIdAsync(domainEvent.Question.AuthorId);
+            if (userProfileView != null)
+            {
+                var updatedUserProfileView = userProfileView.CreateNewVersion();
+
+                var questionSummary = updatedUserProfileView.QuestionsAsked
+                    .FirstOrDefault(q => q.Id == domainEvent.Question.Id.ToString());
+
+                if (questionSummary != null)
+                {
+                    questionSummary.Title = domainEvent.Question.Title;
+                    questionSummary.TotalVotes = newQuestionView.TotalVotes;
+                }
+
+                await _userProfileViewRepository.AddAsync(updatedUserProfileView);
+                _logger.LogInformation($"UserProfile '{userProfileView.DisplayName}' updated with changes to question '{newQuestionView.Title}'.");
+            }
+            else
+            {
+                _logger.LogWarning($"User profile with ID {domainEvent.Question.AuthorId} not found in MongoDB.");
+            }
         }
     }
 }

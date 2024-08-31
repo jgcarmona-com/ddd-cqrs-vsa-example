@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Application.Features.Comments.Models;
+﻿using Jgcarmona.Qna.Api.Models;
 using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Answers.Models
@@ -6,21 +6,30 @@ namespace Jgcarmona.Qna.Application.Features.Answers.Models
     public class AnswerSummaryModel
     {
         public string Id { get; set; }
-        public string Content { get; set; }
+        public string QuestionId { get; set; }
+        public string QuestionTitle { get; set; }
+        public string ContentSnippet { get; set; }
         public int Votes { get; set; }
         public DateTime AnsweredAt { get; set; }
-        public List<CommentSummaryModel> Comments { get; set; } = new();
+        public List<Link> Links { get; set; } = new();
 
         public static AnswerSummaryModel FromEntity(Answer answer)
         {
-            return new AnswerSummaryModel
+            var model = new AnswerSummaryModel
             {
                 Id = answer.Id.ToString(),
-                Content = answer.Content,
-                Votes = answer.Votes.Count,
-                AnsweredAt = answer.CreatedAt,
-                Comments = answer.Comments.Select(CommentSummaryModel.FromEntity).ToList()
+                QuestionId = answer.QuestionId.ToString(),
+                QuestionTitle = answer.Question.Title,
+                ContentSnippet = answer.Content.Length > 50 ? answer.Content.Substring(0, 50) + "..." : answer.Content,
+                ////Votes = answer.Votes,  // TODO: Implement this
+                AnsweredAt = answer.CreatedAt
             };
+
+            model.Links.Add(new Link($"/api/questions/{model.QuestionId}", "question", "GET"));
+            model.Links.Add(new Link($"/api/questions/{model.QuestionId}/answers/{model.Id}", "self", "GET"));
+
+            return model;
         }
     }
 }
+

@@ -1,20 +1,22 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Full;
 using Jgcarmona.Qna.Domain.Views;
-using NUlid;
 
 namespace Jgcarmona.Qna.Services.SyncService.Features.Answers
 {
     public class AnswerCreatedEventHandler : IEventHandler<AnswerCreatedEvent>
     {
         private readonly IQuestionViewRepository _questionViewRepository;
+        private readonly IUserProfileViewRepository _userProfileViewRepository;
         private readonly ILogger<AnswerCreatedEventHandler> _logger;
 
         public AnswerCreatedEventHandler(
             IQuestionViewRepository questionViewRepository,
+            IUserProfileViewRepository userProfileViewRepository,
             ILogger<AnswerCreatedEventHandler> logger)
         {
             _questionViewRepository = questionViewRepository;
+            _userProfileViewRepository = userProfileViewRepository;
             _logger = logger;
         }
 
@@ -43,6 +45,28 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Answers
 
             await _questionViewRepository.AddAsync(newQuestionView);
             _logger.LogInformation($"Answer '{answerView.Content}' added to MongoDB successfully.");
+
+            var userProfileView = await _userProfileViewRepository.GetByIdAsync(newAnswer.AuthorId);
+            if (userProfileView != null)
+            {
+                var updatedUserProfileView = userProfileView.CreateNewVersion();
+
+                updatedUserProfileView.AnswersGiven.Add(new UserProfileView.AnswerSummary
+                {
+                    Id = newAnswer.Id.ToString(),
+                    QuestionId = newAnswer.QuestionId.ToString(),
+                    QuestionTitle = newQuestionView.Title,
+                    AnsweredAt = newAnswer.CreatedAt,
+                    Votes = 0,
+                });
+
+                await _userProfileViewRepository.AddAsync(updatedUserProfileView);
+                _logger.LogInformation($"UserProfile '{userProfileView.DisplayName}' updated with new answer.");
+            }
+            else
+            {
+                _logger.LogWarning($"User profile with ID {newAnswer.AuthorId} not found in MongoDB.");
+            }
         }
     }
 }
