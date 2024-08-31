@@ -5,13 +5,13 @@ networks:
     driver: bridge
 
 services:
-  jgcarmona.qna.api.web:
-    image: ${DOCKER_REGISTRY-}jgcarmonaqnaapiweb
+  jgcarmona.qna.api:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaapi
     networks:
       - qna-network
     build:
       context: .
-      dockerfile: src/Jgcarmona.Qna.Api.Web/Dockerfile
+      dockerfile: src/Jgcarmona.Qna.Api/Dockerfile
     ports:
       - "7100:7000"  # HTTP
       - "7101:7001"  # HTTPS

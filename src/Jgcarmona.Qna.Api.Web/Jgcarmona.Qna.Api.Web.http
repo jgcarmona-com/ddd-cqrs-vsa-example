@@ -1,6 +1,0 @@
-@Jgcarmona.Qna.Api.Web_HostAddress = http://localhost:5017
-
-GET {{Jgcarmona.Qna.Api.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

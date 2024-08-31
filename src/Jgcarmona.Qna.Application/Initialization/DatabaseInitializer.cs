@@ -1,9 +1,8 @@
 using Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Domain.Abstract.Services;
-using Microsoft.Extensions.Logging;
-using Jgcarmona.Qna.Domain.Abstract.Events;
 using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
+using Jgcarmona.Qna.Domain.Repositories.Command;
+using Jgcarmona.Qna.Domain.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Jgcarmona.Qna.Application.Initialization
 {

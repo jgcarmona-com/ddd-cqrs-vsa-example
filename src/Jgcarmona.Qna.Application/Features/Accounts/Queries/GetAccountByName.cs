@@ -1,7 +1,7 @@
 using Jgcarmona.Qna.Application.Features.Admin.Models;
-using Jgcarmona.Qna.Domain.Abstract.Events;
-using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
 using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Domain.Repositories.Command;
+using Jgcarmona.Qna.Domain.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

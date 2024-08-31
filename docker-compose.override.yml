@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  jgcarmona.qna.api.web:
+  jgcarmona.qna.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=7000

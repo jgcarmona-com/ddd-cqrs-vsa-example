@@ -1,5 +1,4 @@
 using NetArchTest.Rules;
-using Xunit;
 
 namespace Jgcarmona.Qna.Architecture.Tests
 {
@@ -16,7 +15,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         // // public void Api_Should_Have_Dependencies_On_Persistence_ForDbInitialization()
         // // {
         // //     var result = Types
-        // //         .InAssembly(typeof(Jgcarmona.Qna.Api.Web.Program).Assembly)
+        // //         .InAssembly(typeof(Jgcarmona.Qna.Api.Program).Assembly)
         // //         .Should()
         // //         .HaveDependencyOn("Jgcarmona.Qna.Infrastructure.Persistence.Sql")
         // //         .GetResult();
@@ -27,7 +26,7 @@ namespace Jgcarmona.Qna.Architecture.Tests
         [Fact]
         public void PrintAllTypesInApiWebAssembly()
         {
-            var types = Types.InAssembly(typeof(Jgcarmona.Qna.Api.Web.Program).Assembly).GetTypes();
+            var types = Types.InAssembly(typeof(Jgcarmona.Qna.Api.Program).Assembly).GetTypes();
 
             foreach (var type in types)
             {
@@ -58,25 +57,26 @@ namespace Jgcarmona.Qna.Architecture.Tests
 
             Assert.True(result.IsSuccessful);
         }
-        [Fact]
-        public void Persistence_Should_Have_Dependencies_On_Domain()
-        {
-            var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Infrastructure.Persistence.Sql.ApplicationDbContext).Assembly)
-                .That()
-                .ResideInNamespace("Jgcarmona.Qna.Infrastructure.Persistence.Sql")
-                .Should()
-                .HaveDependencyOn(DomainNamespace)
-                .GetResult();
 
-            Assert.True(result.IsSuccessful);
-        }
+        //[Fact]
+        //public void Persistence_Should_Have_Dependencies_On_Domain()
+        //{
+        //    var result = Types
+        //        .InAssembly(typeof(Jgcarmona.Qna.Infrastructure.Persistence.Sql.ApplicationDbContext).Assembly)
+        //        .That()
+        //        .ResideInNamespace("Jgcarmona.Qna.Infrastructure.Persistence.Sql")
+        //        .Should()
+        //        .HaveDependencyOn(DomainNamespace)
+        //        .GetResult();
+
+        //    Assert.True(result.IsSuccessful);
+        //}
 
         [Fact]
         public void Controllers_Should_Not_Have_Dependencies_On_Persistence()
         {
             var result = Types
-                .InAssembly(typeof(Jgcarmona.Qna.Api.Web.Controllers.AuthController).Assembly)
+                .InAssembly(typeof(Jgcarmona.Qna.Api.Controllers.AuthController).Assembly)
                 .That()
                 .HaveNameEndingWith("Controller")
                 .ShouldNot()

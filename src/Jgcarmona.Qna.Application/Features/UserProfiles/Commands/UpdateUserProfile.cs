@@ -1,5 +1,5 @@
 ﻿using Jgcarmona.Qna.Application.Features.UserProfiles.Models;
-using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
+using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Entities;
 using MediatR;
 using NUlid;

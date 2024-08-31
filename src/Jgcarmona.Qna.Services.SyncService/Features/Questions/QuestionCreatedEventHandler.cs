@@ -1,5 +1,5 @@
-﻿using Jgcarmona.Qna.Domain.Abstract.Repositories.Full;
-using Jgcarmona.Qna.Domain.Events;
+﻿using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Domain.Repositories.Full;
 using Jgcarmona.Qna.Domain.Views;
 
 namespace Jgcarmona.Qna.Services.SyncService.Features.Questions

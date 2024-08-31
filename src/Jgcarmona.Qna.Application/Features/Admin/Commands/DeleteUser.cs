@@ -1,5 +1,5 @@
 ﻿using Jgcarmona.Qna.Application.Features.Admin.Models;
-using Jgcarmona.Qna.Domain.Abstract.Repositories.Command;
+using Jgcarmona.Qna.Domain.Repositories.Command;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NUlid;

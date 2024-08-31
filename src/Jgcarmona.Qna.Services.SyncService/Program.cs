@@ -51,7 +51,7 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
-                services.Configure<CommonFeatureFlags>(hostContext.Configuration.GetSection("CommonFeatureFlags"));
+                services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
                 services.AddMongoDb(hostContext.Configuration);
                 services.AddSingleton(new JsonSerializerOptions
                 {

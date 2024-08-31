@@ -1,4 +1,4 @@
-using Jgcarmona.Qna.Domain.Abstract;
+using Jgcarmona.Qna.Domain.Services;
 
 namespace Jgcarmona.Qna.Services.SyncService;
 public class SyncServiceWorker : BackgroundService

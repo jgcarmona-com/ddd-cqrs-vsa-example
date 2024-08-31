@@ -1,8 +1,5 @@
-﻿
-using global::Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Domain.Entities;
+﻿using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Views;
-using System.Data;
 
 namespace Jgcarmona.Qna.Application.Features.Admin.Models
 {

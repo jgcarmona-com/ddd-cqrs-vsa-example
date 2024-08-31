@@ -48,7 +48,7 @@ public class Program
             .ConfigureServices((hostContext, services) =>
             {
                 // Register configuration settings
-                services.Configure<CommonFeatureFlags>(hostContext.Configuration.GetSection("CommonFeatureFlags"));
+                services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
 
                 // Register the appropriate messaging listener based on the configured provider
                 services.AddMessagingListener(hostContext.Configuration);
