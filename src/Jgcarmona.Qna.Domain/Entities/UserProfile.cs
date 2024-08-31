@@ -7,7 +7,7 @@ namespace Jgcarmona.Qna.Domain.Entities
     {
         public Ulid AccountId { get; set; }
         [JsonIgnore]
-        public Account Account { get; set; } 
+        public Account Account { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string DisplayName { get; set; } = string.Empty;

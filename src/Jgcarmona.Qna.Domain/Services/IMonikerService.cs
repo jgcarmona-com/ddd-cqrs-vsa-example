@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Domain.Services

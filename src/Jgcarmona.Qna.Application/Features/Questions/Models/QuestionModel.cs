@@ -2,11 +2,6 @@
 using Jgcarmona.Qna.Application.Features.Comments.Models;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Jgcarmona.Qna.Application.Features.Questions.Models
 {

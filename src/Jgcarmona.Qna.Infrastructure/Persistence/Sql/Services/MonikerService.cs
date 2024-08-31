@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Services
 {
@@ -29,7 +28,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Services
 
         private string GenerateSlug(string text)
         {
-           // TODO: Implement more robust slug generation logic
+            // TODO: Implement more robust slug generation logic
             return text.ToLower().Replace(" ", "-");
         }
     }

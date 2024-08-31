@@ -1,13 +1,12 @@
-﻿using MediatR;
-using Jgcarmona.Qna.Application.Features.Auth.Models;
+﻿using Jgcarmona.Qna.Application.Features.Auth.Models;
+using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Services;
+using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Jgcarmona.Qna.Domain.Repositories.Command;
-using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 {

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion;
-using NUlid;
-using System.Security.Claims;
-using Jgcarmona.Qna.Application.Features.Questions.Queries;
+﻿using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Application.Features.Questions.Commands;
+using Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion;
 using Jgcarmona.Qna.Application.Features.Questions.Models;
-using Jgcarmona.Qna.Api.Common.Extensions;
+using Jgcarmona.Qna.Application.Features.Questions.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NUlid;
 
 namespace Jgcarmona.Qna.Api.Controllers
 {

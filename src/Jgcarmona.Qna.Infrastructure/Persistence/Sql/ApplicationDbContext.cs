@@ -33,7 +33,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql
                     modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion(ulidConverter);
                 }
             }
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(modelBuilder);

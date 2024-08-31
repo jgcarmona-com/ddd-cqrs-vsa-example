@@ -1,5 +1,5 @@
-using System.Security.Cryptography;
 using Jgcarmona.Qna.Domain.Services;
+using System.Security.Cryptography;
 
 namespace Jgcarmona.Qna.Application.Services
 {

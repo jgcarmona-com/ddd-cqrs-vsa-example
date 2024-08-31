@@ -1,6 +1,6 @@
+using Jgcarmona.Qna.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
 {

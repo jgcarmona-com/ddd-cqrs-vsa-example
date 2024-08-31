@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Runtime.CompilerServices;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions
 {

@@ -39,16 +39,16 @@
                 EntityId = this.EntityId,
                 Moniker = this.Moniker,
                 Title = this.Title,
-                Content =  this.Content,
+                Content = this.Content,
                 Tags = this.Tags,
-                Answers = this.Answers, 
-                Comments = this.Comments, 
+                Answers = this.Answers,
+                Comments = this.Comments,
                 AuthorId = this.AuthorId,
                 AuthorName = this.AuthorName,
-                CreatedAt = this.CreatedAt, 
-                TotalVotes = this.TotalVotes, 
-                LastActivityAt = DateTime.UtcNow, 
-                Version = this.Version + 1 
+                CreatedAt = this.CreatedAt,
+                TotalVotes = this.TotalVotes,
+                LastActivityAt = DateTime.UtcNow,
+                Version = this.Version + 1
             };
         }
     }

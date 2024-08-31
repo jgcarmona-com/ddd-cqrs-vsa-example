@@ -1,6 +1,6 @@
+using NUlid;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using NUlid;
 
 namespace Jgcarmona.Qna.Domain.Entities;
 

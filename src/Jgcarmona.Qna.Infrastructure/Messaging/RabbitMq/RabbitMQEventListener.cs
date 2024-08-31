@@ -1,4 +1,7 @@
-﻿using Jgcarmona.Qna.Domain.Events;
+﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Converters;
+using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Domain.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -6,9 +9,6 @@ using RabbitMQ.Client.Events;
 using Serilog.Context;
 using System.Text;
 using System.Text.Json;
-using Jgcarmona.Qna.Common.Configuration.Configuration;
-using Jgcarmona.Qna.Common.Converters;
-using Jgcarmona.Qna.Domain.Services;
 
 public class RabbitMQEventListener : IEventListener
 {
@@ -54,7 +54,7 @@ public class RabbitMQEventListener : IEventListener
             // Extract the CorrelationId from the headers
             string correlationId = ea.BasicProperties.Headers.ContainsKey("CorrelationId")
                 // Ensure the byte[] is converted to string
-                ? Encoding.UTF8.GetString((byte[])ea.BasicProperties.Headers["CorrelationId"]) 
+                ? Encoding.UTF8.GetString((byte[])ea.BasicProperties.Headers["CorrelationId"])
                 : Guid.NewGuid().ToString(); // Generate a new CorrelationId if not present
 
             using (LogContext.PushProperty("CorrelationId", correlationId))

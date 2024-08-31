@@ -1,17 +1,17 @@
 
+using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Api.Extensions;
+using Jgcarmona.Qna.Application.Initialization;
+using Jgcarmona.Qna.Application.Services;
 using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Common.Converters;
+using Jgcarmona.Qna.Domain.Services;
 using Jgcarmona.Qna.Infrastructure.Extensions;
-using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Services;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Extensions;
+using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Services;
 using Serilog;
 using System.Text.Json;
-using Jgcarmona.Qna.Domain.Services;
-using Jgcarmona.Qna.Api.Common.Extensions;
-using Jgcarmona.Qna.Application.Services;
-using Jgcarmona.Qna.Application.Initialization;
 
 namespace Jgcarmona.Qna.Api
 {

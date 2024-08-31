@@ -1,6 +1,5 @@
 ﻿using Jgcarmona.Qna.Application.Features.Questions.Models;
 using Jgcarmona.Qna.Domain.Repositories.Query;
-using Jgcarmona.Qna.Domain.Views;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NUlid;

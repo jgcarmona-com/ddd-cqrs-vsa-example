@@ -11,6 +11,6 @@ namespace Jgcarmona.Qna.Domain.Entities
         public List<Comment> Comments { get; set; } = new();
         public List<string> Tags { get; set; } = new();
         public Ulid AuthorId { get; set; }
-        public UserProfile Author{ get; set; }
+        public UserProfile Author { get; set; }
     }
 }

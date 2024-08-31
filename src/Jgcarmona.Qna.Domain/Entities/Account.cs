@@ -1,9 +1,6 @@
-using NUlid;
-using System.Text.Json.Serialization;
-
 namespace Jgcarmona.Qna.Domain.Entities
 {
-    public class Account: BaseEntity
+    public class Account : BaseEntity
     {
         public string LoginName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

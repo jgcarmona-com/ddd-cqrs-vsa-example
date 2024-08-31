@@ -19,7 +19,7 @@ namespace Jgcarmona.Qna.Application.Features.Comments.Models
                 Id = comment.Id.ToString(),
                 Content = comment.Content,
                 AuthorId = comment.AuthorId.ToString(),
-                PostedAt = comment.CreatedAt                
+                PostedAt = comment.CreatedAt
             };
         }
 

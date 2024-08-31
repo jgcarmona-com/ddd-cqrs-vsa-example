@@ -1,6 +1,6 @@
+using Jgcarmona.Qna.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Jgcarmona.Qna.Domain.Entities;
 using NUlid;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
@@ -9,7 +9,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
-           builder.HasKey(e => e.Id);
+            builder.HasKey(e => e.Id);
 
             // Configure Ulid as primary key
             builder.Property(e => e.Id)

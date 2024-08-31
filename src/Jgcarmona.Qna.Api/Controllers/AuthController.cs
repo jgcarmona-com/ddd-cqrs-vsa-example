@@ -1,7 +1,7 @@
+using Jgcarmona.Qna.Application.Features.Auth.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Jgcarmona.Qna.Application.Features.Auth.Commands;
 
 namespace Jgcarmona.Qna.Api.Controllers
 {

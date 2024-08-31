@@ -21,7 +21,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
                     .WithMany(q => q.Comments)
                     .HasForeignKey(c => c.QuestionId)
                     .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired(false);    
+                    .IsRequired(false);
 
             builder.HasOne(c => c.Answer)
                     .WithMany(a => a.Comments)

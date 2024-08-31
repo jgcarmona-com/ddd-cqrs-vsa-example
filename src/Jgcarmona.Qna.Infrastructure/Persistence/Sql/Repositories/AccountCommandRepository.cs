@@ -14,7 +14,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories
         {
             return _context.Accounts
                 .Include(a => a.Profiles)
-                .FirstOrDefaultAsync(u => u.LoginName == name);            
+                .FirstOrDefaultAsync(u => u.LoginName == name);
         }
     }
 }

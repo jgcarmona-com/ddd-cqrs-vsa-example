@@ -2,11 +2,9 @@ using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Repositories.Full;
 using Jgcarmona.Qna.Domain.Repositories.Query;
-using Jgcarmona.Qna.Domain.Views;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Full;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Repositories.Queries;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories;
-using Jgcarmona.Qna.Infrastructure.Repositories.MongoDB.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Jgcarmona.Qna.Infrastructure.Extensions

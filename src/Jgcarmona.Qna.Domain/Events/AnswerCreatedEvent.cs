@@ -1,6 +1,4 @@
-﻿using Jgcarmona.Qna.Domain.Entities;
-
-namespace Jgcarmona.Qna.Domain.Events
+﻿namespace Jgcarmona.Qna.Domain.Events
 {
     public class AnswerCreatedEvent : EventBase
     {

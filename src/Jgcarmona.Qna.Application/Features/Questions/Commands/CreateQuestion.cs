@@ -1,9 +1,8 @@
 ﻿using Jgcarmona.Qna.Application.Features.Questions.Models;
+using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Services;
-using Jgcarmona.Qna.Domain.Entities;
-using Jgcarmona.Qna.Domain.Events;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

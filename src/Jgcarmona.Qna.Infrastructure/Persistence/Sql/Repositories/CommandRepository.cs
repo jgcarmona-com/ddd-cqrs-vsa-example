@@ -1,8 +1,7 @@
 ﻿using Jgcarmona.Qna.Domain.Entities;
+using Jgcarmona.Qna.Domain.Repositories.Command;
 using Microsoft.EntityFrameworkCore;
 using NUlid;
-using Jgcarmona.Qna.Infrastructure.Persistence.Sql;
-using Jgcarmona.Qna.Domain.Repositories.Command;
 
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories
 {

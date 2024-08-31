@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class QuestionConfiguration : BaseEntityConfiguration<Question>
 {
@@ -18,7 +18,7 @@ public class QuestionConfiguration : BaseEntityConfiguration<Question>
             .IsRequired();
 
         builder.HasOne(q => q.Author)
-            .WithMany(u => u.Questions) 
+            .WithMany(u => u.Questions)
             .HasForeignKey(q => q.AuthorId)
             .OnDelete(DeleteBehavior.Restrict);
 
@@ -36,8 +36,8 @@ public class QuestionConfiguration : BaseEntityConfiguration<Question>
             .Metadata.SetValueComparer(tagsValueComparer);
 
         builder.HasMany(q => q.Answers)
-            .WithOne(a => a.Question) 
-            .HasForeignKey(a => a.QuestionId) 
+            .WithOne(a => a.Question)
+            .HasForeignKey(a => a.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(q => q.Moniker).IsUnique();

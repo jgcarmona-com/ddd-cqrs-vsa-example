@@ -1,13 +1,7 @@
 ﻿using Jgcarmona.Qna.Application.Features.UserProfiles.Models;
 using Jgcarmona.Qna.Domain.Repositories.Query;
-using Jgcarmona.Qna.Domain.Views;
 using MediatR;
 using NUlid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Jgcarmona.Qna.Application.Features.UserProfiles.Queries
 {

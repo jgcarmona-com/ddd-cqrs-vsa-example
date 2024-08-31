@@ -1,16 +1,15 @@
 ﻿using Jgcarmona.Qna.Application.Features.Questions.Models;
-using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Domain.Repositories.Command;
+using Jgcarmona.Qna.Domain.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using NUlid;
-using Jgcarmona.Qna.Domain.Services;
 
 namespace Jgcarmona.Qna.Application.Features.Questions.Commands
-{  
+{
 
     public class UpdateQuestionCommand : IRequest<QuestionModel>
     {
@@ -29,9 +28,9 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Commands
         private readonly ILogger<UpdateQuestionCommandHandler> _logger;
 
         public UpdateQuestionCommandHandler(
-            ICommandRepository<Question> questionRepository, 
+            ICommandRepository<Question> questionRepository,
             IEventDispatcher eventDispatcher,
-            IHttpContextAccessor httpContextAccessor,            
+            IHttpContextAccessor httpContextAccessor,
             ILogger<UpdateQuestionCommandHandler> logger)
         {
             _questionRepository = questionRepository;

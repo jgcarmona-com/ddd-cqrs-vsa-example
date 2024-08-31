@@ -18,7 +18,7 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Models
                 Id = question.Id.ToString(),
                 Title = question.Title,
                 CreatedAt = question.CreatedAt,
-                TotalVotes = question.Votes.Count,  
+                TotalVotes = question.Votes.Count,
                 Comments = question.Comments.Select(CommentSummaryModel.FromEntity).ToList()
             };
         }
