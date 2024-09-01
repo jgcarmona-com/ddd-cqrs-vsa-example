@@ -49,13 +49,14 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
 
             // Add custom claims for profile info
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, account.LoginName),
-            new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-            new Claim("ProfileId", selectedProfile?.Id.ToString() ?? string.Empty),
-            new Claim("DisplayName", selectedProfile?.DisplayName ?? string.Empty),
-            new Claim(ClaimTypes.Role, string.Join(",", account.Roles))
-        };
+            {
+                new Claim(ClaimTypes.Name, account.LoginName),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim("ProfileId", selectedProfile?.Id.ToString() ?? string.Empty),
+                new Claim("DisplayName", selectedProfile?.DisplayName ?? string.Empty),
+            };
+            // Add each role as a separate claim
+            claims.AddRange(account.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
