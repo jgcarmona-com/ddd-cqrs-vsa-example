@@ -8,7 +8,6 @@ using NUlid;
 
 namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 {
-
     public class EnableAccountCommand : IRequest<AccountModel>
     {
         public string AccountId { get; set; }
