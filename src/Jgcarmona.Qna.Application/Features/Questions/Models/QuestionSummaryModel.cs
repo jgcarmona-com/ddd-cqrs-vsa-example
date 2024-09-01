@@ -1,6 +1,4 @@
-﻿using Jgcarmona.Qna.Api.Models;
-using Jgcarmona.Qna.Application.Features.Comments.Models;
-using Jgcarmona.Qna.Domain.Entities;
+﻿using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Questions.Models
 {
@@ -12,7 +10,6 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Models
         public int TotalVotes { get; set; }
         public int AnswerCount { get; set; }
         public bool IsAnswered { get; set; }
-        public List<Link> Links { get; set; } = new();
 
         public static QuestionSummaryModel FromEntity(Question entity)
         {
@@ -25,9 +22,6 @@ namespace Jgcarmona.Qna.Application.Features.Questions.Models
                 AnswerCount = entity.Answers.Count,
                 IsAnswered = entity.Answers.Any(a => a.IsAccepted)
             };
-
-            model.Links.Add(new Link($"/api/questions/{model.Id}", "self", "GET"));
-            model.Links.Add(new Link($"/api/questions/{model.Id}/answers", "answers", "GET"));
 
             return model;
         }

@@ -35,6 +35,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Answers
             var answerView = new QuestionView.AnswerView
             {
                 EntityId = newAnswer.Id.ToString(),
+                QuestionId = newAnswer.QuestionId.ToString(),
                 Content = newAnswer.Content,
                 AuthorId = newAnswer.AuthorId.ToString(),
                 CreatedAt = newAnswer.CreatedAt,

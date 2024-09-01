@@ -27,6 +27,7 @@
             public string Content { get; set; }
             public string AuthorId { get; set; }
             public string AuthorName { get; set; }
+            public string QuestionId { get; set; }
             public int Votes { get; set; }
             public bool IsAccepted { get; set; }
             public List<CommentView> Comments { get; set; } = new();

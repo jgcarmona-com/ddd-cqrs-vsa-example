@@ -1,7 +1,12 @@
-﻿using Jgcarmona.Qna.Application.Features.UserProfiles.Models;
+﻿using Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion;
+using Jgcarmona.Qna.Application.Features.UserProfiles.Models;
 using Jgcarmona.Qna.Domain.Entities;
+using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Command;
+using Jgcarmona.Qna.Domain.Services;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using NUlid;
 
 namespace Jgcarmona.Qna.Application.Features.UserProfiles.Commands
@@ -21,10 +26,20 @@ namespace Jgcarmona.Qna.Application.Features.UserProfiles.Commands
     public class UpdateUserProfileCommandHandler : IRequestHandler<UpdateUserProfileCommand, UserProfileModel>
     {
         private readonly ICommandRepository<UserProfile> _userProfileRepository;
+        private readonly IEventDispatcher _eventDispatcher;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<UpdateUserProfileCommandHandler> _logger;
 
-        public UpdateUserProfileCommandHandler(ICommandRepository<UserProfile> userProfileRepository)
+        public UpdateUserProfileCommandHandler(
+            ICommandRepository<UserProfile> userProfileRepository,
+            IEventDispatcher eventDispatcher,
+            IHttpContextAccessor httpContextAccessor,
+            ILogger<UpdateUserProfileCommandHandler> logger)
         {
             _userProfileRepository = userProfileRepository;
+            _eventDispatcher = eventDispatcher;
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public async Task<UserProfileModel> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
@@ -46,6 +61,14 @@ namespace Jgcarmona.Qna.Application.Features.UserProfiles.Commands
             await _userProfileRepository.UpdateAsync(profile);
 
             // TODO: Dispatch event
+            var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
+
+            var questionCreatedEvent = new UserProfileUpdatedEvent(profile)
+            {
+                CorrelationId = correlationId
+            };
+            await _eventDispatcher.DispatchAsync(questionCreatedEvent);
+            _logger.LogInformation($"User Profile Updated Event dispatched for profile with ID {profile.Id}.");
             return UserProfileModel.FromEntity(profile);
         }
     }

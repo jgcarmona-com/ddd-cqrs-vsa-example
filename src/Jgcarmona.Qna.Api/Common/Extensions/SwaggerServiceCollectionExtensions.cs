@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace Jgcarmona.Qna.Api.Common.Extensions;
@@ -6,9 +7,9 @@ public static class SwaggerServiceCollectionExtensions
 {
     public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
     {
-        services.AddSwaggerGen(c =>
+        services.AddSwaggerGen(options =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo
+            options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = Constants.Title,
                 Version = "v1",
@@ -26,8 +27,14 @@ public static class SwaggerServiceCollectionExtensions
                 }
             });
 
+            options.DocInclusionPredicate((_, api) => true);
+
+            // Group endpoints by controller or GroupName
+            options.TagActionsBy(api => new[] { api.GroupName ?? api.ActionDescriptor.RouteValues["controller"] });
+
+
             // OAuth2 Definition
-            c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.OAuth2,
                 Flows = new OpenApiOAuthFlows
@@ -40,7 +47,7 @@ public static class SwaggerServiceCollectionExtensions
             });
 
             // Security requirement globally
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme

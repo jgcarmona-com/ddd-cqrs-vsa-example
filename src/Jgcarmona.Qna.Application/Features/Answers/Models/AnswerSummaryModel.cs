@@ -1,5 +1,4 @@
-﻿using Jgcarmona.Qna.Api.Models;
-using Jgcarmona.Qna.Domain.Entities;
+﻿using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Answers.Models
 {
@@ -11,7 +10,6 @@ namespace Jgcarmona.Qna.Application.Features.Answers.Models
         public string ContentSnippet { get; set; }
         public int Votes { get; set; }
         public DateTime AnsweredAt { get; set; }
-        public List<Link> Links { get; set; } = new();
 
         public static AnswerSummaryModel FromEntity(Answer answer)
         {
@@ -25,8 +23,6 @@ namespace Jgcarmona.Qna.Application.Features.Answers.Models
                 AnsweredAt = answer.CreatedAt
             };
 
-            model.Links.Add(new Link($"/api/questions/{model.QuestionId}", "question", "GET"));
-            model.Links.Add(new Link($"/api/questions/{model.QuestionId}/answers/{model.Id}", "self", "GET"));
 
             return model;
         }

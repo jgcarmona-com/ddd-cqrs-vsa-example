@@ -1,5 +1,4 @@
-﻿using Jgcarmona.Qna.Api.Models;
-using Jgcarmona.Qna.Domain.Entities;
+﻿using Jgcarmona.Qna.Domain.Entities;
 
 namespace Jgcarmona.Qna.Application.Features.Comments.Models
 {
@@ -11,7 +10,6 @@ namespace Jgcarmona.Qna.Application.Features.Comments.Models
         public DateTime PostedAt { get; set; }
         public string TargetId { get; set; } // ID of the question or answer being commented on
         public string TargetType { get; set; } // "Question" or "Answer"
-        public List<Link> Links { get; set; } = new();
 
         public static CommentSummaryModel FromEntity(Comment comment)
         {
@@ -48,17 +46,6 @@ namespace Jgcarmona.Qna.Application.Features.Comments.Models
                 TargetId = targetId,
                 TargetType = targetType
             };
-
-            if (model.TargetType == "Question")
-            {
-                model.Links.Add(new Link($"/api/questions/{model.TargetId}", "question", "GET"));
-            }
-            else if (model.TargetType == "Answer")
-            {
-                model.Links.Add(new Link($"/api/answers/{model.TargetId}", "answer", "GET"));
-            }
-
-            model.Links.Add(new Link($"/api/comments/{model.Id}", "self", "GET"));
 
             return model;
         }

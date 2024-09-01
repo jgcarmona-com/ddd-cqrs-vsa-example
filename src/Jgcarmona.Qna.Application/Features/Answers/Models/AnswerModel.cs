@@ -10,37 +10,42 @@ namespace Jgcarmona.Qna.Application.Features.Answers.Models
         public string Content { get; set; }
         public string AuthorId { get; set; }
         public string AuthorName { get; set; }
-        public int Votes { get; set; }
+        public int Score { get; set; }
         public bool IsAccepted { get; set; }
         public List<CommentModel> Comments { get; set; }
 
-
         public static AnswerModel FromEntity(Answer answer)
         {
-            return new AnswerModel
+            var score = answer.Votes.Sum(v => v.IsUpvote ? 1 : -1);
+
+            var model = new AnswerModel
             {
                 Id = answer.Id.ToString(),
                 Content = answer.Content,
                 AuthorId = answer.AuthorId.ToString(),
-                //Votes = answer.Votes.Count(),
+                AuthorName = answer.Author.DisplayName, // Assuming you have access to Author's DisplayName
+                Score = score,
                 IsAccepted = answer.IsAccepted,
                 Comments = answer.Comments.Select(CommentModel.FromEntity).ToList()
             };
+
+            return model;
         }
 
         public static AnswerModel FromAnswerView(QuestionView.AnswerView answerView)
         {
-            return new AnswerModel
+            var model = new AnswerModel
             {
                 Id = answerView.EntityId,
                 Content = answerView.Content,
-                AuthorId = answerView.AuthorId,
+                AuthorId = answerView.AuthorId,                
                 AuthorName = answerView.AuthorName,
-                Votes = answerView.Votes,
+                Score = answerView.Votes, // Assuming Votes in the view represents the final score
                 IsAccepted = answerView.IsAccepted,
                 Comments = answerView.Comments.Select(CommentModel.FromCommentView).ToList()
             };
+
+            return model;
         }
     }
-
 }

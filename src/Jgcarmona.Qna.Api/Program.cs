@@ -88,6 +88,13 @@ namespace Jgcarmona.Qna.Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+
+            ////// Ensure Admin area is recognized
+            ////app.MapAreaControllerRoute(
+            ////    name: "Admin",
+            ////    areaName: "Admin",
+            ////    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+
             app.Run();
         }
     }

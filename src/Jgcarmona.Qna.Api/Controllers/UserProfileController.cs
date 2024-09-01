@@ -1,10 +1,12 @@
-﻿using Jgcarmona.Qna.Application.Features.UserProfiles.Commands;
+﻿using Jgcarmona.Qna.Api.Common.Extensions;
+using Jgcarmona.Qna.Application.Features.UserProfiles.Commands;
 using Jgcarmona.Qna.Application.Features.UserProfiles.Models;
 using Jgcarmona.Qna.Application.Features.UserProfiles.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NUlid;
+using System.Security.Claims;
 
 namespace Jgcarmona.Qna.Api.Controllers
 {
@@ -46,6 +48,38 @@ namespace Jgcarmona.Qna.Api.Controllers
             }
 
             return Ok(profile);
+        }
+
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMyProfile()
+        {
+            var profileId = User.GetProfileId();
+            var query = new GetUserProfileByIdQuery(Ulid.Parse(profileId));
+            var profile = await _mediator.Send(query);
+
+            if (profile == null)
+            {
+                return NotFound("Profile not found");
+            }
+
+            return Ok(profile);
+        }
+
+        [Authorize]
+        [HttpPut("me")]
+        public async Task<IActionResult> UpdateMyProfile([FromRoute] string id, [FromBody] UpdateUserProfileModel model)
+        {
+            var profileId = User.GetProfileId();
+            var command = new UpdateUserProfileCommand(Ulid.Parse(id), model);
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                return NotFound("Profile not found");
+            }
+
+            return Ok(result);
         }
     }
 }

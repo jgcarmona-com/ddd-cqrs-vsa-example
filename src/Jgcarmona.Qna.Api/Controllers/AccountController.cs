@@ -19,7 +19,7 @@ namespace Jgcarmona.Qna.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("")]
+        [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignupModel model)
         {
             var command = new SignupCommand { SignupModel = model };
@@ -33,7 +33,7 @@ namespace Jgcarmona.Qna.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("")]
+        [HttpGet("me")]
         public async Task<IActionResult> Me()
         {
             var username = User?.Identity?.Name;
