@@ -1,7 +1,5 @@
 ﻿using FluentEmail.Core;
 using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Domain.Repositories.Full;
-using Jgcarmona.Qna.Domain.Views;
 
 namespace Jgcarmona.Qna.Services.NotificationService.Features.Users
 {

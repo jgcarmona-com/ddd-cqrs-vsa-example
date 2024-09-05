@@ -1,4 +1,5 @@
 
+using DotNetEnv;
 using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Api.Common.Middleware;
 using Jgcarmona.Qna.Api.Common.Middlewares;
@@ -21,8 +22,13 @@ namespace Jgcarmona.Qna.Api
     {
         private static async Task Main(string[] args)
         {
+            // Load environment variables from .env file
+            Env.Load();
 
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add secrets provider extension here before other services
+            builder.Services.AddCustomSecrets(builder.Configuration);
 
             builder.Configuration
                 .SetBasePath(Directory.GetCurrentDirectory())

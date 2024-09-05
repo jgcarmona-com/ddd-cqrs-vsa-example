@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Serilog;
@@ -8,6 +9,8 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
+        // Load environment variables from .env file
+        Env.Load();
         Log.Logger = new LoggerConfiguration()
             .Enrich.FromLogContext()
             .WriteTo.Console()
@@ -44,9 +47,14 @@ public class Program
                       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                       .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true)
                       .AddEnvironmentVariables();
+
+                
             })
             .ConfigureServices((hostContext, services) =>
             {
+                // Add secrets provider extension
+                services.AddCustomSecrets(hostContext.Configuration);
+
                 // Register configuration settings
                 services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
 

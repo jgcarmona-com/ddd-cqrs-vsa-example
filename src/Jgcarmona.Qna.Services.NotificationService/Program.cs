@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Serilog;
 
@@ -7,6 +8,8 @@ namespace Jgcarmona.Qna.Services.NotificationService
     {
         public static async Task Main(string[] args)
         {
+            // Load environment variables from .env file
+            Env.Load();
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
@@ -44,6 +47,10 @@ namespace Jgcarmona.Qna.Services.NotificationService
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    // Add secrets provider extension
+                    services.AddCustomSecrets(hostContext.Configuration);
+
+                    // TODO: set userr and password for email (SMTP rpovider)
                     services
                     .AddFluentEmail(hostContext.Configuration["Email:SenderEmail"], hostContext.Configuration["Email:SenderName"])
                     .AddSmtpSender(hostContext.Configuration["Email:Host"], hostContext.Configuration.GetValue<int>("Email:Port"));

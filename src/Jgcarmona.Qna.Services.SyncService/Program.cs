@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Jgcarmona.Qna.Common.Configuration.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Infrastructure.Extensions;
@@ -11,6 +12,8 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
+        // Load environment variables from .env file
+        Env.Load();
         Log.Logger = new LoggerConfiguration()
             .Enrich.FromLogContext()
             .WriteTo.Console()
@@ -51,6 +54,8 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
+                // Add secrets provider extension
+                services.AddCustomSecrets(hostContext.Configuration);
                 services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
                 services.AddMongoDb(hostContext.Configuration);
                 services.AddSingleton(new JsonSerializerOptions
