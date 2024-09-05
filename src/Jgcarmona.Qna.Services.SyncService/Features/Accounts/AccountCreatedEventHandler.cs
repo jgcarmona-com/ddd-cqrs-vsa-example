@@ -25,7 +25,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Users
             var accountView = new AccountView
             {
                 EntityId = domainEvent.Account.Id.ToString(),
-                LoginName = domainEvent.Account.LoginName,
+                LoginName = domainEvent.Account.Email,
                 Roles = domainEvent.Account.Roles,
                 CreatedAt = domainEvent.Account.CreatedAt,
                 Email = domainEvent.Account.Email,
@@ -49,7 +49,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Users
 
                 await _profileRepository.AddAsync(profileView);
             }
-            _logger.LogInformation("Account {LoginName} added to MongoDB successfully.", accountView.LoginName);
+            _logger.LogInformation("Account {Email} added to MongoDB successfully.", accountView.LoginName);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Models
     public class AccountModel
     {
         public string Id { get; set; }
-        public string LoginName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public List<string> Roles { get; set; } = new List<string>();
         public bool IsActive { get; set; }
 
@@ -15,7 +15,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Models
             return new AccountModel
             {
                 Id = account.Id.ToString(),
-                LoginName = account.LoginName,
+                Email = account.Email,
                 Roles = account.Roles,
                 IsActive = account.IsActive
             };
@@ -26,7 +26,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Models
             return new AccountModel
             {
                 Id = view.EntityId.ToString(),
-                LoginName = view.LoginName,
+                Email = view.Email,
                 Roles = view.Roles,
                 IsActive = view.IsActive
             };

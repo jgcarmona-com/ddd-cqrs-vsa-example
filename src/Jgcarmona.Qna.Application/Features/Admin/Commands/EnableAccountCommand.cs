@@ -47,7 +47,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
 
             account.IsActive = true;
             await _accountRepository.UpdateAsync(account);
-            _logger.LogInformation($"Account {account.LoginName} has been enabled.");
+            _logger.LogInformation($"Account {account.Email} has been enabled.");
 
             // Despachar el evento de dominio
             var accountEnabledEvent = new AccountEnabledEvent(request.AccountId);

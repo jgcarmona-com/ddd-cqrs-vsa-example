@@ -33,7 +33,7 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
         {
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key not configured."));
 
-            var account = await _accountRepository.GetByNameAsync(request.Username);
+            var account = await _accountRepository.GetByEmailAsync(request.Username);
             if (account == null || !_passwordHasher.Verify(account.PasswordHash, request.Password))
             {
                 return null;
@@ -50,7 +50,7 @@ namespace Jgcarmona.Qna.Application.Features.Auth.Commands
             // Add custom claims for profile info
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, account.LoginName),
+                new Claim(ClaimTypes.Name, account.Email),
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim("ProfileId", selectedProfile?.Id.ToString() ?? string.Empty),
                 new Claim("DisplayName", selectedProfile?.DisplayName ?? string.Empty),

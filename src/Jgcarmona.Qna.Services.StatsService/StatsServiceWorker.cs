@@ -28,8 +28,8 @@ public class StatsServiceWorker : BackgroundService
                 if (domainEvent is AccountViewedEvent accountViewedEvent)
                 {
                     // Handle the AccountViewedEvent specifically
-                    _logger.LogInformation("Processing AccountViewedEvent for user {AuthorId}, username: {LoginName}",
-                        accountViewedEvent.UserId, accountViewedEvent.Username);
+                    _logger.LogInformation("Processing AccountViewedEvent for user {AuthorId}, username: {Email}",
+                        accountViewedEvent.AccountId, accountViewedEvent.ViewedByProfileId);
 
                     // Add additional logic to update stats based on the event
                 }

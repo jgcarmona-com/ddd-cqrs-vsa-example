@@ -10,11 +10,11 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Repositories
         {
         }
 
-        public Task<Account?> GetByNameAsync(string name)
+        public Task<Account?> GetByEmailAsync(string name)
         {
             return _context.Accounts
                 .Include(a => a.Profiles)
-                .FirstOrDefaultAsync(u => u.LoginName == name);
+                .FirstOrDefaultAsync(u => u.Email == name);
         }
     }
 }

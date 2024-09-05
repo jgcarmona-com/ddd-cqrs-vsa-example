@@ -4,6 +4,7 @@ using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Domain.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -41,16 +42,16 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, AccountModel>
     {
         var signupModel = request.SignupModel;
 
-        var existingUser = await _accountRepository.GetByNameAsync(signupModel.LoginName);
+        var existingUser = await _accountRepository.GetByEmailAsync(signupModel.Email);
         if (existingUser != null)
         {
-            _logger.LogWarning("LoginName already exists: {LoginName}", signupModel.LoginName);
-            throw new Exception("LoginName already exists.");
+            _logger.LogWarning("Email already exists: {Email}", signupModel.Email);
+            throw new Exception("Email already exists.");
         }
 
         var account = new Account
         {
-            LoginName = signupModel.LoginName,
+            Email = signupModel.Email,
             PasswordHash = _passwordHasher.Hash(signupModel.Password),
             Roles = ["User"],
             IsActive = true,
@@ -60,7 +61,7 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, AccountModel>
                 {
                     FirstName = "",
                     LastName = "",
-                    DisplayName = signupModel.LoginName,
+                    DisplayName = signupModel.Email,
                     IsPrimary = true
                 }
             ]
@@ -71,7 +72,9 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, AccountModel>
         // Get the correlation ID from the HTTP context
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
-        var accountCreatedEvent = new AccountCreatedEvent(account)
+        var emailVerificationToken = VerificationToken.Create();
+
+        var accountCreatedEvent = new AccountCreatedEvent(account, emailVerificationToken)
         {
             CorrelationId = correlationId
         };

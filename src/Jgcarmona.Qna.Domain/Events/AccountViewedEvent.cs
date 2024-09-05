@@ -4,13 +4,13 @@ namespace Jgcarmona.Qna.Domain.Events
 {
     public class AccountViewedEvent : EventBase
     {
-        public Ulid UserId { get; }
-        public string Username { get; }
+        public string AccountId { get; }
+        public string ViewedByProfileId { get; }
 
-        public AccountViewedEvent(Ulid userId, string username)
+        public AccountViewedEvent(string accountId, string viewedByProfileId)
         {
-            UserId = userId;
-            Username = username;
+            AccountId = accountId;
+            ViewedByProfileId = viewedByProfileId;
         }
     }
 }

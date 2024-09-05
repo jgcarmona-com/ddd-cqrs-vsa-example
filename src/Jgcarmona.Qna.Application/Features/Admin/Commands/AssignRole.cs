@@ -50,7 +50,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
             account.AddRole(request.Role);
 
             await _accountRepository.UpdateAsync(account);
-            _logger.LogInformation($"Account {account.LoginName} has been assigned role {request.Role}.");
+            _logger.LogInformation($"Account {account.Email} has been assigned role {request.Role}.");
 
             // Add event to notify account has been assigned role
             var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;

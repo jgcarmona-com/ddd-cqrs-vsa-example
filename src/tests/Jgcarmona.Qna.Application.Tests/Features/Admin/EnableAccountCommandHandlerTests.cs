@@ -53,7 +53,7 @@ namespace Jgcarmona.Qna.Application.Tests.Features.Admin
         public async Task Handle_Should_Enable_Account_And_Dispatch_Event()
         {
             // Arrange
-            var account = new Account { IsActive = false, LoginName = "TestUser" };
+            var account = new Account { IsActive = false, Email = "TestUser" };
             var command = new EnableAccountCommand(Ulid.NewUlid().ToString());
             _accountRepository.GetByIdAsync(Ulid.Parse(command.AccountId)).Returns(account);
 
@@ -64,7 +64,7 @@ namespace Jgcarmona.Qna.Application.Tests.Features.Admin
             Assert.True(account.IsActive);
             _accountRepository.Received(1).UpdateAsync(account);
             await _eventDispatcher.Received(1).DispatchAsync(Arg.Is<AccountEnabledEvent>(e => e.AccountId == command.AccountId));
-            Assert.Equal(account.LoginName, result.LoginName);
+            Assert.Equal(account.Email, result.Email);
         }
     }
 }

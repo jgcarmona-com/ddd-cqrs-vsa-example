@@ -2,6 +2,7 @@ using Jgcarmona.Qna.Domain.Entities;
 using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
 
 namespace Jgcarmona.Qna.Application.Initialization
@@ -27,12 +28,12 @@ namespace Jgcarmona.Qna.Application.Initialization
 
         public async Task SeedAdminUserAsync()
         {
-            var adminUser = await _accountRepository.GetByNameAsync("admin");
+            var adminUser = await _accountRepository.GetByEmailAsync("admin");
             if (adminUser == null)
             {
                 adminUser = new Account
                 {
-                    LoginName = "admin",
+                    Email = "admin",
                     PasswordHash = _passwordHasher.Hash("P@ssw0rd!"),
                     Roles = ["Admin", "User"],
                     IsActive = true,
@@ -51,7 +52,8 @@ namespace Jgcarmona.Qna.Application.Initialization
                 await _accountRepository.AddAsync(adminUser);
                 _logger.LogInformation("Admin user created successfully in SQL.");
 
-                var accountCreatedEvent = new AccountCreatedEvent(adminUser);
+                var emailVerificationToken = VerificationToken.Create();
+                var accountCreatedEvent = new AccountCreatedEvent(adminUser, emailVerificationToken);
 
                 await _eventDispatcher.DispatchAsync(accountCreatedEvent);
                 _logger.LogInformation("Event dispatched for admin user creation.");

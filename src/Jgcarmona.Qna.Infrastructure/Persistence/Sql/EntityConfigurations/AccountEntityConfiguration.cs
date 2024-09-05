@@ -12,11 +12,11 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.EntityConfigurations
         {
             base.Configure(builder);
 
-            builder.Property(a => a.LoginName)
+            builder.Property(a => a.Email)
                    .IsRequired()
                    .HasMaxLength(100);
 
-            builder.HasIndex(a => a.LoginName)
+            builder.HasIndex(a => a.Email)
                    .IsUnique();
 
             builder.Property(a => a.Email)

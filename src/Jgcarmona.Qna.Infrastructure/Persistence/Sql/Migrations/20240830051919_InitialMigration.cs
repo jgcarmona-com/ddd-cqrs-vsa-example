@@ -191,7 +191,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_LoginName",
                 table: "Accounts",
-                column: "LoginName",
+                column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(

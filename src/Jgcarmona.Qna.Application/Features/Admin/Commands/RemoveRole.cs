@@ -34,7 +34,7 @@ namespace Jgcarmona.Qna.Application.Features.Admin.Commands
             account.RemoveRole(request.Role);
 
             await _accountRepository.UpdateAsync(account);
-            _logger.LogInformation($"Account {account.LoginName} has been removed role {request.Role}.");
+            _logger.LogInformation($"Account {account.Email} has been removed role {request.Role}.");
 
             // TODO: Add event to notify account has been removed role
             return AccountModel.FromEntity(account);

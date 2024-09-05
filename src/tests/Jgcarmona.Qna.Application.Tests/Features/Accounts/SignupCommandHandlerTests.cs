@@ -42,11 +42,11 @@ namespace Jgcarmona.Qna.Application.Tests.Features.Accounts
             // Arrange
             var signupModel = new SignupModel
             {
-                LoginName = "newuser",
+                Email = "newuser",
                 Password = "password123"
             };
 
-            _accountRepository.GetByNameAsync(signupModel.LoginName)
+            _accountRepository.GetByEmailAsync(signupModel.Email)
                 .Returns((Account)null);
 
             _passwordHasher.Hash(signupModel.Password)
@@ -61,11 +61,11 @@ namespace Jgcarmona.Qna.Application.Tests.Features.Accounts
             var result = await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            await _accountRepository.Received(1).GetByNameAsync(signupModel.LoginName);
-            await _accountRepository.Received(1).AddAsync(Arg.Is<Account>(acc => acc.LoginName == signupModel.LoginName && acc.PasswordHash == "hashedpassword"));
+            await _accountRepository.Received(1).GetByEmailAsync(signupModel.Email);
+            await _accountRepository.Received(1).AddAsync(Arg.Is<Account>(acc => acc.Email == signupModel.Email && acc.PasswordHash == "hashedpassword"));
             await _eventDispatcher.Received(1).DispatchAsync(Arg.Any<AccountCreatedEvent>());
             Assert.NotNull(result);
-            Assert.Equal(signupModel.LoginName, result.LoginName);
+            Assert.Equal(signupModel.Email, result.Email);
         }
 
         [Fact]
@@ -74,11 +74,11 @@ namespace Jgcarmona.Qna.Application.Tests.Features.Accounts
             // Arrange
             var signupModel = new SignupModel
             {
-                LoginName = "existinguser",
+                Email = "existinguser",
                 Password = "password123"
             };
 
-            _accountRepository.GetByNameAsync(signupModel.LoginName)
+            _accountRepository.GetByEmailAsync(signupModel.Email)
                 .Returns(new Account());
 
             var command = new SignupCommand { SignupModel = signupModel };

@@ -8,26 +8,28 @@ using Microsoft.Extensions.Logging;
 
 namespace Jgcarmona.Qna.Application.Features.Accounts.Queries
 {
-    public class GetAccountByNameQuery : IRequest<AccountModel>
+    public class GetAccountByEmailQuery : IRequest<AccountModel>
     {
-        public string Username { get; set; }
+        public string Email { get; set; }
+        public string ViewedByProfileId { get; set; }
 
-        public GetAccountByNameQuery(string username)
+        public GetAccountByEmailQuery(string accountEmail, string viewedByProfileId)
         {
-            Username = username;
+            Email = accountEmail;
+            ViewedByProfileId = viewedByProfileId;
         }
     }
 
-    public class GetAccountByNameQueryHandler : IRequestHandler<GetAccountByNameQuery, AccountModel>
+    public class GetAccountByEmailQueryHandler : IRequestHandler<GetAccountByEmailQuery, AccountModel>
     {
         private readonly IAccountCommandRepository _accountRepository;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<GetAccountByNameQueryHandler> _logger;
+        private readonly ILogger<GetAccountByEmailQueryHandler> _logger;
 
-        public GetAccountByNameQueryHandler(
+        public GetAccountByEmailQueryHandler(
             IAccountCommandRepository accountRepository,
-            ILogger<GetAccountByNameQueryHandler> logger,
+            ILogger<GetAccountByEmailQueryHandler> logger,
             IEventDispatcher eventDispatcher,
             IHttpContextAccessor httpContextAccessor)
         {
@@ -37,9 +39,9 @@ namespace Jgcarmona.Qna.Application.Features.Accounts.Queries
             _logger = logger;
         }
 
-        public async Task<AccountModel> Handle(GetAccountByNameQuery request, CancellationToken cancellationToken)
+        public async Task<AccountModel> Handle(GetAccountByEmailQuery request, CancellationToken cancellationToken)
         {
-            var account = await _accountRepository.GetByNameAsync(request.Username);
+            var account = await _accountRepository.GetByEmailAsync(request.Email);
             if (account == null)
             {
                 return null;
@@ -48,7 +50,7 @@ namespace Jgcarmona.Qna.Application.Features.Accounts.Queries
             var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString() ?? string.Empty;
 
             // Dispatch the event
-            var accountViewedEvent = new AccountViewedEvent(account.Id, account.LoginName)
+            var accountViewedEvent = new AccountViewedEvent(account.Id.ToString(), request.ViewedByProfileId)
             {
                 CorrelationId = correlationId
             };

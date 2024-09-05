@@ -2,11 +2,12 @@ namespace Jgcarmona.Qna.Domain.Entities
 {
     public class Account : BaseEntity
     {
-        public string LoginName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public List<string> Roles { get; set; } = [];
         public bool IsActive { get; set; } = true;
+        public bool IsVerified { get; private set; }
+
         public DateTime? LastLoginDate { get; set; }
         public string? PasswordResetToken { get; set; }
         public DateTime? PasswordResetExpiration { get; set; }
@@ -32,6 +33,10 @@ namespace Jgcarmona.Qna.Domain.Entities
         public bool HasRole(string role)
         {
             return Roles.Contains(role);
+        }
+        public void MarkAsVerified()
+        {
+            IsVerified = true;
         }
     }
 }

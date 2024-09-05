@@ -1,3 +1,4 @@
+using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Application.Features.Accounts.Commands.SignUp;
 using Jgcarmona.Qna.Application.Features.Accounts.Models;
 using Jgcarmona.Qna.Application.Features.Accounts.Queries;
@@ -36,13 +37,14 @@ namespace Jgcarmona.Qna.Api.Controllers
         [HttpGet("me")]
         public async Task<IActionResult> Me()
         {
-            var username = User?.Identity?.Name;
-            if (username == null)
+            var email = User?.Identity?.Name;
+            var profileId = User.GetProfileId();
+            if (email == null)
             {
                 return BadRequest("Not authenticated!");
             }
 
-            var query = new GetAccountByNameQuery(username);
+            var query = new GetAccountByEmailQuery(email, profileId);
             var account = await _mediator.Send(query);
 
             if (account == null)

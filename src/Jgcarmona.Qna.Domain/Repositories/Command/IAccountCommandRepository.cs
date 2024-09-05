@@ -4,5 +4,5 @@ namespace Jgcarmona.Qna.Domain.Repositories.Command;
 
 public interface IAccountCommandRepository : ICommandRepository<Account>
 {
-    Task<Account?> GetByNameAsync(string username);
+    Task<Account?> GetByEmailAsync(string username);
 }

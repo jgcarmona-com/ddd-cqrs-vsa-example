@@ -46,7 +46,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                     b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LoginName")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -74,7 +74,7 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LoginName")
+                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Accounts");
