@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Services.Common;
 using Serilog;
 
 namespace Jgcarmona.Qna.Services.NotificationService

@@ -1,4 +1,6 @@
-﻿namespace Jgcarmona.Qna.Services.SyncService
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Jgcarmona.Qna.Services.Common
 {
     public static class ServiceCollectionExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Full;
-using Microsoft.Extensions.Logging;
+using Jgcarmona.Qna.Services.Common;
 
 namespace Jgcarmona.Qna.Services.SyncService.Features.UserProfiles
 {

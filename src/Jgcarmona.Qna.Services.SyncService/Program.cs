@@ -3,6 +3,7 @@ using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
+using Jgcarmona.Qna.Services.Common;
 using Serilog;
 using System.Text.Json;
 

@@ -1,50 +1,22 @@
-using Jgcarmona.Qna.Domain.Events;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Services.Common;
+using Microsoft.Extensions.Options;
 
 namespace Jgcarmona.Qna.Services.StatsService;
 
-public class StatsServiceWorker : BackgroundService
+public class StatsServiceWorker : EventProcessingBackgroundService<StatsServiceWorker>
 {
-    private readonly IEventListener _messagingListener;
-    private readonly ILogger<StatsServiceWorker> _logger;
-
-    public StatsServiceWorker(IEventListener messagingListener, ILogger<StatsServiceWorker> logger)
+    public StatsServiceWorker(
+        IEventListener messagingListener,
+        IServiceProvider serviceProvider,
+        ILogger<StatsServiceWorker> logger,
+        IOptions<FeatureFlags> featureFlags)
+            : base(
+                messagingListener,
+                serviceProvider,
+                logger,
+                featureFlags)
     {
-        _messagingListener = messagingListener;
-        _logger = logger;
-    }
-
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        await _messagingListener.StartListeningAsync(async (domainEvent) =>
-        {
-            try
-            {
-                // Log the received event
-                _logger.LogInformation("StatsService received event: {EventId}, occurred on {OccurredOn}",
-                    domainEvent.Id, domainEvent.OccurredOn);
-
-                // Add your specific stats handling logic here based on the event type
-                if (domainEvent is AccountViewedEvent accountViewedEvent)
-                {
-                    // Handle the AccountViewedEvent specifically
-                    _logger.LogInformation("Processing AccountViewedEvent for user {AuthorId}, username: {Email}",
-                        accountViewedEvent.AccountId, accountViewedEvent.ViewedByProfileId);
-
-                    // Add additional logic to update stats based on the event
-                }
-                else
-                {
-                    _logger.LogWarning("Received an unhandled event type: {EventType}", domainEvent.GetType().Name);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error processing the event in StatsService.");
-            }
-
-            await Task.CompletedTask;
-
-        }, stoppingToken);
     }
 }

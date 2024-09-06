@@ -1,9 +1,9 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Repositories.Full;
+using Jgcarmona.Qna.Services.Common;
 
 namespace Jgcarmona.Qna.Services.SyncService.Features.Accounts
 {
-
     public class AccountVerifiedEventHandler : IEventHandler<AccountVerifiedEvent>
     {
         private readonly IAccountViewRepository _accountViewRepository;
