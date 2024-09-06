@@ -1,8 +1,13 @@
-﻿using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Domain.Services;
+﻿using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Services.Common;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Jgcarmona.Qna.Common.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Jgcarmona.Qna.Services.Common
 {
@@ -37,32 +42,36 @@ namespace Jgcarmona.Qna.Services.Common
 
                     var eventType = domainEvent.GetType();
                     var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
-                    var handler = _serviceProvider.GetService(handlerType);
-
-                    if (handler != null)
+                   
+                    using (var scope = _serviceProvider.CreateScope())
                     {
-                        var method = handlerType.GetMethod("Handle");
-                        if (method != null)
-                        {
-                            var task = method.Invoke(handler, new object[] { domainEvent }) as Task;
+                        var handler = scope.ServiceProvider.GetService(handlerType);
 
-                            if (task != null)
+                        if (handler != null)
+                        {
+                            var method = handlerType.GetMethod("Handle");
+                            if (method != null)
                             {
-                                await task;
+                                var task = method.Invoke(handler, new object[] { domainEvent }) as Task;
+
+                                if (task != null)
+                                {
+                                    await task;
+                                }
+                                else
+                                {
+                                    _logger.LogWarning("The 'Handle' method did not return a Task as expected.");
+                                }
                             }
                             else
                             {
-                                _logger.LogWarning("The 'Handle' method did not return a Task as expected.");
+                                _logger.LogWarning("No 'Handle' method found for handler of event type: {EventType}", eventType.Name);
                             }
                         }
-                        else
+                        else if (_featureFlags.LogUnhandledEvents)
                         {
-                            _logger.LogWarning("No 'Handle' method found for handler of event type: {EventType}", eventType.Name);
+                            _logger.LogInformation("No handler registered for event type: {EventType}", eventType.Name);
                         }
-                    }
-                    else if (_featureFlags.LogUnhandledEvents) 
-                    {
-                        _logger.LogInformation("No handler registered for event type: {EventType}", eventType.Name);
                     }
                 }
                 catch (Exception ex)

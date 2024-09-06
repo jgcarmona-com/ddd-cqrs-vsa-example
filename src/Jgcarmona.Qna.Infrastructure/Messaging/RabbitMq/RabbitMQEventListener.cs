@@ -26,7 +26,7 @@ public class RabbitMQEventListener : IEventListener
         {
             HostName = _settings.HostName,
             UserName = _settings.UserName,
-            Password = _settings.Password
+            Password = _settings.Password            
         };
 
         _connection = factory.CreateConnection();

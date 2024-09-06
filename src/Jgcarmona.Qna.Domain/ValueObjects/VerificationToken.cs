@@ -1,4 +1,6 @@
-﻿namespace Jgcarmona.Qna.Domain.ValueObjects;
+﻿using System.Text.Json.Serialization;
+
+namespace Jgcarmona.Qna.Domain.ValueObjects;
 
 public sealed class VerificationToken : ValueObject
 {
@@ -6,7 +8,8 @@ public sealed class VerificationToken : ValueObject
     public DateTime CreatedOnUtc { get; }
     public DateTime ExpiresOnUtc { get; }
 
-    private VerificationToken(Guid id, DateTime createdOnUtc, DateTime expiresOnUtc)
+    [JsonConstructor]
+    public VerificationToken(Guid id, DateTime createdOnUtc, DateTime expiresOnUtc)
     {
         Id = id;
         CreatedOnUtc = createdOnUtc;

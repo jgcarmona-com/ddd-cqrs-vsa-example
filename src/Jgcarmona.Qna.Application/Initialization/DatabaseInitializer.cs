@@ -4,6 +4,8 @@ using Jgcarmona.Qna.Domain.Repositories.Command;
 using Jgcarmona.Qna.Domain.Services;
 using Jgcarmona.Qna.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Jgcarmona.Qna.Common.Configuration;
 
 namespace Jgcarmona.Qna.Application.Initialization
 {
@@ -13,40 +15,43 @@ namespace Jgcarmona.Qna.Application.Initialization
         private readonly IPasswordHasher _passwordHasher;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly ILogger<DatabaseInitializer> _logger;
+        private readonly AdminSettings _adminSettings;
 
         public DatabaseInitializer(
             IAccountCommandRepository accountRepository,
             IPasswordHasher passwordHasher,
             IEventDispatcher eventDispatcher,
-            ILogger<DatabaseInitializer> logger)
+            ILogger<DatabaseInitializer> logger,
+            IOptions<AdminSettings> adminSettings)  // Inyectar AdminSettings
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _eventDispatcher = eventDispatcher;
             _logger = logger;
+            _adminSettings = adminSettings.Value;
         }
 
         public async Task SeedAdminUserAsync()
         {
-            var adminUser = await _accountRepository.GetByEmailAsync("admin");
+            var adminUser = await _accountRepository.GetByEmailAsync(_adminSettings.Email);
             if (adminUser == null)
             {
                 adminUser = new Account
                 {
-                    Email = "admin",
-                    PasswordHash = _passwordHasher.Hash("P@ssw0rd!"),
+                    Email = _adminSettings.Email,
+                    PasswordHash = _passwordHasher.Hash(_adminSettings.Password),
                     Roles = ["Admin", "User"],
                     IsActive = true,
                     Profiles =
-                    [
+                    {
                         new UserProfile
                         {
-                            FirstName = "Admin",
-                            LastName = "User",
-                            DisplayName = "Admin",
+                            FirstName = _adminSettings.FirstName,
+                            LastName = _adminSettings.LastName,
+                            DisplayName = _adminSettings.FirstName,
                             IsPrimary = true
                         }
-                    ]
+                    }
                 };
 
                 await _accountRepository.AddAsync(adminUser);

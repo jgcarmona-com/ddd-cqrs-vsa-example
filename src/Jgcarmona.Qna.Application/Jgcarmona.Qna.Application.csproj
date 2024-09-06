@@ -5,6 +5,7 @@
     <None Remove="Features\Admin\Models\**" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Jgcarmona.Qna.Common\Jgcarmona.Qna.Common.csproj" />
     <ProjectReference Include="..\Jgcarmona.Qna.Domain\Jgcarmona.Qna.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>

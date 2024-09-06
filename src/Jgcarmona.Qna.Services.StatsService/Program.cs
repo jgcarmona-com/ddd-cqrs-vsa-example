@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
+using Jgcarmona.Qna.Services.Common;
 using Serilog;
 
 namespace Jgcarmona.Qna.Services.StatsService;
@@ -56,6 +57,8 @@ public class Program
                 services.AddMessagingListener(hostContext.Configuration);
 
                 // Register the main hosted service
+
+                services.AddEventHandlers();
                 services.AddHostedService<StatsServiceWorker>();
             })
             .UseSerilog((context, loggerConfig) =>

@@ -51,6 +51,7 @@ namespace Jgcarmona.Qna.Services.NotificationService
                     services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
                     services.Configure<RabbitMQSettings>(hostContext.Configuration.GetSection("RabbitMQSettings"));
                     services.Configure<SmtpSettings>(hostContext.Configuration.GetSection("SmtpSettings"));
+                    services.Configure<ApiSettings>(hostContext.Configuration.GetSection("ApiSettings"));  
 
                     var smtpSettings = hostContext.Configuration.GetSection("SmtpSettings").Get<SmtpSettings>();
                     if (string.IsNullOrEmpty(smtpSettings?.User) || string.IsNullOrEmpty(smtpSettings.Password))

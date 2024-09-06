@@ -37,6 +37,7 @@ namespace Jgcarmona.Qna.Api
                 .AddEnvironmentVariables();
 
             // Configure feature flags and specific settings
+            builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("AdminSettings"));
             builder.Services.Configure<FeatureFlags>(builder.Configuration.GetSection("FeatureFlags"));
             builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQSettings"));
             builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
@@ -101,5 +102,4 @@ namespace Jgcarmona.Qna.Api
             app.Run();
         }
     }
-
 }
