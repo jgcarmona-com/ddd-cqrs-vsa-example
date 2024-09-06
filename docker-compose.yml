@@ -24,6 +24,18 @@ services:
       - jgcarmona.qna.services.statsservice
       - jgcarmona.qna.services.notificationservice
 
+  jgcarmona.qna.client.angular:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaclientangular
+    networks:
+      - qna-network
+    build:
+      context: .
+      dockerfile: /src/Jgcarmona.Qna.Client.Angular/Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - jgcarmona.qna.api
+
   jgcarmona.qna.services.syncservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice
     networks:

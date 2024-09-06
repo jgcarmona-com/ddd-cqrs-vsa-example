@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Application.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.NotificationService", "src\Jgcarmona.Qna.Services.NotificationService\Jgcarmona.Qna.Services.NotificationService.csproj", "{2F44E7FD-419A-446D-BB6B-E0CA1EC8AE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jgcarmona.Qna.Services.Common", "src\Jgcarmona.Qna.Services.Common\Jgcarmona.Qna.Services.Common.csproj", "{284CCFC5-C2BB-467D-927D-589C9653CA94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgcarmona.Qna.Services.Common", "src\Jgcarmona.Qna.Services.Common\Jgcarmona.Qna.Services.Common.csproj", "{284CCFC5-C2BB-467D-927D-589C9653CA94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
