@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+﻿using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

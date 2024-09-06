@@ -6,7 +6,7 @@ using Jgcarmona.Qna.Api.Common.Middlewares;
 using Jgcarmona.Qna.Api.Extensions;
 using Jgcarmona.Qna.Application.Initialization;
 using Jgcarmona.Qna.Application.Services;
-using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Domain.Services;
 using Jgcarmona.Qna.Infrastructure.Extensions;
@@ -36,8 +36,12 @@ namespace Jgcarmona.Qna.Api
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
+            // Configure feature flags and specific settings
             builder.Services.Configure<FeatureFlags>(builder.Configuration.GetSection("FeatureFlags"));
             builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQSettings"));
+            builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
 
             builder.Host.UseSerilog((context, loggerConfig) =>
                 loggerConfig.ReadFrom.Configuration(context.Configuration));

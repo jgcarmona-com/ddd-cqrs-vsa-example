@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240830051919_InitialMigration")]
+    [Migration("20240906042005_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -48,11 +51,6 @@ namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Migrations
 
                     b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()

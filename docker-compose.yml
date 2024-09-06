@@ -22,6 +22,7 @@ services:
       - mongo
       - jgcarmona.qna.services.syncservice
       - jgcarmona.qna.services.statsservice
+      - jgcarmona.qna.services.notificationservice
 
   jgcarmona.qna.services.syncservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice
@@ -29,7 +30,10 @@ services:
       - qna-network
     build:
       context: .
-      dockerfile: src/Jgcarmona.Qna.Services.SyncService/Dockerfile
+      dockerfile: src/Jgcarmona.Qna.Services.SyncService/Dockerfile    
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
     depends_on:
       - rabbitmq
       - seq
@@ -41,11 +45,28 @@ services:
       - qna-network
     build:
       context: .
-      dockerfile: src/Jgcarmona.Qna.Services.StatsService/Dockerfile
+      dockerfile: src/Jgcarmona.Qna.Services.StatsService/Dockerfile   
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
     depends_on:
       - rabbitmq
       - seq
       - mongo
+
+  jgcarmona.qna.services.notificationservice:
+    image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicesnotificationservice
+    networks:
+      - qna-network
+    build:
+      context: .
+      dockerfile: src/Jgcarmona.Qna.Services.NotificationService/Dockerfile   
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
+    depends_on:
+      - rabbitmq
+      - seq
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest

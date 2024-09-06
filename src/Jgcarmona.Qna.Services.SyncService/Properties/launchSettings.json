@@ -11,6 +11,7 @@
     "Container (Dockerfile)": {
       "commandName": "Docker",
       "environmentVariables\": {": null,
+      "DOTNET_ENVIRONMENT": "Development",
       "ASPNETCORE_ENVIRONMENT": "Development"
     }
   },

@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+﻿using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Domain.Services;
 using Jgcarmona.Qna.Infrastructure.EventDispatchers;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +21,13 @@ namespace Jgcarmona.Qna.Api.Extensions
                 case "rabbitmq":
                     var rabbitMQSettings = new RabbitMQSettings();
                     configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);
+
+                    // Overwrite the values from environment variables:
+                    rabbitMQSettings.HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOSTNAME") ?? rabbitMQSettings.HostName;
+                    rabbitMQSettings.UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? rabbitMQSettings.UserName;
+                    rabbitMQSettings.Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? rabbitMQSettings.Password;
+                    rabbitMQSettings.QueueName = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE_NAME") ?? rabbitMQSettings.QueueName;
+
                     services.Configure<RabbitMQSettings>(options =>
                         {
                             options.HostName = rabbitMQSettings.HostName;

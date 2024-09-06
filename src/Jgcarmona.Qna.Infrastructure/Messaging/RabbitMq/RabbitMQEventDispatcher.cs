@@ -1,4 +1,4 @@
-﻿using Jgcarmona.Qna.Common.Configuration.Configuration;
+﻿using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Domain.Events;
 using Jgcarmona.Qna.Domain.Services;

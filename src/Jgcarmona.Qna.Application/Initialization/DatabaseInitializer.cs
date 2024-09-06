@@ -54,9 +54,12 @@ namespace Jgcarmona.Qna.Application.Initialization
 
                 var emailVerificationToken = VerificationToken.Create();
                 var accountCreatedEvent = new AccountCreatedEvent(adminUser, emailVerificationToken);
-
                 await _eventDispatcher.DispatchAsync(accountCreatedEvent);
                 _logger.LogInformation("Event dispatched for admin user creation.");
+
+                var accountVerifiedEvent = new AccountVerifiedEvent(adminUser.Id);
+                await _eventDispatcher.DispatchAsync(accountVerifiedEvent);
+                _logger.LogInformation("Event dispatched for admin user verification.");
             }
         }
     }

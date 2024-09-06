@@ -1,5 +1,5 @@
 using DotNetEnv;
-using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Serilog;
 
@@ -36,10 +36,6 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .UseSerilog((context, loggerConfig) =>
-            {
-                loggerConfig.ReadFrom.Configuration(context.Configuration);
-            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 // Load configuration files
@@ -47,21 +43,23 @@ public class Program
                       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                       .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true)
                       .AddEnvironmentVariables();
-
-                
             })
             .ConfigureServices((hostContext, services) =>
             {
                 // Add secrets provider extension
                 services.AddCustomSecrets(hostContext.Configuration);
 
-                // Register configuration settings
                 services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
+                services.Configure<RabbitMQSettings>(hostContext.Configuration.GetSection("RabbitMQSettings"));
 
                 // Register the appropriate messaging listener based on the configured provider
                 services.AddMessagingListener(hostContext.Configuration);
 
                 // Register the main hosted service
                 services.AddHostedService<StatsServiceWorker>();
+            })
+            .UseSerilog((context, loggerConfig) =>
+            {
+                loggerConfig.ReadFrom.Configuration(context.Configuration);
             });
 }

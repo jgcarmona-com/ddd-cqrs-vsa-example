@@ -6,7 +6,7 @@ namespace Jgcarmona.Qna.Domain.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public List<string> Roles { get; set; } = [];
         public bool IsActive { get; set; } = true;
-        public bool IsVerified { get; private set; }
+        public bool EmailVerified { get; private set; }
 
         public DateTime? LastLoginDate { get; set; }
         public string? PasswordResetToken { get; set; }
@@ -36,7 +36,7 @@ namespace Jgcarmona.Qna.Domain.Entities
         }
         public void MarkAsVerified()
         {
-            IsVerified = true;
+            EmailVerified = true;
         }
     }
 }

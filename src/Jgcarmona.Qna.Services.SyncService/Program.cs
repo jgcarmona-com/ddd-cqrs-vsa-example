@@ -1,5 +1,5 @@
 using DotNetEnv;
-using Jgcarmona.Qna.Common.Configuration.Configuration;
+using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Infrastructure.Persistence.MongoDB.Extensions;
@@ -41,10 +41,6 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .UseSerilog((context, loggerConfig) =>
-            {
-                loggerConfig.ReadFrom.Configuration(context.Configuration);
-            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory())
@@ -56,7 +52,10 @@ public class Program
             {
                 // Add secrets provider extension
                 services.AddCustomSecrets(hostContext.Configuration);
+
                 services.Configure<FeatureFlags>(hostContext.Configuration.GetSection("FeatureFlags"));
+                services.Configure<RabbitMQSettings>(hostContext.Configuration.GetSection("RabbitMQSettings"));
+
                 services.AddMongoDb(hostContext.Configuration);
                 services.AddSingleton(new JsonSerializerOptions
                 {
@@ -66,5 +65,9 @@ public class Program
                 services.AddHostedService<SyncServiceWorker>();
                 services.AddSyncRepositories();
                 services.AddEventHandlers();
+            })
+            .UseSerilog((context, loggerConfig) =>
+            {
+                loggerConfig.ReadFrom.Configuration(context.Configuration);
             });
 }

@@ -1,4 +1,4 @@
-﻿namespace Jgcarmona.Qna.Common.Configuration.Configuration
+﻿namespace Jgcarmona.Qna.Common.Configuration
 {
     public class RabbitMQSettings
     {

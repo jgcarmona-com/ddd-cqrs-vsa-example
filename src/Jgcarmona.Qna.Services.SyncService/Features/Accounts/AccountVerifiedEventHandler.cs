@@ -19,7 +19,7 @@ namespace Jgcarmona.Qna.Services.SyncService.Features.Accounts
 
             if (accountView != null)
             {
-                accountView.IsVerified = true;
+                accountView.EmailVerified = true;
                 accountView.VerificationTokenId = null;
                 accountView.TokenCreatedOnUtc = null;
                 accountView.TokenExpiresOnUtc = null;
