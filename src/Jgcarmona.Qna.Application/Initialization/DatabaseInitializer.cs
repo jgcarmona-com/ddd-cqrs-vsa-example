@@ -62,6 +62,9 @@ namespace Jgcarmona.Qna.Application.Initialization
                 await _eventDispatcher.DispatchAsync(accountCreatedEvent);
                 _logger.LogInformation("Event dispatched for admin user creation.");
 
+                // Wait 5 seconds:
+                await Task.Delay(5000);
+
                 var accountVerifiedEvent = new AccountVerifiedEvent(adminUser.Id);
                 await _eventDispatcher.DispatchAsync(accountVerifiedEvent);
                 _logger.LogInformation("Event dispatched for admin user verification.");

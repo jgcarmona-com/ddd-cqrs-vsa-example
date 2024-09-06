@@ -1,0 +1,15 @@
+﻿@using Jgcarmona.Qna.Services.NotificationService.Features.Accounts
+
+@model AccountCreatedEmailModel
+
+<html>
+<head>
+    <title>Email Verification</title>
+</head>
+<body>
+    <p>Hello @Model.FirstName,</p>
+    <p>Please verify your email by clicking on the following link:</p>
+    <a href="@Model.VerificationLink">Verify Email</a>
+    <p>Thank you!</p>
+</body>
+</html>

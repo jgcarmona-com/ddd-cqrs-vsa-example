@@ -3,6 +3,9 @@ using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Infrastructure.Extensions;
 using Jgcarmona.Qna.Services.Common;
 using Serilog;
+using Microsoft.CodeAnalysis;
+using RazorLight;
+using Jgcarmona.Qna.Services.NotificationService.Features.Accounts;
 
 namespace Jgcarmona.Qna.Services.NotificationService
 {
@@ -52,19 +55,20 @@ namespace Jgcarmona.Qna.Services.NotificationService
                     services.Configure<RabbitMQSettings>(hostContext.Configuration.GetSection("RabbitMQSettings"));
                     services.Configure<SmtpSettings>(hostContext.Configuration.GetSection("SmtpSettings"));
                     services.Configure<ApiSettings>(hostContext.Configuration.GetSection("ApiSettings"));  
-
+                    
                     var smtpSettings = hostContext.Configuration.GetSection("SmtpSettings").Get<SmtpSettings>();
                     if (string.IsNullOrEmpty(smtpSettings?.User) || string.IsNullOrEmpty(smtpSettings.Password))
                     {
                         throw new InvalidOperationException("SMTP user and password are required.");
                     }
+                    services.AddEventHandlers();
                     services
                     .AddFluentEmail(smtpSettings.SenderEmail, smtpSettings.SenderName)
+                    .AddRazorRenderer()
                     .AddSmtpSender(smtpSettings.Host, smtpSettings.Port, smtpSettings.User, smtpSettings.Password);
 
                     services.AddMessagingListener(hostContext.Configuration);
                     services.AddHostedService<NotificationServiceWorker>();
-                    services.AddEventHandlers();
                 })
                 .UseSerilog((context, loggerConfig) =>
                 {

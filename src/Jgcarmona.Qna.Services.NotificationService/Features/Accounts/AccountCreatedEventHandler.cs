@@ -4,7 +4,7 @@ using Jgcarmona.Qna.Services.Common;
 using Microsoft.Extensions.Options;
 using Jgcarmona.Qna.Common.Configuration;
 
-namespace Jgcarmona.Qna.Services.NotificationService.Features.Users
+namespace Jgcarmona.Qna.Services.NotificationService.Features.Accounts
 {
     public class AccountCreatedEventHandler : IEventHandler<AccountCreatedEvent>
     {
@@ -23,13 +23,37 @@ namespace Jgcarmona.Qna.Services.NotificationService.Features.Users
 
         public async Task Handle(AccountCreatedEvent domainEvent)
         {
-            var verificationLink = $"{_apiSettings.BaseUrl}/verify-email?token={domainEvent.VerificationToken.Id.ToString()}";
+            try
+            {
+                var verificationLink = $"{_apiSettings.BaseUrl}/verify-email?token={domainEvent.VerificationToken.Id.ToString()}";
 
-            await _emailSender
-                .To(domainEvent.Account.Email)
-                .Subject("Email Verification")
-                .Body($"Please verify your email by clicking on this link: <a href='{verificationLink}'>Verify Email</a>", true)
-                .SendAsync();
+                var emailModel = new AccountCreatedEmailModel
+                {
+                    FirstName = domainEvent.Account.Profiles.FirstOrDefault()?.FirstName ?? "User",
+                    VerificationLink = verificationLink
+                };
+
+                var templatePath = "/app/Features/Accounts/AccountCreatedTemplate.cshtml";
+
+                var email = await _emailSender
+                    .To(domainEvent.Account.Email)
+                    .Subject("QnA - Email Verification")
+                    .UsingTemplateFromFile(templatePath, emailModel)
+                    .SendAsync();
+
+                if (email.Successful)
+                {
+                    _logger.LogInformation("Email sent successfully to {Email}.", domainEvent.Account.Email);
+                }
+                else
+                {
+                    _logger.LogError("Failed to send email to {Email}.", domainEvent.Account.Email);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to send email to {Email}.", domainEvent.Account.Email);
+            }
         }
     }
 }
