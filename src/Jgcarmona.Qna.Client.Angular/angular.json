@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "qna-app": {
+    "Jgcarmona.Qna.Client.Angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,14 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/qna-app",
+            "outputPath": "dist/jgcarmona.qna.client.angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
@@ -64,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "qna-app:build:production"
+              "buildTarget": "Jgcarmona.Qna.Client.Angular:build:production"
             },
             "development": {
-              "buildTarget": "qna-app:build:development"
+              "buildTarget": "Jgcarmona.Qna.Client.Angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +82,6 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
@@ -93,13 +91,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "f1d2754e-c493-4afe-900f-03e3a8490ed4"
   }
 }
