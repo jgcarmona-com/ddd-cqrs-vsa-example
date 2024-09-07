@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: src/Jgcarmona.Qna.Api/Dockerfile
     ports:
-      - "7100:7000"  # HTTP
+      - "7100:7100"  # HTTP
       - "7101:7001"  # HTTPS
     depends_on:
       - sqlserver
@@ -23,6 +23,8 @@ services:
       - jgcarmona.qna.services.syncservice
       - jgcarmona.qna.services.statsservice
       - jgcarmona.qna.services.notificationservice
+    volumes:
+      - ${USERPROFILE}/.aspnet/https:/https/
 
   jgcarmona.qna.services.syncservice:
     image: ${DOCKER_REGISTRY-}jgcarmonaqnaservicessyncservice

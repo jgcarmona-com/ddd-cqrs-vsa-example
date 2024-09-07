@@ -4,26 +4,17 @@ services:
   jgcarmona.qna.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=7000
-      - ASPNETCORE_HTTPS_PORTS=7001
-    ports:
-      - "7000:7000" # HTTP
-      - "7001:7001" # HTTPS
+      - ASPNETCORE_HTTP_PORTS=7100
+      - ASPNETCORE_HTTPS_PORTS=7101
 
   jgcarmona.qna.services.syncservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "8082:80"
 
   jgcarmona.qna.services.statsservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "8083:80"
 
   jgcarmona.qna.services.notificationservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "8084:80"

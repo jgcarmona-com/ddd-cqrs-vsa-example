@@ -11,8 +11,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Jgcarmona.Qna.Api/Jgcarmona.Qna.Api.csproj", "src/Jgcarmona.Qna.Api/"]
 COPY ["src/Jgcarmona.Qna.Application/Jgcarmona.Qna.Application.csproj", "src/Jgcarmona.Qna.Application/"]
-COPY ["src/Jgcarmona.Qna.Domain/Jgcarmona.Qna.Domain.csproj", "src/Jgcarmona.Qna.Domain/"]
 COPY ["src/Jgcarmona.Qna.Common/Jgcarmona.Qna.Common.csproj", "src/Jgcarmona.Qna.Common/"]
+COPY ["src/Jgcarmona.Qna.Domain/Jgcarmona.Qna.Domain.csproj", "src/Jgcarmona.Qna.Domain/"]
 COPY ["src/Jgcarmona.Qna.Infrastructure/Jgcarmona.Qna.Infrastructure.csproj", "src/Jgcarmona.Qna.Infrastructure/"]
 RUN dotnet restore "./src/Jgcarmona.Qna.Api/Jgcarmona.Qna.Api.csproj"
 COPY . .

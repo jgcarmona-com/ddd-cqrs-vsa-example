@@ -78,8 +78,8 @@ namespace Jgcarmona.Qna.Api
 
             await app.Services.InitializeDatabaseAsync(builder.Configuration);
 
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -87,7 +87,7 @@ namespace Jgcarmona.Qna.Api
                     c.RoutePrefix = string.Empty;
                     c.OAuthUsePkce();
                 });
-            }
+            //}
 
             app.MapGet("/", context =>
             {
