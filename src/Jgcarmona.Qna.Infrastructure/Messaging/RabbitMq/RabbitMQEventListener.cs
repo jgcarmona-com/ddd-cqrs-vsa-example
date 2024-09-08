@@ -1,7 +1,6 @@
 ﻿using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Common.Converters;
 using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Domain.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -9,6 +8,8 @@ using RabbitMQ.Client.Events;
 using Serilog.Context;
 using System.Text;
 using System.Text.Json;
+
+namespace Jgcarmona.Qna.Infrastructure.Messaging.RabbitMq;
 
 public class RabbitMQEventListener : IEventListener
 {

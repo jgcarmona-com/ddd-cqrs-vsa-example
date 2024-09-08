@@ -1,11 +1,12 @@
 ﻿using Jgcarmona.Qna.Common.Configuration;
 using Jgcarmona.Qna.Domain.Services;
-using Jgcarmona.Qna.Infrastructure.EventDispatchers;
+using Jgcarmona.Qna.Infrastructure.Messaging.AzureEventBus;
+using Jgcarmona.Qna.Infrastructure.Messaging.RabbitMq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Jgcarmona.Qna.Api.Extensions
+namespace Jgcarmona.Qna.Infrastructure.Extensions
 {
     public static class EventDispatcherServiceCollectionExtensions
     {

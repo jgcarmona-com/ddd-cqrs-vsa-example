@@ -1,6 +1,6 @@
-﻿using Jgcarmona.Qna.Application.Services;
+﻿using Jgcarmona.Qna.Infrastructure.Services;
 
-namespace Jgcarmona.Qna.Application.Tests.Services
+namespace Jgcarmona.Qna.Infrastructure.Tests.Services
 {
     public class PasswordHasherTests
     {

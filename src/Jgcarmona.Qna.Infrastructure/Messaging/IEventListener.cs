@@ -1,6 +1,6 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
 
-namespace Jgcarmona.Qna.Domain.Services
+namespace Jgcarmona.Qna.Infrastructure.Messaging
 {
     public interface IEventListener
     {

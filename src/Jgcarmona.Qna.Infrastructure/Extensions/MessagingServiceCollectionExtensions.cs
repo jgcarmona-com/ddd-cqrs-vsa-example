@@ -1,5 +1,6 @@
 ﻿using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Infrastructure.Messaging;
+using Jgcarmona.Qna.Infrastructure.Messaging.RabbitMq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

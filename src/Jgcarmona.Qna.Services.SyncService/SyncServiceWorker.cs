@@ -1,5 +1,5 @@
 using Jgcarmona.Qna.Common.Configuration;
-using Jgcarmona.Qna.Domain.Services;
+using Jgcarmona.Qna.Infrastructure.Messaging;
 using Jgcarmona.Qna.Services.Common;
 using Microsoft.Extensions.Options;
 

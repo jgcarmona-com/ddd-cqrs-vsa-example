@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Jgcarmona.Qna.Common.Configuration;
 
-namespace Jgcarmona.Qna.Application.Initialization
+namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Initialization
 {
     public class DatabaseInitializer
     {

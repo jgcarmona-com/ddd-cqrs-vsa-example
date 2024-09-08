@@ -1,7 +1,8 @@
-﻿using Jgcarmona.Qna.Application.Initialization;
-using Jgcarmona.Qna.Infrastructure.Persistence.Sql;
+﻿using Jgcarmona.Qna.Infrastructure.Persistence.Sql.Initialization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Jgcarmona.Qna.Api.Common.Extensions
+namespace Jgcarmona.Qna.Infrastructure.Persistence.Sql.Extensions
 {
     public static class DatabaseInitializationExtensions
     {

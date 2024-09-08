@@ -1,6 +1,6 @@
 ﻿using Jgcarmona.Qna.Domain.Events;
-using Jgcarmona.Qna.Domain.Services;
 
+namespace Jgcarmona.Qna.Infrastructure.Messaging.AzureEventBus;
 public class AzureEventHubListener : IEventListener
 {
     public Task StartListeningAsync(Func<EventBase, Task> onEventReceived, CancellationToken cancellationToken)
