@@ -41,6 +41,27 @@ namespace Jgcarmona.Qna.Api.Controllers
         }
 
         [Authorize]
+        [HttpPut("{answerId}")]
+        public async Task<IActionResult> Update(string questionId, string answerId, [FromBody] CreateAnswerModel model)
+        {            
+            var command = new UpdateAnswerCommand
+            {
+                AnswerId = answerId,
+                Content = model.Content
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                return BadRequest("Failed to update answer.");
+            }
+
+            return Ok(result);
+        }
+
+
+        [Authorize]
         [HttpDelete("{answerId}")]
         public async Task<IActionResult> Delete(string questionId, string answerId)
         {
