@@ -4,6 +4,7 @@ using Jgcarmona.Qna.Application.Answers.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NUlid;
 
 namespace Jgcarmona.Qna.Api.Controllers
 {
@@ -38,5 +39,25 @@ namespace Jgcarmona.Qna.Api.Controllers
 
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpDelete("{answerId}")]
+        public async Task<IActionResult> Delete(string questionId, string answerId)
+        {
+            var command = new DeleteAnswerCommand
+            {
+                AnswerId = answerId
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return BadRequest("Failed to delete answer.");
+            }
+
+            return Ok("Answer deleted successfully.");
+        }
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using NUlid;
-
-namespace Jgcarmona.Qna.Domain.Events
+﻿namespace Jgcarmona.Qna.Domain.Events
 {
     public class AccountViewedEvent : EventBase
     {

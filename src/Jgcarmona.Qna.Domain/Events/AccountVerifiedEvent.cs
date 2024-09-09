@@ -1,9 +1,4 @@
 ﻿using NUlid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Jgcarmona.Qna.Domain.Events
 {

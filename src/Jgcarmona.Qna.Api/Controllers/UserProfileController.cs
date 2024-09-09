@@ -1,12 +1,11 @@
 ﻿using Jgcarmona.Qna.Api.Common.Extensions;
 using Jgcarmona.Qna.Application.UserProfiles.Commands;
-using Jgcarmona.Qna.Application.UserProfiles.Queries;
 using Jgcarmona.Qna.Application.UserProfiles.Models;
+using Jgcarmona.Qna.Application.UserProfiles.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NUlid;
-using System.Security.Claims;
 
 namespace Jgcarmona.Qna.Api.Controllers
 {

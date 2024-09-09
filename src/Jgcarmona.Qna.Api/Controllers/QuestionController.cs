@@ -94,5 +94,25 @@ namespace Jgcarmona.Qna.Api.Controllers
 
             return Ok("Question updated successfully");
         }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (!Ulid.TryParse(id, out var questionId))
+            {
+                return BadRequest("Invalid Question ID format.");
+            }
+
+            var command = new DeleteQuestionCommand { QuestionId = questionId };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return BadRequest("Failed to delete question.");
+            }
+
+            return Ok("Question deleted successfully.");
+        }
     }
 }
