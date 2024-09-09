@@ -1,7 +1,7 @@
 using Jgcarmona.Qna.Api.Common.Extensions;
-using Jgcarmona.Qna.Application.Features.Accounts.Commands.SignUp;
-using Jgcarmona.Qna.Application.Features.Accounts.Models;
-using Jgcarmona.Qna.Application.Features.Accounts.Queries;
+using Jgcarmona.Qna.Application.Accounts.Commands.SignUp;
+using Jgcarmona.Qna.Application.Accounts.Models;
+using Jgcarmona.Qna.Application.Accounts.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

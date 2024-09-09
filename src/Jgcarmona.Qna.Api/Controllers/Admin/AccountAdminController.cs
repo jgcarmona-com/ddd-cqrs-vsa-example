@@ -1,6 +1,6 @@
-﻿using Jgcarmona.Qna.Application.Features.Admin.Commands;
-using Jgcarmona.Qna.Application.Features.Admin.Models;
-using Jgcarmona.Qna.Application.Features.Admin.Queries;
+﻿using Jgcarmona.Qna.Application.Admin.Commands;
+using Jgcarmona.Qna.Application.Accounts.Models;
+using Jgcarmona.Qna.Application.Admin.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

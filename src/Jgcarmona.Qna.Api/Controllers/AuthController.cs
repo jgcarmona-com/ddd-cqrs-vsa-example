@@ -1,4 +1,4 @@
-using Jgcarmona.Qna.Application.Features.Auth.Commands;
+using Jgcarmona.Qna.Application.Auth.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

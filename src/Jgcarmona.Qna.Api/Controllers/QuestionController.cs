@@ -1,8 +1,7 @@
 ﻿using Jgcarmona.Qna.Api.Common.Extensions;
-using Jgcarmona.Qna.Application.Features.Questions.Commands;
-using Jgcarmona.Qna.Application.Features.Questions.Commands.CreateQuestion;
-using Jgcarmona.Qna.Application.Features.Questions.Models;
-using Jgcarmona.Qna.Application.Features.Questions.Queries;
+using Jgcarmona.Qna.Application.Questions.Commands;
+using Jgcarmona.Qna.Application.Questions.Queries;
+using Jgcarmona.Qna.Application.Questions.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

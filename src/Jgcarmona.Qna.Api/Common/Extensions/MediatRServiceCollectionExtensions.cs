@@ -1,5 +1,5 @@
 ﻿using Jgcarmona.Qna.Api.Common.Behaviors;
-using Jgcarmona.Qna.Application.Features.Auth.Commands;
+using Jgcarmona.Qna.Application.Auth.Commands;
 using MediatR;
 
 namespace Jgcarmona.Qna.Api.Common.Extensions;
