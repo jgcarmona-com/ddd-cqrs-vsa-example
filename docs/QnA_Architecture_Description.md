@@ -285,7 +285,6 @@ Container_Boundary(Background_Services, "Background Services Container") {
     Container_Boundary(SyncService, "Sync Service") {
         Component(SyncServiceListener, "Event Listener", ".NET Background Service", "Listens to domain events related to updates and synchronizes projections.")
         Component(SyncServiceHandler, "Event Handler", "CQRS Event Handler", "Processes create/update events and updates the read models in MongoDB.")
-        Component(SyncServiceSqlRepository, "Sync SQL Repository", "EF Core Repository", "Manages writes and updates in SQL Server.")
         Component(SyncServiceMongoRepository, "Sync Mongo Repository", "MongoDB Repository", "Manages updates to read models in MongoDB.")
     }
 
@@ -307,7 +306,6 @@ Container_Boundary(Background_Services, "Background Services Container") {
 
 %% Relationships Between Background Services and External Systems
 Rel(SyncServiceListener, SyncServiceHandler, "Processes domain events for consistency")
-Rel(SyncServiceHandler, SyncServiceSqlRepository, "Writes updated data to SQL Server")
 Rel(SyncServiceHandler, SyncServiceMongoRepository, "Writes updated data to MongoDB")
 
 Rel(StatsServiceListener, StatsServiceHandler, "Processes platform events for statistics")
