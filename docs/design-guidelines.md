@@ -147,8 +147,9 @@ The following diagram provides an overview of the microservices and their intera
 ```mermaid
 graph LR;
     subgraph API
-        A1[API Gateway] --> A2[Question API]
-        A2 -->|Command & Queries| A3[Mediator]
+        A1[API Controller]
+        A1 -->|MediatR| A3[Query Handler]       
+        A1 -->|MediatR| A2[Command Handler]
     end
 
     subgraph DomainEvents
@@ -163,12 +164,13 @@ graph LR;
     end
 
     subgraph Infrastructure
-        D1[SQL Server]
         D2[MongoDB]
+        D1[SQL Server]
         D3[Seq]
+        A2 -->|Save| D1[SQL Server]
+        A3 -->|Read| D2[MongoDB]
     end
 
-    A3 --> B2
     B1 --> C1
     B1 --> C2
     B1 --> C3
@@ -177,12 +179,10 @@ graph LR;
     C2 -->|Sends Notification| Email[Email Service]
     C3 -->|Updates Stats| D2
 
-    A2 -->|Save| D1
+    A2 --> B2
+    B2 -->|Publishes| RabbitMQ(RabbitMQ / Azure Event Hub)
+    B1 -->|Subscribes| RabbitMQ
 
-    subgraph EventBus
-        B2 -->|Publishes| RabbitMQ(RabbitMQ / Azure Event Hub)
-        B1 -->|Subscribes| RabbitMQ
-    end
 ```
 
 **Figure 5**: Components Architecture Overview. This diagram illustrates the main containers deployed in the solution, including the core services such as the API, Sync Service, Notification Service, and Stats Service. Each service is isolated, running in its own container, and uses the appropriate repository and dependencies. Communication between services happens through a message broker (RabbitMQ or Azure Event Hub). Supporting components include SQL Server for command persistence, MongoDB for read model storage, and Seq for logging and monitoring. This architecture ensures clear separation of concerns, scalability, and maintains eventual consistency across microservices.
