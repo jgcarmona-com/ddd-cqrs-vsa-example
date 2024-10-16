@@ -1,0 +1,1 @@
+# Estrategia de solución

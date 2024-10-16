@@ -1,0 +1,1 @@
+# Restricciones de la Arquitectura
